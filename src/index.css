@@ -1,1 +1,75 @@
 @import "tailwindcss";
+
+/* Color Palette Variables */
+:root {
+  --bg-primary: #0D1117;          /* Deep charcoal background */
+  --accent-primary: #00E6E6;      /* Neon teal/cyan */
+  --accent-secondary: #7F00FF;    /* Deep violet/purple */
+  --text-primary: #E6E6E6;        /* Off-white/light gray */
+  --text-secondary: #8B949E;      /* Light blue-gray (muted) */
+  --feedback-error: #D73C4B;      /* Sharp desaturated red */
+}
+
+/* Global dark theme background */
+body {
+  background-color: #0D1117;
+  color: #E6E6E6;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+}
+
+/* Navbar specific font */
+header, header * {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Typography Hierarchy - Bold and Spacious */
+h1, .h1 {
+  font-size: 2.5rem;        /* 56px */
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+h2, .h2 {
+  font-size: 2.5rem;        /* 40px */
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+h3, .h3 {
+  font-size: 1.75rem;       /* 28px */
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+/* Kinetic Typography for Stats */
+.stat-text {
+  font-size: 4rem;          /* 64px */
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* Oversized Achievement Text */
+.achievement-text {
+  font-size: 5rem;          /* 80px */
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 768px) {
+  h1, .h1 { font-size: 2.5rem; }
+  h2, .h2 { font-size: 2rem; }
+  h3, .h3 { font-size: 1.5rem; }
+  .stat-text { font-size: 3rem; }
+  .achievement-text { font-size: 3.5rem; }
+}
