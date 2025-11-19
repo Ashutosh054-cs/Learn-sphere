@@ -73,3 +73,26 @@ h3, .h3 {
   .stat-text { font-size: 3rem; }
   .achievement-text { font-size: 3.5rem; }
 }
+
+/* Custom scrollbar for leaderboard */
+.leaderboard-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,230,230,0.45) rgba(0,0,0,0.12);
+}
+.leaderboard-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.leaderboard-scroll::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.02);
+  border-radius: 999px;
+}
+.leaderboard-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(127,0,255,0.9), rgba(0,230,230,0.9));
+  border-radius: 999px;
+  border: 2px solid rgba(13,17,23,0.9);
+}
+
+/* Fall-back for browsers that don't support gradient thumb — subtle semi-translucent thumb */
+.leaderboard-scroll::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255,255,255,0.08);
+}
