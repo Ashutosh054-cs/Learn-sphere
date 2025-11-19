@@ -31,6 +31,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Us Section */}
+      <section className="container mx-auto px-4 pb-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="border rounded-3xl p-8 md:p-10" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>About Learn Sphere</h2>
+            <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
+              We’re on a mission to make studying calmer and smarter. Learn Sphere blends a distraction-free Focus Mode, clear progress tracking, and thoughtful UI so you can learn with momentum.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3"><span>✅</span><span style={{ color: 'var(--text-secondary)' }}>Minimal, creamy UI designed to reduce visual fatigue</span></li>
+              <li className="flex items-start gap-3"><span>✅</span><span style={{ color: 'var(--text-secondary)' }}>Pomodoro Focus with fullscreen, themes, and ambient noise</span></li>
+              <li className="flex items-start gap-3"><span>✅</span><span style={{ color: 'var(--text-secondary)' }}>Dashboard insights to keep streaks and goals on track</span></li>
+            </ul>
+          </div>
+          <div className="border rounded-3xl p-0 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
+            <div className="h-full w-full" style={{ background: 'linear-gradient(135deg, hsl(220 70% 92%), hsl(160 55% 92%))' }}>
+              <div className="h-56 md:h-full flex items-center justify-center">
+                <div className="rounded-2xl px-6 py-3" style={{ backgroundColor: 'var(--bg-primary)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border-color)' }}>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Thoughtfully designed for focus ✨</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="container mx-auto px-4 py-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16" style={{ color: 'var(--text-primary)' }}>
