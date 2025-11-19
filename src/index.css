@@ -1,27 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-/* Color Palette Variables */
+/* Color Palette Variables - HSL for easy customization */
 :root {
-  --bg-primary: #0D1117;          /* Deep charcoal background */
-  --accent-primary: #00E6E6;      /* Neon teal/cyan */
-  --accent-secondary: #7F00FF;    /* Deep violet/purple */
-  --text-primary: #E6E6E6;        /* Off-white/light gray */
-  --text-secondary: #8B949E;      /* Light blue-gray (muted) */
-  --feedback-error: #D73C4B;      /* Sharp desaturated red */
+  /* Master hue (change this to recolor the app) */
+  --hue: 220;
+
+  /* Surfaces (warm creamy off-white) */
+  --bg-primary: hsl(45 35% 98%);           /* Creamy white */
+  --bg-secondary: hsl(45 28% 96%);         /* Slightly deeper cream */
+
+  /* Brand accents derived from hue */
+  --accent-primary: hsl(var(--hue) 70% 40%);
+  --accent-secondary: hsl(var(--hue) 70% 55%);
+  --accent-light: hsl(var(--hue) 70% 95%);
+
+  /* Text & borders */
+  --text-primary: hsl(var(--hue) 20% 20%);
+  --text-secondary: hsl(var(--hue) 10% 50%);
+  --border-color: hsl(var(--hue) 15% 90%);
+
+  /* Elevation (subtle, calm) */
+  --shadow-sm: 0 6px 20px hsl(var(--hue) 30% 20% / 0.10);
+  --shadow-md: 0 10px 30px hsl(var(--hue) 30% 20% / 0.14);
+  --shadow-lg: 0 16px 48px hsl(var(--hue) 30% 20% / 0.18);
+
+  --feedback-error: hsl(0 70% 50%);
 }
 
-/* Global dark theme background */
+/* Global light theme background */
 body {
-  background-color: #0D1117;
-  color: #E6E6E6;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 400;
 }
 
 /* Navbar specific font */
-header, header * {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+.navbar, .navbar * {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-weight: 500 !important;
 }
 
@@ -64,6 +82,18 @@ h3, .h3 {
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.04em;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
 }
 
 @media (max-width: 768px) {

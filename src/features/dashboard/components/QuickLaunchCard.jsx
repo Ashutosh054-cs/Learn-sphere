@@ -23,9 +23,9 @@ export default function QuickLaunchCard({ className = '' }) {
         {games.map((game) => (
           <motion.div
             key={game.name}
-            className="flex-1 flex flex-col items-center gap-2 p-3 rounded-2xl cursor-pointer border border-transparent relative overflow-hidden"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
-            whileHover={{ scale: 1.05, rotateY: 5, borderColor: 'var(--accent-primary)' }}
+            className="flex-1 flex flex-col items-center gap-2 p-3 rounded-2xl cursor-pointer border relative overflow-hidden"
+            style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
+            whileHover={{ scale: 1.03, borderColor: 'var(--accent-primary)' }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
             onClick={() => navigate('/learn')}
@@ -34,12 +34,12 @@ export default function QuickLaunchCard({ className = '' }) {
             <div 
               className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-xs font-semibold"
               style={{ 
-                backgroundColor: game.difficulty === 'Easy' ? 'rgba(74, 222, 128, 0.2)' : 
-                               game.difficulty === 'Medium' ? 'rgba(251, 191, 36, 0.2)' : 
-                               'rgba(239, 68, 68, 0.2)',
-                color: game.difficulty === 'Easy' ? '#4ADE80' : 
-                       game.difficulty === 'Medium' ? '#FBBF24' : 
-                       '#EF4444',
+                backgroundColor: game.difficulty === 'Easy' ? 'hsl(142 70% 45% / 0.12)' : 
+                               game.difficulty === 'Medium' ? 'hsl(40 90% 50% / 0.12)' : 
+                               'hsl(0 84% 60% / 0.12)',
+                color: game.difficulty === 'Easy' ? 'hsl(142 70% 35%)' : 
+                       game.difficulty === 'Medium' ? 'hsl(40 90% 40%)' : 
+                       'hsl(0 84% 50%)',
                 fontSize: '0.65rem'
               }}
             >
@@ -52,7 +52,7 @@ export default function QuickLaunchCard({ className = '' }) {
             </span>
             
             {/* Mini progress bar */}
-            <div className="w-full h-1 rounded-full overflow-hidden mt-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+            <div className="w-full h-1 rounded-full overflow-hidden mt-1" style={{ backgroundColor: 'var(--border-color)' }}>
               <motion.div
                 className="h-full rounded-full"
                 style={{

@@ -14,7 +14,7 @@ export default function LeaderboardCard({ userRank, topPlayers }) {
       {/* User's Rank */}
       <div 
         className="mb-3 p-2.5 rounded-xl"
-        style={{ backgroundColor: 'rgba(0, 230, 230, 0.1)' }}
+        style={{ backgroundColor: 'var(--accent-light)' }}
       >
         <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
           Your Rank
@@ -29,8 +29,8 @@ export default function LeaderboardCard({ userRank, topPlayers }) {
         {topPlayers.map((player) => (
           <div 
             key={player.rank}
-            className="flex items-center justify-between p-2 rounded-lg"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
+            className="flex items-center justify-between p-2 rounded-lg border"
+            style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
           >
             <div className="flex items-center gap-2">
               <span className="text-base">{player.avatar}</span>

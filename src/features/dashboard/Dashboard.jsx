@@ -9,16 +9,16 @@ import { mockLeaderboard } from '../../data/mockLeaderboard';
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <main className="px-4 py-8 w-full mx-0 md:pl-8 lg:pl-12" style={{ paddingTop: '6rem' }}>
+    <div className="min-h-screen ml-64" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <main className="px-4 py-8 w-full max-w-full overflow-x-hidden" style={{ paddingTop: '3rem' }}>
         <h1 className="text-4xl font-semibold mb-8" style={{ color: 'var(--accent-primary)' }}>
           Welcome back, {mockUser.name}! 👋
         </h1>
 
         {/* Two separate sections side by side (tighter spacing) */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-4">
+        <div className="flex flex-col lg:flex-row gap-4 mb-4 w-full">
           {/* Left Section - Heatmap Card */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <StreakCard 
               streak={mockUser.streak}
               coins={mockUser.coins}
@@ -27,7 +27,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right Section - Leaderboard (independent sizing) */}
-          <div className="w-full lg:w-[400px] shrink-0 pl-2 lg:pl-4">
+          <div className="w-full lg:w-[400px] lg:max-w-[400px] shrink-0">
             <LeaderboardCard 
               userRank={mockUser.rank}
               topPlayers={mockLeaderboard}
@@ -36,7 +36,7 @@ export default function Dashboard() {
         </div>
 
         {/* Four cards in one row (4x1) on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <div className="w-full h-40 md:h-44 lg:h-52">
             <FocusSessionCard className="w-full h-full" />
           </div>

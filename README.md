@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # AuraLearn (Learn-Sphere)
 
 Premium, dark-mode-first React + Vite app for a student-focused learning platform. This README documents the shared plan and guardrails for collaborators and AI agents. Current scope intentionally excludes gaming features (Game Hub/Real-Time Arena) — we will add those later.
@@ -144,3 +145,11 @@ We will migrate from `src/pages/*` gradually; do not break existing imports unti
 
 - Approve adding `framer-motion`, `lucide-react`, and `three` (for Focus Tree stub) now?
 - Any brand assets (logo/avatars) or copy standards to include?
+=======
+# Learn-Sphere
+### cd learn-sphere
+# Install this dependencies
+### npm i
+### npm install tailwindcss @tailwindcss/vite
+### npm install react-router-dom
+>>>>>>> Stashed changes

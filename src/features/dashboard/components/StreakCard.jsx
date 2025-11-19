@@ -23,11 +23,11 @@ const ContributionHeatmap = () => {
   }
 
   const getColor = (level) => {
-    if (level === 0) return 'rgba(255, 255, 255, 0.05)';
-    if (level === 1) return 'rgba(0, 230, 230, 0.2)';
-    if (level === 2) return 'rgba(0, 230, 230, 0.4)';
-    if (level === 3) return 'rgba(0, 230, 230, 0.6)';
-    return 'rgba(0, 230, 230, 0.9)';
+    if (level === 0) return 'hsl(220, 15%, 92%)';
+    if (level === 1) return 'hsla(220, 70%, 40%, 0.15)';
+    if (level === 2) return 'hsla(220, 70%, 40%, 0.3)';
+    if (level === 3) return 'hsla(220, 70%, 40%, 0.5)';
+    return 'hsla(220, 70%, 40%, 0.8)';
   };
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -128,7 +128,7 @@ export default function StreakCard({ streak, coins, gems }) {
             </p>
           </div>
 
-          <div className="h-12 w-px" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
+          <div className="h-12 w-px" style={{ backgroundColor: 'var(--border-color)' }} />
 
           <div>
             <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>

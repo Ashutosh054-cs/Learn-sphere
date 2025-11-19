@@ -37,7 +37,7 @@ export default function MentorStatusCard({ className = '' }) {
             <motion.div
               className="px-2 py-0.5 rounded-full text-xs font-semibold"
               style={{ 
-                backgroundColor: 'rgba(0, 230, 230, 0.15)',
+                backgroundColor: 'var(--accent-light)',
                 color: 'var(--accent-secondary)'
               }}
               initial={{ scale: 0 }}

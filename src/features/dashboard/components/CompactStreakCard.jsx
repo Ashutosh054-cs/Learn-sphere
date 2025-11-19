@@ -56,7 +56,7 @@ export default function CompactStreakCard({ streak, coins, gems, className = '' 
       </div>
 
       {/* Progress bar */}
-      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--border-color)' }}>
         <motion.div
           className="h-full rounded-full relative"
           style={{
