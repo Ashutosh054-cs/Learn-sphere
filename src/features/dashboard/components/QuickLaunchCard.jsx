@@ -30,10 +30,6 @@ export default function QuickLaunchCard({ className = '' }) {
             transition={{ duration: 0.2 }}
             onClick={() => navigate('/learn')}
           >
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => navigate('/learn')}
-          >
             {/* Difficulty Badge */}
             <div 
               className="absolute top-0.5 right-0.5 md:top-1 md:right-1 px-1 md:px-1.5 py-0.5 rounded text-[0.55rem] md:text-xs font-semibold"
@@ -56,11 +52,7 @@ export default function QuickLaunchCard({ className = '' }) {
             </span>
             
             {/* Mini progress bar */}
-<<<<<<< HEAD
-            <div className="w-full h-1 rounded-full overflow-hidden mt-1" style={{ backgroundColor: 'var(--border-color)' }}>
-=======
             <div className="w-full h-0.5 md:h-1 rounded-full overflow-hidden mt-0.5 md:mt-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
->>>>>>> 91dbfe2 (Dash Responsive)
               <motion.div
                 className="h-full rounded-full"
                 style={{
