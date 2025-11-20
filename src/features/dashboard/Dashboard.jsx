@@ -27,7 +27,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right Section - Leaderboard (independent sizing) */}
-          <div className="w-full lg:w-[400px] lg:max-w-[400px] shrink-0">
+          <div className="w-full lg:w-[360px] xl:w-[400px] shrink-0 lg:pl-4">
             <LeaderboardCard 
               userRank={mockUser.rank}
               topPlayers={mockLeaderboard}
@@ -36,14 +36,14 @@ export default function Dashboard() {
         </div>
 
         {/* Four cards in one row (4x1) on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-          <div className="w-full h-40 md:h-44 lg:h-52">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+          <div className="w-full h-36 md:h-40 lg:h-48">
             <FocusSessionCard className="w-full h-full" />
           </div>
-          <div className="w-full h-40 md:h-44 lg:h-52">
+          <div className="w-full h-36 md:h-40 lg:h-48">
             <QuickLaunchCard className="w-full h-full" />
           </div>
-          <div className="w-full h-40 md:h-44 lg:h-52">
+          <div className="w-full h-36 md:h-40 lg:h-48">
             <CompactStreakCard 
               className="w-full h-full"
               streak={mockUser.streak}
@@ -51,7 +51,7 @@ export default function Dashboard() {
               gems={mockUser.gems}
             />
           </div>
-          <div className="w-full h-40 md:h-44 lg:h-52">
+          <div className="w-full h-36 md:h-40 lg:h-48">
             <MentorStatusCard className="w-full h-full" />
           </div>
         </div>

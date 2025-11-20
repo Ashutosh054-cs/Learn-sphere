@@ -10,7 +10,7 @@ export default function MentorStatusCard({ className = '' }) {
 
   return (
     <FrostedCard className={className}>
-      <div className="flex items-start gap-3 mb-3">
+      <div className="flex items-start gap-2 md:gap-3 mb-2 md:mb-3">
         <motion.div
           animate={{
             scale: [1, 1.1, 1],
@@ -23,19 +23,19 @@ export default function MentorStatusCard({ className = '' }) {
           }}
         >
           <Brain 
-            size={28} 
+            className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7"
             strokeWidth={1.5} 
             style={{ color: 'var(--accent-secondary)' }} 
           />
         </motion.div>
         
         <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <h3 className="text-sm md:text-base lg:text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
               AI Mentor
             </h3>
             <motion.div
-              className="px-2 py-0.5 rounded-full text-xs font-semibold"
+              className="px-1.5 md:px-2 py-0.5 rounded-full text-[0.65rem] md:text-xs font-semibold"
               style={{ 
                 backgroundColor: 'var(--accent-light)',
                 color: 'var(--accent-secondary)'
@@ -47,29 +47,29 @@ export default function MentorStatusCard({ className = '' }) {
               Active
             </motion.div>
           </div>
-          <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-            Adaptive Learning Path
+          <p className="text-[0.65rem] md:text-xs" style={{ color: 'var(--text-secondary)' }}>
+            Adaptive Learning
           </p>
         </div>
       </div>
 
       {/* Quest Stats */}
-      <div className="flex items-center gap-4 mb-3">
-        <div className="flex items-center gap-2">
-          <Target size={14} style={{ color: 'var(--accent-primary)' }} />
-          <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+      <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-3">
+        <div className="flex items-center gap-1 md:gap-2">
+          <Target className="w-3 h-3 md:w-3.5 md:h-3.5" style={{ color: 'var(--accent-primary)' }} />
+          <span className="text-[0.65rem] md:text-xs" style={{ color: 'var(--text-secondary)' }}>
             {completedQuests}/{todayQuests} Quests
           </span>
         </div>
-        <div className="flex items-center gap-1">
-          <CheckCircle2 size={14} style={{ color: '#4ADE80' }} />
-          <span className="text-xs font-semibold" style={{ color: '#4ADE80' }}>
+        <div className="flex items-center gap-0.5 md:gap-1">
+          <CheckCircle2 className="w-3 h-3 md:w-3.5 md:h-3.5" style={{ color: '#4ADE80' }} />
+          <span className="text-[0.65rem] md:text-xs font-semibold" style={{ color: '#4ADE80' }}>
             {completionRate}%
           </span>
         </div>
       </div>
 
-      <Button variant="primary" className="w-full text-sm py-2">
+      <Button variant="primary" className="w-full text-xs md:text-sm py-1.5 md:py-2">
         Review Today's Quests
       </Button>
     </FrostedCard>
