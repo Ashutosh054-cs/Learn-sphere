@@ -18,7 +18,8 @@ function ProtectedRoute({ children }) {
 
 function AppContent() {
   const location = useLocation()
-  const showNavbar = !['/', '/login', '/signup'].includes(location.pathname)
+  // Keep navbar visible on login/signup so protected-route redirects don't hide it
+  const showNavbar = location.pathname !== '/'
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
@@ -27,7 +28,8 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        {/* Dashboard available without auth to avoid accidental hiding during redirects */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/focus" element={<ProtectedRoute><Focus /></ProtectedRoute>} />
         <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />

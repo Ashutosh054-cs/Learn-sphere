@@ -23,16 +23,16 @@ export default function NavBar() {
       className="navbar fixed left-0 top-0 h-screen w-64 border-r flex flex-col z-40"
       style={{ 
         backgroundColor: theme === 'dark' ? 'rgba(13, 17, 23, 0.95)' : 'var(--accent-primary)',
-        borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(var(--hue) 70% 50%)',
+        borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'var(--accent-secondary)',
         boxShadow: 'var(--shadow-md)'
       }}
     >
       {/* Logo/Brand */}
-      <Link to="/" className="flex items-center gap-3 p-6 border-b" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(220, 70%, 50%)' }}>
-        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: theme === 'dark' ? 'linear-gradient(to bottom right, #00E6E6, #7F00FF)' : 'linear-gradient(to bottom right, hsl(220, 70%, 55%), hsl(220, 70%, 65%))' }}>
+      <Link to="/" className="flex items-center gap-3 p-6 border-b" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'var(--accent-secondary)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: theme === 'dark' ? 'linear-gradient(to bottom right, #00E6E6, #7F00FF)' : 'linear-gradient(to bottom right, var(--accent-secondary), var(--accent-primary))' }}>
           <span className="text-xl font-bold text-white">LS</span>
         </div>
-        <span className="text-xl font-bold" style={{ color: theme === 'dark' ? '#00E6E6' : 'hsl(0, 0%, 100%)' }}>
+        <span className="text-xl font-bold" style={{ color: theme === 'dark' ? '#00E6E6' : 'var(--ui-white)' }}>
           Learn Sphere
         </span>
       </Link>
@@ -46,13 +46,14 @@ export default function NavBar() {
                 to={link.path}
                 className="flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 relative"
                 style={{
-                  backgroundColor: isActive(link.path) ? 'var(--bg-primary)' : 'transparent',
-                  color: isActive(link.path) ? 'var(--accent-primary)' : 'hsl(0 0% 100%)',
-                  boxShadow: isActive(link.path) ? 'var(--shadow-sm)' : 'none'
+                  backgroundColor: isActive(link.path) ? 'var(--nav-active-bg)' : 'transparent',
+                  color: isActive(link.path) ? 'var(--nav-active-color)' : 'var(--ui-white)',
+                  boxShadow: isActive(link.path) ? 'var(--shadow-sm)' : 'none',
+                  transition: 'background-color 180ms ease, color 180ms ease'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive(link.path)) {
-                    e.currentTarget.style.backgroundColor = theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'hsl(var(--hue) 70% 50%)'
+                    e.currentTarget.style.backgroundColor = 'var(--nav-hover-bg)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -70,12 +71,12 @@ export default function NavBar() {
       </nav>
 
       {/* AI Roadmap Button */}
-      <div className="p-4 border-t" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(220, 70%, 50%)' }}>
+        <div className="p-4 border-t" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'var(--accent-secondary)' }}>
         <button 
           className="w-full px-4 py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
           style={{ 
-            backgroundColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'hsl(220, 70%, 95%)', 
-            color: theme === 'dark' ? '#00E6E6' : 'hsl(220, 70%, 40%)' 
+            backgroundColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'var(--accent-light)', 
+            color: theme === 'dark' ? '#00E6E6' : 'var(--accent-primary)' 
           }}
         >
           <span>🤖</span>
@@ -85,13 +86,13 @@ export default function NavBar() {
 
       {/* Theme Toggle */}
       <div className="px-4 pb-4">
-        <button
+          <button
           onClick={toggleTheme}
           className="w-full px-4 py-3 font-medium rounded-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
           style={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            color: 'hsl(0 0% 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            color: 'var(--ui-white)',
+            border: '1px solid rgba(255, 255, 255, 0.12)'
           }}
         >
           {theme === 'light' ? (
@@ -109,15 +110,15 @@ export default function NavBar() {
       </div>
 
       {/* User Profile */}
-      <div className="p-4 border-t" style={{ borderColor: 'hsl(var(--hue) 70% 50%)' }}>
+      <div className="p-4 border-t" style={{ borderColor: 'var(--accent-secondary)' }}>
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: 'hsl(0 0% 100% / 0.95)' }}>
+          <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--ui-white-95)' }}>
             <span className="text-base font-semibold" style={{ color: 'var(--accent-primary)' }}>
               {localStorage.getItem('userName')?.charAt(0).toUpperCase() || 'S'}
             </span>
           </div>
           <div className="flex-1">
-            <p className="text-sm" style={{ color: 'hsl(0 0% 100% / 0.95)' }}>
+            <p className="text-sm" style={{ color: 'var(--ui-white-95)' }}>
               {localStorage.getItem('userName') || 'Student'}
             </p>
           </div>
@@ -130,8 +131,8 @@ export default function NavBar() {
             }}
             className="px-3 py-1 rounded-full text-xs border"
             style={{ 
-              color: 'hsl(0 0% 100%)',
-              borderColor: 'hsl(0 0% 100% / 0.6)',
+              color: 'var(--ui-white)',
+              borderColor: 'rgba(255,255,255,0.12)',
               backgroundColor: 'transparent'
             }}
           >

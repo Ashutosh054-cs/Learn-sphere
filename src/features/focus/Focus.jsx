@@ -195,7 +195,7 @@ function Focus() {
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-          <h1 className="text-2xl md:text-3xl" style={{ color: onBgColor }}>
+          <h1 className="text-3xl md:text-4xl font-black" style={{ color: isRichBG ? onBgColor : 'var(--text-primary)' }}>
             {isBreak ? 'Break Time 🌟' : 'Focus Mode 🎯'}
           </h1>
           <div className="flex items-center gap-3">
@@ -203,9 +203,9 @@ function Focus() {
               onClick={toggleFullscreen}
               className="px-5 py-2 rounded-full transition-all text-sm md:text-base border"
               style={{
-                backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-primary)',
+                backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-secondary)',
                 borderColor: isRichBG ? 'rgba(255,255,255,0.25)' : 'var(--border-color)',
-                color: onBgColor,
+                color: isRichBG ? onBgColor : 'var(--text-primary)',
                 backdropFilter: isRichBG ? 'blur(6px)' : undefined
               }}
             >
@@ -213,11 +213,11 @@ function Focus() {
             </button>
             <button
               onClick={() => setShowSettings(true)}
-              className="px-6 py-2 rounded-full transition-all text-sm md:text-base"
+              className="px-5 py-2 rounded-full transition-all text-sm md:text-base border"
               style={{
-                backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'hsl(220, 20%, 96%)',
-                border: isRichBG ? '1px solid rgba(255,255,255,0.25)' : '1px solid hsl(220, 15%, 90%)',
-                color: onBgColor,
+                backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-secondary)',
+                borderColor: isRichBG ? 'rgba(255,255,255,0.25)' : 'var(--border-color)',
+                color: isRichBG ? onBgColor : 'var(--text-primary)',
                 backdropFilter: isRichBG ? 'blur(6px)' : undefined
               }}
             >
@@ -359,46 +359,82 @@ function Focus() {
 
         {/* Circular Timer */}
         <div className="flex justify-center items-center mb-8">
-          <div className="relative" style={{ width: '280px', height: '280px' }}>
+          <div className="relative" style={{ width: '300px', height: '300px' }}>
+            {/* Glow Effect */}
+            {isActive && (
+              <div className="absolute inset-0 rounded-full" style={{
+                background: isBreak ? 'radial-gradient(circle, rgba(127, 0, 255, 0.15) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+                animation: 'pulse 2s ease-in-out infinite'
+              }} />
+            )}
             {/* Glass Background */}
             <div 
-              className="absolute inset-0 rounded-full border"
+              className="absolute inset-0 rounded-full border-2"
               style={{ 
                 backgroundColor: isRichBG ? 'rgba(255,255,255,0.06)' : 'var(--bg-primary)',
                 borderColor: isRichBG ? 'rgba(255,255,255,0.2)' : 'var(--border-color)',
-                boxShadow: isRichBG ? '0 10px 40px rgba(0,0,0,0.25)' : 'var(--shadow-lg)',
-                backdropFilter: isRichBG ? 'blur(10px)' : undefined
+                boxShadow: isRichBG ? '0 10px 40px rgba(0,0,0,0.25)' : '0 20px 60px hsla(220, 70%, 50%, 0.12), 0 8px 24px hsla(220, 70%, 50%, 0.08)',
+                backdropFilter: isRichBG ? 'blur(10px)' : undefined,
+                transform: isActive ? 'scale(1.02)' : 'scale(1)',
+                transition: 'transform 300ms ease, box-shadow 300ms ease'
               }}
             />
 
             {/* SVG Progress */}
-            <svg className="absolute inset-0 transform -rotate-90" width="280" height="280">
+            <svg className="absolute inset-0 transform -rotate-90" width="300" height="300">
               <defs>
                 <linearGradient id="focusGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor={accentOnRich} />
                   <stop offset="100%" stopColor={isBreak ? 'hsl(160 70% 45%)' : 'hsl(220 70% 45%)'} />
                 </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
               </defs>
-              <circle
-                cx="140"
-                cy="140"
-                r="125"
-                stroke="var(--border-color)"
-                strokeWidth="14"
-                fill="none"
-              />
-              <circle
-                cx="140"
-                cy="140"
-                r="125"
-                stroke={isRichBG ? 'url(#focusGrad)' : (isBreak ? 'var(--accent-secondary)' : 'var(--accent-primary)')}
-                strokeWidth="14"
-                fill="none"
-                strokeDasharray={2 * Math.PI * 125}
-                strokeDashoffset={2 * Math.PI * 125 * (1 - progress / 100)}
-                strokeLinecap="round"
-                style={{ transition: justReset ? 'none' : 'stroke-dashoffset 0.9s ease-in-out, stroke 250ms ease' }}
-              />
+              
+              {/* Minute Markers with Fade Effect */}
+              {Array.from({ length: 60 }).map((_, i) => {
+                const angle = (i * 6) * (Math.PI / 180); // 6 degrees per minute
+                const isFiveMinute = i % 5 === 0;
+                const radius = 135;
+                const lineLength = isFiveMinute ? 12 : 6;
+                const lineWidth = isFiveMinute ? 2.5 : 1.5;
+                
+                // Calculate which markers should be "filled" based on progress
+                const markerProgress = (i / 60) * 100;
+                const isPassed = markerProgress <= progress;
+                
+                // Fade markers that have been passed
+                const baseOpacity = isFiveMinute ? 0.9 : 0.4;
+                const opacity = isPassed ? baseOpacity * 0.2 : baseOpacity;
+                
+                const x1 = 150 + (radius - lineLength) * Math.cos(angle);
+                const y1 = 150 + (radius - lineLength) * Math.sin(angle);
+                const x2 = 150 + radius * Math.cos(angle);
+                const y2 = 150 + radius * Math.sin(angle);
+                
+                return (
+                  <line
+                    key={i}
+                    x1={x1}
+                    y1={y1}
+                    x2={x2}
+                    y2={y2}
+                    stroke={isPassed 
+                      ? (isRichBG ? `rgba(255,255,255,${opacity})` : (isBreak ? 'var(--accent-secondary)' : 'var(--accent-primary)'))
+                      : (isRichBG ? `rgba(255,255,255,${opacity})` : `var(--text-primary)`)
+                    }
+                    strokeWidth={lineWidth}
+                    strokeLinecap="round"
+                    opacity={opacity}
+                    style={{ transition: 'opacity 0.5s ease, stroke 0.5s ease' }}
+                  />
+                );
+              })}
             </svg>
 
             {/* Timer Display */}
@@ -425,68 +461,104 @@ function Focus() {
         </div>
 
         {/* Control Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
           <button
             onClick={toggleTimer}
-            className="px-8 py-3 font-semibold rounded-full hover:scale-105 transition-all duration-300"
+            className="px-10 py-4 font-bold rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg"
             style={{
-              backgroundColor: isBreak ? 'var(--accent-secondary)' : 'var(--accent-primary)',
-              color: isRichBG ? '#0b1220' : 'var(--bg-primary)'
+              background: isRichBG 
+                ? (isBreak ? 'linear-gradient(135deg, hsl(270, 70%, 60%), hsl(270, 70%, 50%))' : 'linear-gradient(135deg, hsl(220, 70%, 60%), hsl(220, 70%, 50%))')
+                : (isBreak ? 'linear-gradient(135deg, var(--accent-secondary), hsl(270, 60%, 48%))' : 'linear-gradient(135deg, var(--accent-primary), hsl(220, 65%, 48%))'),
+              color: '#ffffff',
+              boxShadow: isActive 
+                ? (isBreak ? '0 8px 32px hsla(270, 70%, 50%, 0.4), 0 0 0 3px hsla(270, 70%, 50%, 0.2)' : '0 8px 32px hsla(220, 70%, 50%, 0.4), 0 0 0 3px hsla(220, 70%, 50%, 0.2)')
+                : (isBreak ? '0 4px 20px hsla(270, 70%, 50%, 0.3)' : '0 4px 20px hsla(220, 70%, 50%, 0.3)'),
+              border: 'none'
             }}
           >
-            {isActive ? 'Pause' : 'Start'}
+            {isActive ? '⏸️ Pause' : '▶️ Start'}
           </button>
           <button
             onClick={resetTimer}
-            className="px-8 py-3 font-semibold rounded-full hover:scale-105 transition-all duration-300 border"
+            className="px-8 py-4 font-semibold rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2"
             style={{
-              color: isRichBG ? onBgColor : 'hsl(220, 20%, 20%)',
-              borderColor: isRichBG ? 'rgba(255,255,255,0.25)' : 'var(--border-color)',
-              backgroundColor: isRichBG ? 'rgba(255,255,255,0.06)' : 'hsl(220, 20%, 98%)',
-              backdropFilter: isRichBG ? 'blur(6px)' : undefined
+              color: isRichBG ? onBgColor : 'var(--text-primary)',
+              borderColor: isRichBG ? 'rgba(255,255,255,0.3)' : 'var(--accent-primary)',
+              backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-primary)',
+              backdropFilter: isRichBG ? 'blur(8px)' : undefined,
+              boxShadow: isRichBG ? '0 4px 16px rgba(0,0,0,0.15)' : '0 4px 16px hsla(220, 70%, 50%, 0.08)'
             }}
           >
-            Reset
+            🔄 Reset
           </button>
           <button
             onClick={switchMode}
-            className="px-8 py-3 font-semibold rounded-full hover:scale-105 transition-all duration-300 border"
+            className="px-8 py-4 font-semibold rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2"
             style={{
-              color: onBgColor,
+              color: isRichBG ? onBgColor : 'var(--text-primary)',
               borderColor: isRichBG ? 'rgba(255,255,255,0.35)' : (isBreak ? 'var(--accent-primary)' : 'var(--accent-secondary)'),
-              backgroundColor: isRichBG ? 'rgba(255,255,255,0.06)' : 'transparent',
-              backdropFilter: isRichBG ? 'blur(6px)' : undefined
+              backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-primary)',
+              backdropFilter: isRichBG ? 'blur(8px)' : undefined,
+              boxShadow: isRichBG ? '0 4px 16px rgba(0,0,0,0.15)' : (isBreak ? '0 4px 16px hsla(220, 70%, 50%, 0.08)' : '0 4px 16px hsla(270, 70%, 50%, 0.08)')
             }}
           >
-            {isBreak ? 'Focus' : 'Break'}
+            {isBreak ? '🎯 Focus' : '☕ Break'}
           </button>
         </div>
 
         {/* Info */}
-        <div className="max-w-2xl mx-auto grid md:grid-cols-2 gap-4">
-          <div className="border rounded-2xl p-6" style={{ 
-            backgroundColor: 'hsl(0, 0%, 100%)',
-            borderColor: 'var(--border-color)',
-            boxShadow: '0 6px 24px hsla(220, 30%, 20%, 0.06)'
+        <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
+          <div className="relative overflow-hidden border-2 rounded-3xl p-8 group hover:scale-105 transition-all duration-300" style={{ 
+            backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-primary)',
+            borderColor: isRichBG ? 'rgba(255,255,255,0.2)' : 'var(--accent-primary)',
+            boxShadow: isRichBG ? '0 8px 32px rgba(0,0,0,0.2)' : '0 8px 32px hsla(220, 70%, 50%, 0.12)',
+            backdropFilter: isRichBG ? 'blur(12px)' : undefined
           }}>
-            <h3 className="font-bold mb-3" style={{ color: isRichBG ? accentOnRich : 'var(--accent-primary)', fontSize: '1.25rem' }}>
-              Work Session
-            </h3>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              {workDuration} minutes of focused work
-            </p>
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-20" style={{
+              background: 'radial-gradient(circle, var(--accent-primary) 0%, transparent 70%)',
+              transform: 'translate(30%, -30%)'
+            }} />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{
+                  background: isRichBG ? 'rgba(255,255,255,0.15)' : 'var(--accent-light)'
+                }}>
+                  <span className="text-xl">🎯</span>
+                </div>
+                <h3 className="font-bold" style={{ color: isRichBG ? accentOnRich : 'var(--accent-primary)', fontSize: '1.35rem' }}>
+                  Work Session
+                </h3>
+              </div>
+              <p className="text-lg" style={{ color: isRichBG ? onBgSubtle : 'var(--text-secondary)' }}>
+                {workDuration} minutes of focused work
+              </p>
+            </div>
           </div>
-          <div className="border rounded-2xl p-6" style={{ 
-            backgroundColor: 'hsl(0, 0%, 100%)',
-            borderColor: 'var(--border-color)',
-            boxShadow: '0 6px 24px hsla(220, 30%, 20%, 0.06)'
+          <div className="relative overflow-hidden border-2 rounded-3xl p-8 group hover:scale-105 transition-all duration-300" style={{ 
+            backgroundColor: isRichBG ? 'rgba(255,255,255,0.08)' : 'var(--bg-primary)',
+            borderColor: isRichBG ? 'rgba(255,255,255,0.2)' : 'var(--accent-secondary)',
+            boxShadow: isRichBG ? '0 8px 32px rgba(0,0,0,0.2)' : '0 8px 32px hsla(270, 70%, 50%, 0.12)',
+            backdropFilter: isRichBG ? 'blur(12px)' : undefined
           }}>
-            <h3 className="font-bold mb-3" style={{ color: isRichBG ? 'hsl(160 60% 50%)' : 'var(--accent-secondary)', fontSize: '1.25rem' }}>
-              Break Time
-            </h3>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              {breakDuration} minutes to recharge
-            </p>
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-20" style={{
+              background: 'radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%)',
+              transform: 'translate(30%, -30%)'
+            }} />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{
+                  background: isRichBG ? 'rgba(255,255,255,0.15)' : 'var(--accent-light)'
+                }}>
+                  <span className="text-xl">☕</span>
+                </div>
+                <h3 className="font-bold" style={{ color: isRichBG ? 'hsl(160 60% 50%)' : 'var(--accent-secondary)', fontSize: '1.35rem' }}>
+                  Break Time
+                </h3>
+              </div>
+              <p className="text-lg" style={{ color: isRichBG ? onBgSubtle : 'var(--text-secondary)' }}>
+                {breakDuration} minutes to recharge
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -11,10 +11,14 @@
   --bg-primary: linear-gradient(135deg, hsl(210 40% 96%), hsl(280 35% 97%));
   --bg-secondary: hsl(45 28% 96%);         /* Slightly deeper cream */
 
-  /* Brand accents derived from hue */
-  --accent-primary: hsl(var(--hue) 70% 40%);
-  --accent-secondary: hsl(var(--hue) 70% 55%);
-  --accent-light: hsl(var(--hue) 70% 95%);
+  /* Brand accents derived from hue (muted for lower eye-strain) */
+  --accent-primary: hsl(var(--hue) 45% 38%);   /* calmer, less saturated blue */
+  --accent-secondary: hsl(var(--hue) 35% 48%); /* softer secondary tone */
+  --accent-light: hsl(var(--hue) 30% 92%);     /* very light accent for surfaces */
+
+  /* UI whites / off-whites to reduce glare */
+  --ui-white: hsl(40 10% 98%);               /* soft creamy white */
+  --ui-white-95: hsla(40 10% 98%, 0.95);
 
   /* Text & borders */
   --text-primary: hsl(var(--hue) 20% 20%);
@@ -34,6 +38,11 @@
   --heatmap-color-2: hsla(220, 70%, 40%, 0.3);
   --heatmap-color-3: hsla(220, 70%, 40%, 0.5);
   --heatmap-color-4: hsla(220, 70%, 40%, 0.8);
+
+  /* Navbar interaction colors */
+  --nav-hover-bg: hsl(220 18% 44% / 0.18);
+  --nav-active-bg: hsl(40 10% 98%); /* light card color for active link */
+  --nav-active-color: hsl(220 45% 38%); /* muted blue for active text */
 }
 :root[data-theme="dark"] {
   /* Deep charcoal background */
@@ -63,6 +72,11 @@
   --heatmap-color-4: rgba(0, 230, 230, 0.9);
 
   --feedback-error: #D73C4B;      /* Sharp desaturated red */
+
+  /* Navbar interaction colors for dark theme */
+  --nav-hover-bg: rgba(0, 230, 230, 0.12);
+  --nav-active-bg: rgba(255, 255, 255, 0.04);
+  --nav-active-color: #00E6E6;
 }
 
 /* Global theme background */
@@ -132,6 +146,15 @@ h3, .h3 {
   50% {
     transform: scale(1.05);
     opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
 
