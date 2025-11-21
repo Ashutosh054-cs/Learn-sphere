@@ -32,7 +32,7 @@ export default function CompactStreakCard({ streak, coins, gems, className = '' 
       </div>
 
       {/* Streak Display */}
-      <div className="flex items-center justify-between mb-1.5 md:mb-2">
+      <div className="flex items-center justify-between mb-3 md:mb-4">
         <motion.div
           className="flex items-center gap-1 md:gap-2"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -56,7 +56,7 @@ export default function CompactStreakCard({ streak, coins, gems, className = '' 
       </div>
 
       {/* Progress bar */}
-      <div className="h-1.5 md:h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+      <div className="h-1.5 md:h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--border-color)' }}>
         <motion.div
           className="h-full rounded-full relative"
           style={{

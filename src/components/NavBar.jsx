@@ -1,13 +1,18 @@
 import { Link, useLocation } from 'react-router-dom'
-import { FaChartBar, FaBullseye, FaCalendarAlt, FaInfoCircle } from 'react-icons/fa'
+import { FaChartBar, FaBullseye, FaGamepad, FaTools, FaUsers, FaInfoCircle } from 'react-icons/fa'
+import { Sun, Moon } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function NavBar() {
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: <FaChartBar /> },
     { name: 'Focus', path: '/focus', icon: <FaBullseye /> },
-    { name: 'Attendance', path: '/attendance', icon: <FaCalendarAlt /> },
+    { name: 'Learn', path: '/learn', icon: <FaGamepad /> },
+    { name: 'StudyTools', path: '/studytools', icon: <FaTools /> },
+    { name: 'Community', path: '/community', icon: <FaUsers /> },
     { name: 'About', path: '/about', icon: <FaInfoCircle /> },
   ]
 
@@ -17,17 +22,17 @@ export default function NavBar() {
     <aside 
       className="navbar fixed left-0 top-0 h-screen w-64 border-r flex flex-col z-40"
       style={{ 
-        backgroundColor: 'var(--accent-primary)',
-        borderColor: 'hsl(var(--hue) 70% 50%)',
+        backgroundColor: theme === 'dark' ? 'rgba(13, 17, 23, 0.95)' : 'var(--accent-primary)',
+        borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(var(--hue) 70% 50%)',
         boxShadow: 'var(--shadow-md)'
       }}
     >
       {/* Logo/Brand */}
-      <Link to="/" className="flex items-center gap-3 p-6 border-b" style={{ borderColor: 'hsl(220, 70%, 50%)' }}>
-        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, hsl(220, 70%, 55%), hsl(220, 70%, 65%))' }}>
+      <Link to="/" className="flex items-center gap-3 p-6 border-b" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(220, 70%, 50%)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: theme === 'dark' ? 'linear-gradient(to bottom right, #00E6E6, #7F00FF)' : 'linear-gradient(to bottom right, hsl(220, 70%, 55%), hsl(220, 70%, 65%))' }}>
           <span className="text-xl font-bold text-white">LS</span>
         </div>
-        <span className="text-xl font-bold" style={{ color: 'hsl(0, 0%, 100%)' }}>
+        <span className="text-xl font-bold" style={{ color: theme === 'dark' ? '#00E6E6' : 'hsl(0, 0%, 100%)' }}>
           Learn Sphere
         </span>
       </Link>
@@ -47,7 +52,7 @@ export default function NavBar() {
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive(link.path)) {
-                    e.currentTarget.style.backgroundColor = 'hsl(var(--hue) 70% 50%)'
+                    e.currentTarget.style.backgroundColor = theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'hsl(var(--hue) 70% 50%)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -65,13 +70,41 @@ export default function NavBar() {
       </nav>
 
       {/* AI Roadmap Button */}
-      <div className="p-4 border-t" style={{ borderColor: 'hsl(220, 70%, 50%)' }}>
+      <div className="p-4 border-t" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'hsl(220, 70%, 50%)' }}>
         <button 
           className="w-full px-4 py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
-          style={{ backgroundColor: 'hsl(220, 70%, 95%)', color: 'hsl(220, 70%, 40%)' }}
+          style={{ 
+            backgroundColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'hsl(220, 70%, 95%)', 
+            color: theme === 'dark' ? '#00E6E6' : 'hsl(220, 70%, 40%)' 
+          }}
         >
           <span>🤖</span>
           <span>AI Roadmap</span>
+        </button>
+      </div>
+
+      {/* Theme Toggle */}
+      <div className="px-4 pb-4">
+        <button
+          onClick={toggleTheme}
+          className="w-full px-4 py-3 font-medium rounded-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+          style={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            color: 'hsl(0 0% 100%)',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          {theme === 'light' ? (
+            <>
+              <Moon size={18} />
+              <span>Dark Mode</span>
+            </>
+          ) : (
+            <>
+              <Sun size={18} />
+              <span>Light Mode</span>
+            </>
+          )}
         </button>
       </div>
 

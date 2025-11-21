@@ -9,9 +9,9 @@ import { mockLeaderboard } from '../../data/mockLeaderboard';
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen ml-64" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <main className="px-4 py-8 w-full max-w-full overflow-x-hidden" style={{ paddingTop: '3rem' }}>
-        <h1 className="text-4xl font-semibold mb-8" style={{ color: 'var(--accent-primary)' }}>
+    <div className="min-h-screen ml-64">
+      <main className="px-4 py-6 w-full max-w-full overflow-x-hidden" style={{ paddingTop: '2rem' }}>
+        <h1 className="text-4xl font-semibold mb-6" style={{ color: 'var(--accent-primary)' }}>
           Welcome back, {mockUser.name}! 👋
         </h1>
 
@@ -37,13 +37,13 @@ export default function Dashboard() {
 
         {/* Four cards in one row (4x1) on desktop, stacked on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
-          <div className="w-full h-36 md:h-40 lg:h-48">
+          <div className="w-full h-40 md:h-44 lg:h-52">
             <FocusSessionCard className="w-full h-full" />
           </div>
-          <div className="w-full h-36 md:h-40 lg:h-48">
+          <div className="w-full h-40 md:h-44 lg:h-52">
             <QuickLaunchCard className="w-full h-full" />
           </div>
-          <div className="w-full h-36 md:h-40 lg:h-48">
+          <div className="w-full h-40 md:h-44 lg:h-52">
             <CompactStreakCard 
               className="w-full h-full"
               streak={mockUser.streak}
@@ -51,7 +51,7 @@ export default function Dashboard() {
               gems={mockUser.gems}
             />
           </div>
-          <div className="w-full h-36 md:h-40 lg:h-48">
+          <div className="w-full h-40 md:h-44 lg:h-52">
             <MentorStatusCard className="w-full h-full" />
           </div>
         </div>

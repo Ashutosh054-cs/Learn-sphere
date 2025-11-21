@@ -6,8 +6,9 @@
   /* Master hue (change this to recolor the app) */
   --hue: 220;
 
+  /* Light Mode (default) */
   /* Surfaces (warm creamy off-white) */
-  --bg-primary: hsl(45 35% 98%);           /* Creamy white */
+  --bg-primary: linear-gradient(135deg, hsl(210 40% 96%), hsl(280 35% 97%));
   --bg-secondary: hsl(45 28% 96%);         /* Slightly deeper cream */
 
   /* Brand accents derived from hue */
@@ -26,15 +27,53 @@
   --shadow-lg: 0 16px 48px hsl(var(--hue) 30% 20% / 0.18);
 
   --feedback-error: hsl(0 70% 50%);
+
+  /* Theme-specific colors */
+  --heatmap-color-0: hsl(220, 15%, 92%);
+  --heatmap-color-1: hsla(220, 70%, 40%, 0.15);
+  --heatmap-color-2: hsla(220, 70%, 40%, 0.3);
+  --heatmap-color-3: hsla(220, 70%, 40%, 0.5);
+  --heatmap-color-4: hsla(220, 70%, 40%, 0.8);
+}
+:root[data-theme="dark"] {
+  /* Deep charcoal background */
+  --bg-primary: #0D1117;
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+
+  /* Original dark theme accents */
+  --accent-primary: #00E6E6;      /* Neon teal/cyan */
+  --accent-secondary: #7F00FF;    /* Deep violet/purple */
+  --accent-light: rgba(0, 230, 230, 0.1);
+
+  /* Light text for dark backgrounds */
+  --text-primary: #E6E6E6;        /* Off-white/light gray */
+  --text-secondary: #8B949E;      /* Light blue-gray (muted) */
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  /* Adjusted shadows for dark mode */
+  --shadow-sm: 0 6px 20px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  /* Cyan heatmap colors for dark mode */
+  --heatmap-color-0: rgba(255, 255, 255, 0.05);
+  --heatmap-color-1: rgba(0, 230, 230, 0.2);
+  --heatmap-color-2: rgba(0, 230, 230, 0.4);
+  --heatmap-color-3: rgba(0, 230, 230, 0.6);
+  --heatmap-color-4: rgba(0, 230, 230, 0.9);
+
+  --feedback-error: #D73C4B;      /* Sharp desaturated red */
 }
 
-/* Global light theme background */
+/* Global theme background */
 body {
-  background-color: var(--bg-primary);
+  background: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 400;
+  transition: background 0.3s ease, color 0.3s ease;
+  background-attachment: fixed;
 }
 
 /* Navbar specific font */
@@ -107,7 +146,7 @@ h3, .h3 {
 /* Custom scrollbar for leaderboard */
 .leaderboard-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0,230,230,0.45) rgba(0,0,0,0.12);
+  scrollbar-color: var(--accent-primary) rgba(0,0,0,0.12);
 }
 .leaderboard-scroll::-webkit-scrollbar {
   width: 10px;
@@ -117,7 +156,7 @@ h3, .h3 {
   border-radius: 999px;
 }
 .leaderboard-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(127,0,255,0.9), rgba(0,230,230,0.9));
+  background: linear-gradient(180deg, var(--accent-secondary), var(--accent-primary));
   border-radius: 999px;
   border: 2px solid rgba(13,17,23,0.9);
 }
@@ -130,7 +169,7 @@ h3, .h3 {
 /* Thin scrollbar for heatmap */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0,230,230,0.3) transparent;
+  scrollbar-color: var(--accent-primary) transparent;
 }
 .scrollbar-thin::-webkit-scrollbar {
   height: 4px;
@@ -139,9 +178,9 @@ h3, .h3 {
   background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(0,230,230,0.3);
+  background: var(--accent-primary);
   border-radius: 999px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,230,230,0.5);
+  background: var(--accent-secondary);
 }

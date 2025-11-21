@@ -24,7 +24,7 @@ export default function QuickLaunchCard({ className = '' }) {
           <motion.div
             key={game.name}
             className="flex-1 flex flex-col items-center gap-1 md:gap-2 p-2 md:p-3 rounded-xl md:rounded-2xl cursor-pointer border border-transparent relative overflow-hidden"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
+            style={{ backgroundColor: 'var(--bg-secondary)' }}
             whileHover={{ scale: 1.05, rotateY: 5, borderColor: 'var(--accent-primary)' }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}

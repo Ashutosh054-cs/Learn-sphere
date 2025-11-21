@@ -1,13 +1,14 @@
 import "./index.css";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Navbar from './components/NavBar'
-import Home from './pages/Home'
+import Home from './features/home/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Dashboard from './features/dashboard/Dashboard.jsx'
-import Focus from './pages/Focus'
-import Attendence from './pages/Attendence'
-import About from './pages/About'
+import Dashboard from './features/dashboard/Dashboard'
+import Focus from './features/focus/Focus'
+import Attendance from './features/attendance/Attendance'
+import About from './features/about/About'
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -28,7 +29,7 @@ function AppContent() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/focus" element={<ProtectedRoute><Focus /></ProtectedRoute>} />
-        <Route path="/attendance" element={<ProtectedRoute><Attendence /></ProtectedRoute>} />
+        <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
       </Routes>
     </div>
@@ -37,9 +38,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ThemeProvider>
   );
 }
 
