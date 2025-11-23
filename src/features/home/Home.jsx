@@ -1,6 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../stores/authStore'
 
 export default function Home() {
+  const user = useAuthStore(state => state.user)
+  const navigate = useNavigate()
+
+  const handleGetStarted = () => {
+    if (user) {
+      navigate('/dashboard')
+    } else {
+      navigate('/signup')
+    }
+  }
+
   return (
     <main className="min-h-screen" style={{ paddingTop: 0, background: 'var(--bg-secondary)' }}>
       {/* Hero Section */}
@@ -18,11 +30,13 @@ export default function Home() {
         </p>
         
         <div className="flex gap-4 justify-center flex-wrap">
-          <Link to="/login">
-            <button className="px-8 py-4 font-semibold rounded-full hover:scale-105 transition-all text-lg" style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', boxShadow: 'var(--shadow-md)' }}>
-              Get Started
-            </button>
-          </Link>
+          <button 
+            onClick={handleGetStarted}
+            className="px-8 py-4 font-semibold rounded-full hover:scale-105 transition-all text-lg" 
+            style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', boxShadow: 'var(--shadow-md)' }}
+          >
+            {user ? 'Go to Dashboard' : 'Get Started'}
+          </button>
           <Link to="/about">
             <button className="px-8 py-4 font-semibold rounded-full hover:scale-105 transition-all border text-lg" style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)', backgroundColor: 'var(--accent-light)' }}>
               Learn More
@@ -112,15 +126,17 @@ export default function Home() {
           <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
             Join thousands of students who are already learning smarter, not harder.
           </p>
-          <Link to="/login">
-            <button className="px-10 py-4 font-semibold rounded-full hover:scale-105 transition-all text-lg" style={{ 
+          <button 
+            onClick={handleGetStarted}
+            className="px-10 py-4 font-semibold rounded-full hover:scale-105 transition-all text-lg" 
+            style={{ 
               background: 'linear-gradient(to right, var(--accent-primary), var(--accent-secondary))',
               color: 'var(--bg-primary)',
               boxShadow: 'var(--shadow-md)'
-            }}>
-              Start Learning Today
-            </button>
-          </Link>
+            }}
+          >
+            {user ? 'Go to Dashboard' : 'Start Learning Today'}
+          </button>
         </div>
       </section>
     </main>

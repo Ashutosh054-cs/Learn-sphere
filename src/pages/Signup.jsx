@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../stores/authStore'
 
 export default function Signup() {
   const [name, setName] = useState('')
@@ -7,30 +8,45 @@ export default function Signup() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
+  const signUp = useAuthStore(state => state.signUp)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    setLoading(true)
 
     // Validation
     if (password !== confirmPassword) {
       setError('Passwords do not match')
+      setLoading(false)
       return
     }
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters')
+      setLoading(false)
       return
     }
 
-    // For demo purposes, just store and redirect
-    localStorage.setItem('isLoggedIn', 'true')
-    localStorage.setItem('userEmail', email)
-    localStorage.setItem('userName', name)
+    const { data, error: signUpError } = await signUp(email, password, { name })
     
-    // Redirect to dashboard
-    navigate('/dashboard')
+    if (signUpError) {
+      setError(signUpError)
+      setLoading(false)
+    } else {
+      setSuccess(true)
+      setLoading(false)
+      // If there's a session, user is logged in immediately
+      if (data?.session) {
+        setTimeout(() => navigate('/dashboard'), 1000)
+      } else {
+        // No session means redirect to login
+        setTimeout(() => navigate('/login'), 2000)
+      }
+    }
   }
 
   return (
@@ -62,6 +78,12 @@ export default function Signup() {
           {error && (
             <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: 'rgba(215, 60, 75, 0.1)', border: '1px solid rgba(215, 60, 75, 0.3)' }}>
               <p className="text-sm" style={{ color: '#D73C4B' }}>{error}</p>
+            </div>
+          )}
+
+          {success && (
+            <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
+              <p className="text-sm" style={{ color: '#22C55E' }}>Account created successfully! Redirecting to dashboard...</p>
             </div>
           )}
 
@@ -158,10 +180,11 @@ export default function Signup() {
 
             <button
               type="submit"
-              className="w-full py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300"
+              disabled={loading || success}
+              className="w-full py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', boxShadow: 'var(--shadow-md)' }}
             >
-              Create Account
+              {loading ? 'Creating Account...' : success ? 'Success!' : 'Create Account'}
             </button>
           </form>
 

@@ -3,11 +3,10 @@ import { motion } from 'framer-motion';
 import FrostedCard from '../../../components/ui/FrostedCard';
 import Button from '../../../components/ui/Button';
 
-export default function FocusSessionCard({ className = '' }) {
+export default function FocusSessionCard({ className = '', todayMinutes = 0, totalSessions = 0 }) {
   const navigate = useNavigate();
-  const progress = 35; // Current session progress
-  const sessionsToday = 3;
-  const targetSessions = 8;
+  const targetMinutes = 120; // 2 hours target
+  const progress = Math.min((todayMinutes / targetMinutes) * 100, 100);
 
   // Calculate stroke dash for circular progress
   const radius = 40;
@@ -33,7 +32,7 @@ export default function FocusSessionCard({ className = '' }) {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
         >
-          {sessionsToday}/{targetSessions}
+          {totalSessions} total
         </motion.div>
       </div>
 
@@ -78,7 +77,7 @@ export default function FocusSessionCard({ className = '' }) {
           {/* Time display */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-sm md:text-base font-bold" style={{ color: 'var(--text-primary)' }}>
-              25:00
+              {todayMinutes}m
             </span>
           </div>
         </div>
@@ -95,13 +94,9 @@ export default function FocusSessionCard({ className = '' }) {
           >
             Start
           </Button>
-          <Button 
-            variant="outline"
-            className="text-[0.75rem] md:text-xs py-0.5 px-2.5 md:px-3 min-w-14"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Lo-Fi
-          </Button>
+          <p className="text-[0.6rem] md:text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
+            {Math.round(progress)}% of goal
+          </p>
         </div>
       </div>
 

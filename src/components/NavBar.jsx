@@ -1,11 +1,14 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaChartBar, FaBullseye, FaGamepad, FaTools, FaUsers, FaInfoCircle } from 'react-icons/fa'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, UserCircle } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
+import { useAuthStore } from '../stores/authStore'
 
 export default function NavBar() {
   const location = useLocation()
+  const navigate = useNavigate()
   const { theme, toggleTheme } = useTheme()
+  const { user, signOut } = useAuthStore()
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: <FaChartBar /> },
@@ -113,34 +116,39 @@ export default function NavBar() {
 
       {/* User Profile */}
       <div className="p-4 border-t" style={{ borderColor: 'var(--accent-secondary)' }}>
-        <div className="flex items-center gap-3">
+        <Link to="/profile" className="flex items-center gap-3 mb-3 hover:opacity-80 transition-opacity">
           <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--ui-white-95)' }}>
-            <span className="text-base font-semibold" style={{ color: 'var(--accent-primary)' }}>
-              {localStorage.getItem('userName')?.charAt(0).toUpperCase() || 'S'}
-            </span>
+            {user?.user_metadata?.avatar_url ? (
+              <img 
+                src={user.user_metadata.avatar_url} 
+                alt="Profile" 
+                className="w-full h-full rounded-full object-cover"
+              />
+            ) : (
+              <span className="text-base font-semibold" style={{ color: 'var(--accent-primary)' }}>
+                {user?.user_metadata?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+              </span>
+            )}
           </div>
           <div className="flex-1">
-            <p className="text-sm" style={{ color: 'var(--ui-white-95)' }}>
-              {localStorage.getItem('userName') || 'Student'}
+            <p className="text-sm truncate" style={{ color: 'var(--ui-white-95)' }}>
+              {user?.user_metadata?.name || user?.email?.split('@')[0] || 'User'}
             </p>
           </div>
+        </Link>
+        <Link to="/profile">
           <button
-            onClick={() => {
-              localStorage.removeItem('isLoggedIn')
-              localStorage.removeItem('userEmail')
-              localStorage.removeItem('userName')
-              window.location.href = '/'
-            }}
-            className="px-3 py-1 rounded-full text-xs border"
-            style={{ 
+            className="w-full px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:scale-[1.02] transition-all"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
               color: 'var(--ui-white)',
-              borderColor: 'rgba(255,255,255,0.12)',
-              backgroundColor: 'transparent'
+              border: '1px solid rgba(255, 255, 255, 0.12)'
             }}
           >
-            Logout
+            <UserCircle size={16} />
+            <span>View Profile</span>
           </button>
-        </div>
+        </Link>
       </div>
     </aside>
   )

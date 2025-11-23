@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import { useAuthStore } from '../../stores/authStore'
+import { focusService } from '../../services/supabaseService'
 
 // Resize an image file to a data URL (to store in localStorage)
 async function resizeImageToDataURL(file, maxW = 1920, maxH = 1080, quality = 0.85) {
@@ -23,6 +25,10 @@ async function resizeImageToDataURL(file, maxW = 1920, maxH = 1080, quality = 0.
 }
 
 function Focus() {
+  const user = useAuthStore(state => state.user)
+  const [sessionStartTime, setSessionStartTime] = useState(null)
+  const [originalDuration, setOriginalDuration] = useState(25)
+  
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
@@ -92,10 +98,46 @@ function Focus() {
   useEffect(() => {
     if (minutes === 0 && seconds === 0 && isActive) {
       setIsActive(false)
+      
+      // Save completed focus session to database
+      if (!isBreak && user && sessionStartTime) {
+        saveFocusSession()
+      }
+      
       setIsBreak(!isBreak)
       setMinutes(isBreak ? workDuration : breakDuration)
+      setSessionStartTime(null) // Reset for next session
     }
   }, [minutes, seconds, isActive, isBreak, workDuration, breakDuration])
+
+  const saveFocusSession = async () => {
+    try {
+      const completedAt = new Date()
+      const durationMinutes = originalDuration
+      
+      await focusService.createSession({
+        duration_minutes: durationMinutes,
+        session_type: 'focus',
+        completed: true,
+        background_image: background,
+        started_at: sessionStartTime,
+        completed_at: completedAt.toISOString()
+      })
+      
+      console.log('Focus session saved!', durationMinutes, 'minutes')
+    } catch (error) {
+      console.error('Error saving focus session:', error)
+    }
+  }
+
+  const toggleTimer = () => {
+    if (!isActive) {
+      // Starting a new session
+      setSessionStartTime(new Date().toISOString())
+      setOriginalDuration(minutes)
+    }
+    setIsActive(!isActive)
+  }
 
   // Pulse the time display slightly on each second for smoothness
   useEffect(() => {
@@ -104,15 +146,12 @@ function Focus() {
     return () => clearTimeout(t)
   }, [seconds])
 
-  const toggleTimer = () => {
-    setIsActive(!isActive)
-  }
-
   const resetTimer = () => {
     setIsActive(false)
     setJustReset(true)
     setMinutes(isBreak ? breakDuration : workDuration)
     setSeconds(0)
+    setSessionStartTime(null)
     setTimeout(() => setJustReset(false), 50)
   }
 

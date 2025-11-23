@@ -1,31 +1,28 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../stores/authStore'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const signIn = useAuthStore(state => state.signIn)
 
-  // Dummy credentials for testing
-  const DUMMY_CREDENTIALS = {
-    email: 'test@learnsphere.com',
-    password: 'password123'
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    setLoading(true)
 
-    // Check dummy credentials
-    if (email === DUMMY_CREDENTIALS.email && password === DUMMY_CREDENTIALS.password) {
-      // Store login state in localStorage
-      localStorage.setItem('isLoggedIn', 'true')
-      localStorage.setItem('userEmail', email)
-      // Redirect to dashboard
-      navigate('/dashboard')
+    const { error: signInError } = await signIn(email, password)
+    
+    if (signInError) {
+      setError(signInError)
+      setLoading(false)
     } else {
-      setError('Invalid email or password. Try test@learnsphere.com / password123')
+      // Successful login - redirect to dashboard
+      navigate('/dashboard')
     }
   }
 
@@ -54,13 +51,6 @@ export default function Login() {
           <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
             Sign in to continue your learning journey
           </p>
-
-          {/* Demo Credentials Info */}
-          <div className="mb-6 p-4 rounded-lg border" style={{ backgroundColor: 'var(--accent-light)', borderColor: 'var(--accent-primary)' }}>
-            <p className="text-sm font-medium mb-1" style={{ color: 'var(--accent-primary)' }}>Demo Account:</p>
-            <p className="text-xs" style={{ color: 'var(--text-primary)' }}>Email: test@learnsphere.com</p>
-            <p className="text-xs" style={{ color: 'var(--text-primary)' }}>Password: password123</p>
-          </div>
 
           {error && (
             <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: 'rgba(215, 60, 75, 0.1)', border: '1px solid rgba(215, 60, 75, 0.3)' }}>
@@ -119,10 +109,11 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300"
+              disabled={loading}
+              className="w-full py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', boxShadow: 'var(--shadow-md)' }}
             >
-              Sign In
+              {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
 
