@@ -7,7 +7,7 @@ import { Code, Calculator, Zap } from 'lucide-react';
 const games = [
   { name: 'HTML Structure Builder', icon: Code, color: 'var(--accent-primary)', difficulty: 'Easy', progress: 65 },
   { name: 'CSS Selector Battle', icon: Calculator, color: 'var(--accent-secondary)', difficulty: 'Medium', progress: 42 },
-  { name: 'JS Puzzle Maze', icon: Zap, color: 'var(--accent-primary)', difficulty: 'Hard', progress: 18 },
+  { name: 'JS Puzzle Maze', icon: Zap, color: 'var(--accent-primary)', difficulty: 'Advanced', progress: 18 },
 ];
 
 export default function QuickLaunchCard({ className = '' }) {

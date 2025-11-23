@@ -72,16 +72,18 @@ export default function NavBar() {
 
       {/* AI Roadmap Button */}
         <div className="p-4 border-t" style={{ borderColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.2)' : 'var(--accent-secondary)' }}>
-        <button 
-          className="w-full px-4 py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
-          style={{ 
-            backgroundColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'var(--accent-light)', 
-            color: theme === 'dark' ? '#00E6E6' : 'var(--accent-primary)' 
-          }}
-        >
-          <span>🤖</span>
-          <span>AI Roadmap</span>
-        </button>
+        <Link to="/roadmap">
+          <button 
+            className="w-full px-4 py-3 font-semibold rounded-lg hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+            style={{ 
+              backgroundColor: theme === 'dark' ? 'rgba(0, 230, 230, 0.15)' : 'var(--accent-light)', 
+              color: theme === 'dark' ? '#00E6E6' : 'var(--accent-primary)' 
+            }}
+          >
+            <span>🤖</span>
+            <span>AI Roadmap</span>
+          </button>
+        </Link>
       </div>
 
       {/* Theme Toggle */}

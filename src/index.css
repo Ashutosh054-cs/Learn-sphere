@@ -43,6 +43,18 @@
   --nav-hover-bg: hsl(220 18% 44% / 0.18);
   --nav-active-bg: hsl(40 10% 98%); /* light card color for active link */
   --nav-active-color: hsl(220 45% 38%); /* muted blue for active text */
+
+  /* Roadmap difficulty colors for light mode */
+  --difficulty-basic: hsl(142 60% 45%);      /* Green */
+  --difficulty-intermediate: hsl(42 95% 50%); /* Yellow/Orange */
+  --difficulty-advanced: hsl(0 75% 55%);      /* Red */
+  
+  /* Node colors for light mode */
+  --node-locked-bg: hsl(220 15% 90%);
+  --node-locked-border: hsl(220 15% 75%);
+  --node-locked-text: hsl(220 15% 50%);
+  --node-hover-bg: hsl(40 15% 98%);
+  --node-hover-border: hsl(220 30% 30%);
 }
 :root[data-theme="dark"] {
   /* Deep charcoal background */
@@ -77,6 +89,18 @@
   --nav-hover-bg: rgba(0, 230, 230, 0.12);
   --nav-active-bg: rgba(255, 255, 255, 0.04);
   --nav-active-color: #00E6E6;
+
+  /* Roadmap difficulty colors for dark mode */
+  --difficulty-basic: #00E6E6;      /* Cyan */
+  --difficulty-intermediate: #7F00FF; /* Purple */
+  --difficulty-advanced: #FF6B35;    /* Orange */
+  
+  /* Node colors for dark mode */
+  --node-locked-bg: rgba(255, 255, 255, 0.02);
+  --node-locked-border: rgba(255, 255, 255, 0.15);
+  --node-locked-text: rgba(255, 255, 255, 0.4);
+  --node-hover-bg: rgba(17, 24, 39, 0.95);
+  --node-hover-border: rgba(255, 255, 255, 0.2);
 }
 
 /* Global theme background */

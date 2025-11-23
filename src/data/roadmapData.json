@@ -1,0 +1,2671 @@
+{
+  "nodes": [
+    {
+      "id": "internet",
+      "title": "Internet",
+      "description": "How does the internet work? HTTP, DNS, Browsers",
+      "skills": ["Fundamentals"],
+      "xp": 50,
+      "estimatedMinutes": 30,
+      "difficulty": "Basic",
+      "status": "completed",
+      "resources": [
+        { "type": "article", "title": "How Internet Works", "url": "https://roadmap.sh/guides/what-is-internet" }
+      ],
+      "prerequisites": [],
+      "metadata": { "unlocks": ["html"] }
+    },
+    {
+      "id": "html",
+      "title": "HTML",
+      "description": "Semantic HTML, Forms, Accessibility",
+      "skills": ["HTML"],
+      "xp": 80,
+      "estimatedMinutes": 40,
+      "difficulty": "Basic",
+      "status": "current",
+      "resources": [
+        { "type": "article", "title": "MDN HTML", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": { "unlocks": ["css"] }
+    },
+    {
+      "id": "css",
+      "title": "CSS",
+      "description": "Layouts, Flexbox, Grid, Responsive Design",
+      "skills": ["CSS"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "CSS Tricks", "url": "https://css-tricks.com/" }
+      ],
+      "prerequisites": ["html"],
+      "metadata": { "unlocks": ["javascript"] }
+    },
+    {
+      "id": "javascript",
+      "title": "JavaScript",
+      "description": "ES6+, DOM, Async/Await, Promises",
+      "skills": ["JavaScript"],
+      "xp": 150,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "JavaScript.info", "url": "https://javascript.info/" }
+      ],
+      "prerequisites": ["css"],
+      "metadata": { "unlocks": ["vcs", "package-managers"] }
+    },
+    {
+      "id": "vcs",
+      "title": "Git & GitHub",
+      "description": "Version Control, Repos, Collaboration",
+      "skills": ["Tools"],
+      "xp": 70,
+      "estimatedMinutes": 45,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Git Tutorial", "url": "https://git-scm.com/doc" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": { "unlocks": ["package-managers"] }
+    },
+    {
+      "id": "package-managers",
+      "title": "npm/yarn/pnpm",
+      "description": "Package managers and dependencies",
+      "skills": ["Tools"],
+      "xp": 60,
+      "estimatedMinutes": 30,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "npm Docs", "url": "https://docs.npmjs.com/" }
+      ],
+      "prerequisites": ["vcs"],
+      "metadata": { "unlocks": ["css-frameworks", "react", "vue", "angular"] }
+    },
+    {
+      "id": "css-frameworks",
+      "title": "Tailwind CSS",
+      "description": "Utility-first CSS framework",
+      "skills": ["CSS"],
+      "xp": 90,
+      "estimatedMinutes": 50,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Tailwind Docs", "url": "https://tailwindcss.com/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["react", "vue"] }
+    },
+    {
+      "id": "react",
+      "title": "React",
+      "description": "Components, Hooks, State Management",
+      "skills": ["React"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "React Docs", "url": "https://react.dev/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["react-router", "nextjs", "testing"] }
+    },
+    {
+      "id": "vue",
+      "title": "Vue.js",
+      "description": "Progressive JavaScript Framework",
+      "skills": ["Vue"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Vue Docs", "url": "https://vuejs.org/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["nuxt", "testing"] }
+    },
+    {
+      "id": "angular",
+      "title": "Angular",
+      "description": "TypeScript-based web framework",
+      "skills": ["Angular"],
+      "xp": 200,
+      "estimatedMinutes": 130,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Angular Docs", "url": "https://angular.dev/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["testing"] }
+    },
+    {
+      "id": "react-router",
+      "title": "React Router",
+      "description": "Client-side routing for React",
+      "skills": ["React"],
+      "xp": 80,
+      "estimatedMinutes": 40,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "React Router Docs", "url": "https://reactrouter.com/" }
+      ],
+      "prerequisites": ["react"],
+      "metadata": { "unlocks": ["nextjs"] }
+    },
+    {
+      "id": "nextjs",
+      "title": "Next.js",
+      "description": "SSR/SSG React framework",
+      "skills": ["React"],
+      "xp": 150,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Next.js Docs", "url": "https://nextjs.org/" }
+      ],
+      "prerequisites": ["react-router"],
+      "metadata": { "unlocks": ["testing", "web-security"] }
+    },
+    {
+      "id": "nuxt",
+      "title": "Nuxt.js",
+      "description": "SSR/SSG Vue framework",
+      "skills": ["Vue"],
+      "xp": 140,
+      "estimatedMinutes": 85,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Nuxt Docs", "url": "https://nuxt.com/" }
+      ],
+      "prerequisites": ["vue"],
+      "metadata": { "unlocks": ["testing"] }
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "description": "Jest, Vitest, Cypress, Playwright",
+      "skills": ["Testing"],
+      "xp": 120,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Testing Library", "url": "https://testing-library.com/" }
+      ],
+      "prerequisites": ["react", "vue", "angular"],
+      "metadata": { "unlocks": ["web-security"] }
+    },
+    {
+      "id": "web-security",
+      "title": "Web Security",
+      "description": "HTTPS, CORS, OWASP, CSP",
+      "skills": ["Security"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "OWASP", "url": "https://owasp.org/" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": { "unlocks": ["pwa"] }
+    },
+    {
+      "id": "pwa",
+      "title": "PWA",
+      "description": "Progressive Web Apps, Service Workers",
+      "skills": ["Advanced"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PWA Guide", "url": "https://web.dev/progressive-web-apps/" }
+      ],
+      "prerequisites": ["web-security"],
+      "metadata": {}
+    },
+    {
+      "id": "nodejs",
+      "title": "Node.js",
+      "description": "JavaScript runtime for backend",
+      "skills": ["Backend"],
+      "xp": 160,
+      "estimatedMinutes": 100,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Node.js Docs", "url": "https://nodejs.org/" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": { "unlocks": ["databases", "apis"] }
+    },
+    {
+      "id": "databases",
+      "title": "Databases",
+      "description": "PostgreSQL, MongoDB, Redis",
+      "skills": ["Backend"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PostgreSQL Tutorial", "url": "https://www.postgresql.org/docs/" }
+      ],
+      "prerequisites": ["nodejs"],
+      "metadata": { "unlocks": ["apis"] }
+    },
+    {
+      "id": "apis",
+      "title": "RESTful APIs",
+      "description": "REST, GraphQL, API design",
+      "skills": ["Backend"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "REST API Tutorial", "url": "https://restfulapi.net/" }
+      ],
+      "prerequisites": ["nodejs", "databases"],
+      "metadata": { "unlocks": ["auth"] }
+    },
+    {
+      "id": "auth",
+      "title": "Authentication",
+      "description": "JWT, OAuth, Session Management",
+      "skills": ["Backend"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "JWT.io", "url": "https://jwt.io/" }
+      ],
+      "prerequisites": ["apis"],
+      "metadata": { "unlocks": ["devops"] }
+    },
+    {
+      "id": "devops",
+      "title": "DevOps Basics",
+      "description": "Docker, CI/CD, AWS/Azure",
+      "skills": ["DevOps"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Docker Docs", "url": "https://docs.docker.com/" }
+      ],
+      "prerequisites": ["auth"],
+      "metadata": { "unlocks": ["docker", "ci-cd"] }
+    },
+    {
+      "id": "hosting",
+      "title": "Hosting",
+      "description": "Domain, DNS, Static Hosting",
+      "skills": ["Tools"],
+      "xp": 50,
+      "estimatedMinutes": 30,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Hosting Guide", "url": "https://roadmap.sh/guides/hosting" }
+      ],
+      "prerequisites": ["vcs"],
+      "metadata": { "unlocks": ["package-managers"] }
+    },
+    {
+      "id": "react-hooks",
+      "title": "React Hooks",
+      "description": "useState, useEffect, useContext, Custom Hooks",
+      "skills": ["React"],
+      "xp": 120,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "React Hooks", "url": "https://react.dev/reference/react" }
+      ],
+      "prerequisites": ["react"],
+      "metadata": { "unlocks": ["state-management"] }
+    },
+    {
+      "id": "state-management",
+      "title": "State Management",
+      "description": "Context, Zustand, Redux",
+      "skills": ["React"],
+      "xp": 110,
+      "estimatedMinutes": 65,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "State Management", "url": "https://roadmap.sh/react" }
+      ],
+      "prerequisites": ["react-hooks"],
+      "metadata": { "unlocks": ["api-calls"] }
+    },
+    {
+      "id": "api-calls",
+      "title": "API Calls",
+      "description": "Axios, Fetch, SWR, React Query",
+      "skills": ["React"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "API Guide", "url": "https://roadmap.sh/react" }
+      ],
+      "prerequisites": ["state-management"],
+      "metadata": { "unlocks": ["testing"] }
+    },
+    {
+      "id": "web-components",
+      "title": "Web Components",
+      "description": "Custom Elements, Shadow DOM",
+      "skills": ["Advanced"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Web Components", "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components" }
+      ],
+      "prerequisites": ["web-security"],
+      "metadata": { "unlocks": ["pwa"] }
+    },
+    {
+      "id": "nosql",
+      "title": "NoSQL Databases",
+      "description": "MongoDB, Redis, Document DBs",
+      "skills": ["Backend"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "MongoDB", "url": "https://www.mongodb.com/docs/" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": { "unlocks": ["caching"] }
+    },
+    {
+      "id": "orms",
+      "title": "ORMs",
+      "description": "Prisma, Sequelize, TypeORM",
+      "skills": ["Backend"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Prisma", "url": "https://www.prisma.io/" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": { "unlocks": ["apis"] }
+    },
+    {
+      "id": "graphql",
+      "title": "GraphQL",
+      "description": "Apollo, Relay, Schema, Queries",
+      "skills": ["Backend"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "GraphQL", "url": "https://graphql.org/" }
+      ],
+      "prerequisites": ["apis"],
+      "metadata": { "unlocks": ["testing-backend"] }
+    },
+    {
+      "id": "caching",
+      "title": "Caching",
+      "description": "Redis, Memcached, CDN",
+      "skills": ["Backend"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Redis", "url": "https://redis.io/docs/" }
+      ],
+      "prerequisites": ["nosql"],
+      "metadata": { "unlocks": ["web-servers"] }
+    },
+    {
+      "id": "testing-backend",
+      "title": "Backend Testing",
+      "description": "Unit, Integration, Functional Testing",
+      "skills": ["Testing"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Testing Guide", "url": "https://roadmap.sh/backend" }
+      ],
+      "prerequisites": ["auth", "graphql"],
+      "metadata": { "unlocks": ["ci-cd"] }
+    },
+    {
+      "id": "web-servers",
+      "title": "Web Servers",
+      "description": "Nginx, Apache, Caddy",
+      "skills": ["DevOps"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Nginx", "url": "https://nginx.org/en/docs/" }
+      ],
+      "prerequisites": ["caching"],
+      "metadata": { "unlocks": ["ci-cd"] }
+    },
+    {
+      "id": "ci-cd",
+      "title": "CI/CD",
+      "description": "GitHub Actions, Jenkins, GitLab CI",
+      "skills": ["DevOps"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "CI/CD Guide", "url": "https://roadmap.sh/devops" }
+      ],
+      "prerequisites": ["testing", "testing-backend", "web-servers", "devops"],
+      "metadata": { "unlocks": ["docker", "monitoring"] }
+    },
+    {
+      "id": "docker",
+      "title": "Docker",
+      "description": "Containers, Images, Docker Compose",
+      "skills": ["DevOps"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Docker Docs", "url": "https://docs.docker.com/" }
+      ],
+      "prerequisites": ["ci-cd", "devops"],
+      "metadata": { "unlocks": ["aws", "monitoring"] }
+    },
+    {
+      "id": "aws",
+      "title": "AWS Basics",
+      "description": "EC2, S3, VPC, Route53, RDS",
+      "skills": ["DevOps"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "AWS Docs", "url": "https://aws.amazon.com/documentation/" }
+      ],
+      "prerequisites": ["docker"],
+      "metadata": { "unlocks": ["monitoring", "infrastructure"] }
+    },
+    {
+      "id": "monitoring",
+      "title": "Monitoring",
+      "description": "Prometheus, Grafana, ELK Stack",
+      "skills": ["DevOps"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Monitoring Guide", "url": "https://roadmap.sh/devops" }
+      ],
+      "prerequisites": ["aws", "ci-cd", "docker"],
+      "metadata": { "unlocks": ["infrastructure"] }
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure as Code",
+      "description": "Terraform, Ansible, CloudFormation",
+      "skills": ["DevOps"],
+      "xp": 160,
+      "estimatedMinutes": 100,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Terraform", "url": "https://www.terraform.io/docs" }
+      ],
+      "prerequisites": ["aws", "monitoring"],
+      "metadata": {}
+    },
+    {
+      "id": "message-brokers",
+      "title": "Message Brokers",
+      "description": "RabbitMQ, Kafka",
+      "skills": ["Backend"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Kafka", "url": "https://kafka.apache.org/documentation/" }
+      ],
+      "prerequisites": ["apis"],
+      "metadata": { "unlocks": ["architectural-patterns"] }
+    },
+    {
+      "id": "architectural-patterns",
+      "title": "Architectural Patterns",
+      "description": "Monolith, Microservices, SOA, Serverless",
+      "skills": ["Architecture"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Architecture Guide", "url": "https://roadmap.sh/software-architect" }
+      ],
+      "prerequisites": ["message-brokers"],
+      "metadata": {}
+    },
+    {
+      "id": "sql",
+      "title": "SQL Basics",
+      "description": "Queries, Joins, Indexes, Normalization",
+      "skills": ["Backend"],
+      "xp": 120,
+      "estimatedMinutes": 80,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "SQL Tutorial", "url": "https://www.sqltutorial.org/" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": {}
+    },
+    {
+      "id": "api-design",
+      "title": "API Design",
+      "description": "REST principles, Versioning, Documentation",
+      "skills": ["Backend"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "API Design Guide", "url": "https://roadmap.sh/backend" }
+      ],
+      "prerequisites": ["apis"],
+      "metadata": {}
+    },
+    {
+      "id": "kubernetes",
+      "title": "Kubernetes",
+      "description": "Container orchestration, Pods, Services",
+      "skills": ["DevOps"],
+      "xp": 200,
+      "estimatedMinutes": 140,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Kubernetes Docs", "url": "https://kubernetes.io/docs/" }
+      ],
+      "prerequisites": ["docker"],
+      "metadata": {}
+    },
+    {
+      "id": "linux",
+      "title": "Linux Basics",
+      "description": "Command line, Shell scripting, File systems",
+      "skills": ["DevOps"],
+      "xp": 90,
+      "estimatedMinutes": 50,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Linux Guide", "url": "https://roadmap.sh/devops" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "python-basics",
+      "title": "Python Basics",
+      "description": "Syntax, Data structures, OOP",
+      "skills": ["Backend"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Python.org", "url": "https://www.python.org/about/gettingstarted/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "data-structures",
+      "title": "Data Structures",
+      "description": "Arrays, Trees, Graphs, Hash tables",
+      "skills": ["DSA"],
+      "xp": 150,
+      "estimatedMinutes": 100,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "DSA Guide", "url": "https://roadmap.sh/computer-science" }
+      ],
+      "prerequisites": ["python-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "algorithms",
+      "title": "Algorithms",
+      "description": "Sorting, Searching, Dynamic programming",
+      "skills": ["DSA"],
+      "xp": 160,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Algorithms Guide", "url": "https://roadmap.sh/computer-science" }
+      ],
+      "prerequisites": ["data-structures"],
+      "metadata": {}
+    },
+    {
+      "id": "pandas-numpy",
+      "title": "Pandas & NumPy",
+      "description": "Data manipulation, Arrays, DataFrames",
+      "skills": ["Data"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Pandas Docs", "url": "https://pandas.pydata.org/" }
+      ],
+      "prerequisites": ["python-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "data-visualization",
+      "title": "Data Visualization",
+      "description": "Matplotlib, Seaborn, Plotly",
+      "skills": ["Data"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Visualization Guide", "url": "https://roadmap.sh/data-analyst" }
+      ],
+      "prerequisites": ["pandas-numpy"],
+      "metadata": {}
+    },
+    {
+      "id": "statistics",
+      "title": "Statistics",
+      "description": "Probability, Hypothesis testing, Regression",
+      "skills": ["Data"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Statistics Guide", "url": "https://roadmap.sh/data-analyst" }
+      ],
+      "prerequisites": ["pandas-numpy"],
+      "metadata": {}
+    },
+    {
+      "id": "etl",
+      "title": "ETL Pipelines",
+      "description": "Extract, Transform, Load processes",
+      "skills": ["Data"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "ETL Guide", "url": "https://roadmap.sh/data-engineer" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": {}
+    },
+    {
+      "id": "spark",
+      "title": "Apache Spark",
+      "description": "Big data processing, RDDs, DataFrames",
+      "skills": ["Data"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Spark Docs", "url": "https://spark.apache.org/docs/latest/" }
+      ],
+      "prerequisites": ["etl"],
+      "metadata": {}
+    },
+    {
+      "id": "kotlin",
+      "title": "Kotlin",
+      "description": "Android development language",
+      "skills": ["Mobile"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Kotlin Docs", "url": "https://kotlinlang.org/docs/home.html" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "android-sdk",
+      "title": "Android SDK",
+      "description": "Activities, Fragments, Layouts, Jetpack",
+      "skills": ["Mobile"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Android Docs", "url": "https://developer.android.com/" }
+      ],
+      "prerequisites": ["kotlin"],
+      "metadata": {}
+    },
+    {
+      "id": "swift",
+      "title": "Swift",
+      "description": "iOS development language",
+      "skills": ["Mobile"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Swift Docs", "url": "https://swift.org/documentation/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "ios-sdk",
+      "title": "iOS SDK",
+      "description": "UIKit, SwiftUI, Core Data",
+      "skills": ["Mobile"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "iOS Docs", "url": "https://developer.apple.com/documentation/" }
+      ],
+      "prerequisites": ["swift"],
+      "metadata": {}
+    },
+    {
+      "id": "ml-basics",
+      "title": "ML Fundamentals",
+      "description": "Supervised, Unsupervised learning, Features",
+      "skills": ["ML"],
+      "xp": 150,
+      "estimatedMinutes": 100,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "ML Guide", "url": "https://roadmap.sh/ai-data-scientist" }
+      ],
+      "prerequisites": ["python-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "deep-learning",
+      "title": "Deep Learning",
+      "description": "Neural networks, CNN, RNN, Transformers",
+      "skills": ["ML"],
+      "xp": 200,
+      "estimatedMinutes": 140,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Deep Learning", "url": "https://www.deeplearning.ai/" }
+      ],
+      "prerequisites": ["ml-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "mlflow",
+      "title": "MLflow",
+      "description": "Model tracking, Registry, Deployment",
+      "skills": ["MLOps"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "MLflow Docs", "url": "https://mlflow.org/" }
+      ],
+      "prerequisites": ["ml-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "solidity",
+      "title": "Solidity",
+      "description": "Smart contract programming",
+      "skills": ["Blockchain"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Solidity Docs", "url": "https://docs.soliditylang.org/" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": {}
+    },
+    {
+      "id": "web3",
+      "title": "Web3.js / Ethers.js",
+      "description": "Blockchain interaction libraries",
+      "skills": ["Blockchain"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Web3.js Docs", "url": "https://web3js.readthedocs.io/" }
+      ],
+      "prerequisites": ["solidity"],
+      "metadata": {}
+    },
+    {
+      "id": "network-security",
+      "title": "Network Security",
+      "description": "Firewalls, VPN, IDS/IPS",
+      "skills": ["Security"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Network Security", "url": "https://roadmap.sh/cyber-security" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "penetration-testing",
+      "title": "Penetration Testing",
+      "description": "Ethical hacking, Vulnerability assessment",
+      "skills": ["Security"],
+      "xp": 170,
+      "estimatedMinutes": 115,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Pen Testing Guide", "url": "https://roadmap.sh/cyber-security" }
+      ],
+      "prerequisites": ["network-security"],
+      "metadata": {}
+    },
+    {
+      "id": "figma",
+      "title": "Figma",
+      "description": "Design tools, Prototyping, Collaboration",
+      "skills": ["Design"],
+      "xp": 90,
+      "estimatedMinutes": 50,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Figma Docs", "url": "https://help.figma.com/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "design-systems",
+      "title": "Design Systems",
+      "description": "Component libraries, Style guides, Tokens",
+      "skills": ["Design"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Design Systems", "url": "https://roadmap.sh/ux-design" }
+      ],
+      "prerequisites": ["figma"],
+      "metadata": {}
+    },
+    {
+      "id": "user-research",
+      "title": "User Research",
+      "description": "Interviews, Surveys, Personas, User flows",
+      "skills": ["Design"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "UX Research", "url": "https://roadmap.sh/ux-design" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "selenium",
+      "title": "Selenium",
+      "description": "Browser automation, E2E testing",
+      "skills": ["Testing"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Selenium Docs", "url": "https://www.selenium.dev/documentation/" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": {}
+    },
+    {
+      "id": "test-automation",
+      "title": "Test Automation",
+      "description": "CI integration, Test frameworks, Reports",
+      "skills": ["Testing"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Test Automation", "url": "https://roadmap.sh/qa" }
+      ],
+      "prerequisites": ["selenium"],
+      "metadata": {}
+    },
+    {
+      "id": "unity",
+      "title": "Unity Engine",
+      "description": "Game engine, C# scripting, Physics",
+      "skills": ["Game Dev"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Unity Learn", "url": "https://learn.unity.com/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "game-design",
+      "title": "Game Design",
+      "description": "Mechanics, Level design, Balancing",
+      "skills": ["Game Dev"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Game Design", "url": "https://roadmap.sh/game-developer" }
+      ],
+      "prerequisites": ["unity"],
+      "metadata": {}
+    },
+    {
+      "id": "typescript",
+      "title": "TypeScript",
+      "description": "Static typing, Interfaces, Generics",
+      "skills": ["JavaScript"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "TypeScript Docs", "url": "https://www.typescriptlang.org/docs/" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": {}
+    },
+    {
+      "id": "rest-api",
+      "title": "REST APIs",
+      "description": "HTTP methods, Status codes, REST principles",
+      "skills": ["Backend"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "REST API Tutorial", "url": "https://roadmap.sh/backend" }
+      ],
+      "prerequisites": ["nodejs"],
+      "metadata": {}
+    },
+    {
+      "id": "graphql-api",
+      "title": "GraphQL",
+      "description": "Schema, Queries, Mutations, Subscriptions",
+      "skills": ["Backend"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "GraphQL Docs", "url": "https://graphql.org/learn/" }
+      ],
+      "prerequisites": ["rest-api"],
+      "metadata": {}
+    },
+    {
+      "id": "jwt-auth",
+      "title": "JWT Authentication",
+      "description": "JSON Web Tokens, Access/Refresh tokens",
+      "skills": ["Backend"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "JWT.io", "url": "https://jwt.io/" }
+      ],
+      "prerequisites": ["rest-api"],
+      "metadata": {}
+    },
+    {
+      "id": "oauth",
+      "title": "OAuth 2.0",
+      "description": "Authorization flows, Third-party auth",
+      "skills": ["Backend"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "OAuth Guide", "url": "https://oauth.net/2/" }
+      ],
+      "prerequisites": ["jwt-auth"],
+      "metadata": {}
+    },
+    {
+      "id": "mongodb",
+      "title": "MongoDB",
+      "description": "NoSQL database, Collections, Documents",
+      "skills": ["Database"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "MongoDB Docs", "url": "https://www.mongodb.com/docs/" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": {}
+    },
+    {
+      "id": "postgresql",
+      "title": "PostgreSQL",
+      "description": "Relational database, Advanced queries",
+      "skills": ["Database"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PostgreSQL Docs", "url": "https://www.postgresql.org/docs/" }
+      ],
+      "prerequisites": ["sql"],
+      "metadata": {}
+    },
+    {
+      "id": "redis",
+      "title": "Redis",
+      "description": "In-memory data store, Caching, Pub/Sub",
+      "skills": ["Database"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Redis Docs", "url": "https://redis.io/docs/" }
+      ],
+      "prerequisites": ["databases"],
+      "metadata": {}
+    },
+    {
+      "id": "nginx",
+      "title": "Nginx",
+      "description": "Web server, Reverse proxy, Load balancing",
+      "skills": ["DevOps"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Nginx Docs", "url": "https://nginx.org/en/docs/" }
+      ],
+      "prerequisites": ["linux"],
+      "metadata": {}
+    },
+    {
+      "id": "aws-ec2",
+      "title": "AWS EC2",
+      "description": "Virtual servers, Instance types, AMIs",
+      "skills": ["Cloud"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "EC2 Docs", "url": "https://docs.aws.amazon.com/ec2/" }
+      ],
+      "prerequisites": ["aws"],
+      "metadata": {}
+    },
+    {
+      "id": "aws-s3",
+      "title": "AWS S3",
+      "description": "Object storage, Buckets, Security",
+      "skills": ["Cloud"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "S3 Docs", "url": "https://docs.aws.amazon.com/s3/" }
+      ],
+      "prerequisites": ["aws"],
+      "metadata": {}
+    },
+    {
+      "id": "terraform",
+      "title": "Terraform",
+      "description": "Infrastructure as Code, HCL, State management",
+      "skills": ["DevOps"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Terraform Docs", "url": "https://www.terraform.io/docs" }
+      ],
+      "prerequisites": ["infrastructure"],
+      "metadata": {}
+    },
+    {
+      "id": "ansible",
+      "title": "Ansible",
+      "description": "Configuration management, Playbooks, Automation",
+      "skills": ["DevOps"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Ansible Docs", "url": "https://docs.ansible.com/" }
+      ],
+      "prerequisites": ["infrastructure"],
+      "metadata": {}
+    },
+    {
+      "id": "jenkins",
+      "title": "Jenkins",
+      "description": "CI/CD automation server, Pipelines",
+      "skills": ["DevOps"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Jenkins Docs", "url": "https://www.jenkins.io/doc/" }
+      ],
+      "prerequisites": ["ci-cd"],
+      "metadata": {}
+    },
+    {
+      "id": "github-actions",
+      "title": "GitHub Actions",
+      "description": "Workflows, CI/CD, Automation",
+      "skills": ["DevOps"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "GitHub Actions Docs", "url": "https://docs.github.com/actions" }
+      ],
+      "prerequisites": ["vcs"],
+      "metadata": {}
+    },
+    {
+      "id": "prometheus",
+      "title": "Prometheus",
+      "description": "Monitoring, Time-series DB, Alerting",
+      "skills": ["DevOps"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Prometheus Docs", "url": "https://prometheus.io/docs/" }
+      ],
+      "prerequisites": ["monitoring"],
+      "metadata": {}
+    },
+    {
+      "id": "grafana",
+      "title": "Grafana",
+      "description": "Visualization, Dashboards, Data sources",
+      "skills": ["DevOps"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Grafana Docs", "url": "https://grafana.com/docs/" }
+      ],
+      "prerequisites": ["prometheus"],
+      "metadata": {}
+    },
+    {
+      "id": "rabbitmq",
+      "title": "RabbitMQ",
+      "description": "Message broker, Queues, Exchanges",
+      "skills": ["Backend"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "RabbitMQ Docs", "url": "https://www.rabbitmq.com/documentation.html" }
+      ],
+      "prerequisites": ["message-brokers"],
+      "metadata": {}
+    },
+    {
+      "id": "kafka",
+      "title": "Apache Kafka",
+      "description": "Event streaming, Topics, Partitions",
+      "skills": ["Backend"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Kafka Docs", "url": "https://kafka.apache.org/documentation/" }
+      ],
+      "prerequisites": ["message-brokers"],
+      "metadata": {}
+    },
+    {
+      "id": "microservices",
+      "title": "Microservices",
+      "description": "Service decomposition, Communication patterns",
+      "skills": ["Architecture"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Microservices Guide", "url": "https://microservices.io/" }
+      ],
+      "prerequisites": ["architectural-patterns"],
+      "metadata": {}
+    },
+    {
+      "id": "webpack",
+      "title": "Webpack",
+      "description": "Module bundler, Loaders, Plugins",
+      "skills": ["Tools"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Webpack Docs", "url": "https://webpack.js.org/concepts/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": {}
+    },
+    {
+      "id": "vite",
+      "title": "Vite",
+      "description": "Fast build tool, ESbuild, HMR",
+      "skills": ["Tools"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Vite Docs", "url": "https://vitejs.dev/guide/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": {}
+    },
+    {
+      "id": "jest",
+      "title": "Jest",
+      "description": "JavaScript testing, Mocks, Snapshots",
+      "skills": ["Testing"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Jest Docs", "url": "https://jestjs.io/docs/getting-started" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": {}
+    },
+    {
+      "id": "cypress",
+      "title": "Cypress",
+      "description": "E2E testing, Real browsers, Time-travel",
+      "skills": ["Testing"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Cypress Docs", "url": "https://docs.cypress.io/" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": {}
+    },
+    {
+      "id": "playwright",
+      "title": "Playwright",
+      "description": "Cross-browser testing, Automation",
+      "skills": ["Testing"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Playwright Docs", "url": "https://playwright.dev/" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": {}
+    },
+    {
+      "id": "swiftui",
+      "title": "SwiftUI",
+      "description": "Declarative UI, Views, State management",
+      "skills": ["Mobile"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "SwiftUI Docs", "url": "https://developer.apple.com/xcode/swiftui/" }
+      ],
+      "prerequisites": ["swift"],
+      "metadata": {}
+    },
+    {
+      "id": "uikit",
+      "title": "UIKit",
+      "description": "iOS UI framework, View controllers, Storyboards",
+      "skills": ["Mobile"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "UIKit Docs", "url": "https://developer.apple.com/documentation/uikit" }
+      ],
+      "prerequisites": ["swift"],
+      "metadata": {}
+    },
+    {
+      "id": "core-data",
+      "title": "Core Data",
+      "description": "iOS persistence, Object graph management",
+      "skills": ["Mobile"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Core Data Docs", "url": "https://developer.apple.com/documentation/coredata" }
+      ],
+      "prerequisites": ["ios-sdk"],
+      "metadata": {}
+    },
+    {
+      "id": "jetpack-compose",
+      "title": "Jetpack Compose",
+      "description": "Modern Android UI, Composables, State",
+      "skills": ["Mobile"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Compose Docs", "url": "https://developer.android.com/jetpack/compose" }
+      ],
+      "prerequisites": ["kotlin"],
+      "metadata": {}
+    },
+    {
+      "id": "android-architecture",
+      "title": "Android Architecture",
+      "description": "MVVM, MVI, Clean Architecture",
+      "skills": ["Mobile"],
+      "xp": 160,
+      "estimatedMinutes": 100,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Android Architecture", "url": "https://developer.android.com/topic/architecture" }
+      ],
+      "prerequisites": ["android-sdk"],
+      "metadata": {}
+    },
+    {
+      "id": "room",
+      "title": "Room Database",
+      "description": "SQLite wrapper, DAO, Entities",
+      "skills": ["Mobile"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Room Docs", "url": "https://developer.android.com/training/data-storage/room" }
+      ],
+      "prerequisites": ["android-sdk"],
+      "metadata": {}
+    },
+    {
+      "id": "retrofit",
+      "title": "Retrofit",
+      "description": "HTTP client, Type-safe APIs",
+      "skills": ["Mobile"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Retrofit Docs", "url": "https://square.github.io/retrofit/" }
+      ],
+      "prerequisites": ["android-sdk"],
+      "metadata": {}
+    },
+    {
+      "id": "dagger-hilt",
+      "title": "Dagger Hilt",
+      "description": "Dependency injection for Android",
+      "skills": ["Mobile"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Hilt Docs", "url": "https://developer.android.com/training/dependency-injection/hilt-android" }
+      ],
+      "prerequisites": ["android-architecture"],
+      "metadata": {}
+    },
+    {
+      "id": "coroutines",
+      "title": "Kotlin Coroutines",
+      "description": "Async programming, Suspend functions",
+      "skills": ["Mobile"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Coroutines Guide", "url": "https://kotlinlang.org/docs/coroutines-guide.html" }
+      ],
+      "prerequisites": ["kotlin"],
+      "metadata": {}
+    },
+    {
+      "id": "firebase",
+      "title": "Firebase",
+      "description": "Backend services, Firestore, Auth, Analytics",
+      "skills": ["Mobile"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Firebase Docs", "url": "https://firebase.google.com/docs" }
+      ],
+      "prerequisites": ["android-sdk"],
+      "metadata": {}
+    },
+    {
+      "id": "scikit-learn",
+      "title": "Scikit-learn",
+      "description": "ML library, Algorithms, Model selection",
+      "skills": ["ML"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Scikit-learn Docs", "url": "https://scikit-learn.org/stable/" }
+      ],
+      "prerequisites": ["pandas-numpy"],
+      "metadata": {}
+    },
+    {
+      "id": "tensorflow",
+      "title": "TensorFlow",
+      "description": "Deep learning framework, Keras API",
+      "skills": ["ML"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "TensorFlow Docs", "url": "https://www.tensorflow.org/learn" }
+      ],
+      "prerequisites": ["deep-learning"],
+      "metadata": {}
+    },
+    {
+      "id": "pytorch",
+      "title": "PyTorch",
+      "description": "Deep learning, Dynamic computation graphs",
+      "skills": ["ML"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PyTorch Docs", "url": "https://pytorch.org/docs/" }
+      ],
+      "prerequisites": ["deep-learning"],
+      "metadata": {}
+    },
+    {
+      "id": "airflow",
+      "title": "Apache Airflow",
+      "description": "Workflow orchestration, DAGs, Scheduling",
+      "skills": ["Data Engineering"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Airflow Docs", "url": "https://airflow.apache.org/docs/" }
+      ],
+      "prerequisites": ["etl"],
+      "metadata": {}
+    },
+    {
+      "id": "spark-pyspark",
+      "title": "Apache Spark / PySpark",
+      "description": "Distributed data processing, RDD, DataFrames",
+      "skills": ["Data Engineering"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Spark Docs", "url": "https://spark.apache.org/docs/latest/" }
+      ],
+      "prerequisites": ["spark"],
+      "metadata": {}
+    },
+    {
+      "id": "tableau",
+      "title": "Tableau",
+      "description": "Data visualization, Dashboards",
+      "skills": ["Data Visualization"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Tableau Learn", "url": "https://www.tableau.com/learn" }
+      ],
+      "prerequisites": ["data-visualization"],
+      "metadata": {}
+    },
+    {
+      "id": "power-bi",
+      "title": "Power BI",
+      "description": "Business intelligence, Reports, DAX",
+      "skills": ["Data Visualization"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Power BI Docs", "url": "https://docs.microsoft.com/power-bi/" }
+      ],
+      "prerequisites": ["data-visualization"],
+      "metadata": {}
+    },
+    {
+      "id": "matplotlib",
+      "title": "Matplotlib",
+      "description": "Python plotting, Charts, Visualization",
+      "skills": ["Data Visualization"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Matplotlib Docs", "url": "https://matplotlib.org/stable/contents.html" }
+      ],
+      "prerequisites": ["pandas-numpy"],
+      "metadata": {}
+    },
+    {
+      "id": "seaborn",
+      "title": "Seaborn",
+      "description": "Statistical visualizations, Built on Matplotlib",
+      "skills": ["Data Visualization"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Seaborn Docs", "url": "https://seaborn.pydata.org/" }
+      ],
+      "prerequisites": ["matplotlib"],
+      "metadata": {}
+    },
+    {
+      "id": "ethereum",
+      "title": "Ethereum",
+      "description": "Blockchain platform, Smart contracts, EVM",
+      "skills": ["Blockchain"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Ethereum Docs", "url": "https://ethereum.org/en/developers/docs/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "hardhat",
+      "title": "Hardhat",
+      "description": "Ethereum development environment, Testing, Deployment",
+      "skills": ["Blockchain"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Hardhat Docs", "url": "https://hardhat.org/getting-started/" }
+      ],
+      "prerequisites": ["ethereum", "solidity"],
+      "metadata": {}
+    },
+    {
+      "id": "truffle",
+      "title": "Truffle",
+      "description": "Smart contract development framework",
+      "skills": ["Blockchain"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Truffle Docs", "url": "https://trufflesuite.com/docs/" }
+      ],
+      "prerequisites": ["ethereum", "solidity"],
+      "metadata": {}
+    },
+    {
+      "id": "chainlink",
+      "title": "Chainlink Oracles",
+      "description": "Decentralized oracles, External data",
+      "skills": ["Blockchain"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Chainlink Docs", "url": "https://docs.chain.link/" }
+      ],
+      "prerequisites": ["solidity"],
+      "metadata": {}
+    },
+    {
+      "id": "defi",
+      "title": "DeFi Concepts",
+      "description": "DEXs, Lending, Yield farming, Liquidity pools",
+      "skills": ["Blockchain"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "DeFi Guide", "url": "https://ethereum.org/en/defi/" }
+      ],
+      "prerequisites": ["ethereum"],
+      "metadata": {}
+    },
+    {
+      "id": "nft",
+      "title": "NFTs",
+      "description": "ERC-721, ERC-1155, Metadata, Marketplaces",
+      "skills": ["Blockchain"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "NFT Guide", "url": "https://ethereum.org/en/nft/" }
+      ],
+      "prerequisites": ["solidity"],
+      "metadata": {}
+    },
+    {
+      "id": "networking-basics",
+      "title": "Networking Fundamentals",
+      "description": "OSI Model, TCP/IP, DNS, HTTP/HTTPS",
+      "skills": ["Security"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Networking Guide", "url": "https://roadmap.sh/cyber-security" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "cryptography",
+      "title": "Cryptography",
+      "description": "Encryption, Hashing, Digital signatures",
+      "skills": ["Security"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Cryptography Basics", "url": "https://roadmap.sh/cyber-security" }
+      ],
+      "prerequisites": ["networking-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "owasp-top10",
+      "title": "OWASP Top 10",
+      "description": "Web vulnerabilities, Injection, XSS, CSRF",
+      "skills": ["Security"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "OWASP Top 10", "url": "https://owasp.org/www-project-top-ten/" }
+      ],
+      "prerequisites": ["web-security"],
+      "metadata": {}
+    },
+    {
+      "id": "burp-suite",
+      "title": "Burp Suite",
+      "description": "Web vulnerability scanner, Proxy, Penetration testing",
+      "skills": ["Security"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Burp Suite Docs", "url": "https://portswigger.net/burp/documentation" }
+      ],
+      "prerequisites": ["penetration-testing"],
+      "metadata": {}
+    },
+    {
+      "id": "metasploit",
+      "title": "Metasploit",
+      "description": "Penetration testing framework, Exploits",
+      "skills": ["Security"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Metasploit Docs", "url": "https://docs.metasploit.com/" }
+      ],
+      "prerequisites": ["penetration-testing"],
+      "metadata": {}
+    },
+    {
+      "id": "wireshark",
+      "title": "Wireshark",
+      "description": "Network protocol analyzer, Packet inspection",
+      "skills": ["Security"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Wireshark Docs", "url": "https://www.wireshark.org/docs/" }
+      ],
+      "prerequisites": ["networking-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "wireframing",
+      "title": "Wireframing",
+      "description": "Lo-fi prototypes, Layout planning",
+      "skills": ["Design"],
+      "xp": 80,
+      "estimatedMinutes": 50,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Wireframing Guide", "url": "https://roadmap.sh/ux-design" }
+      ],
+      "prerequisites": ["figma"],
+      "metadata": {}
+    },
+    {
+      "id": "prototyping",
+      "title": "Prototyping",
+      "description": "Interactive mockups, User testing",
+      "skills": ["Design"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Prototyping Guide", "url": "https://roadmap.sh/ux-design" }
+      ],
+      "prerequisites": ["wireframing"],
+      "metadata": {}
+    },
+    {
+      "id": "usability-testing",
+      "title": "Usability Testing",
+      "description": "User testing, Feedback analysis",
+      "skills": ["Design"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Usability Testing", "url": "https://roadmap.sh/ux-design" }
+      ],
+      "prerequisites": ["user-research"],
+      "metadata": {}
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility (a11y)",
+      "description": "WCAG, Screen readers, ARIA",
+      "skills": ["Design"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Web Accessibility", "url": "https://www.w3.org/WAI/" }
+      ],
+      "prerequisites": ["html"],
+      "metadata": {}
+    },
+    {
+      "id": "responsive-design",
+      "title": "Responsive Design",
+      "description": "Mobile-first, Breakpoints, Media queries",
+      "skills": ["Design"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Responsive Web Design", "url": "https://web.dev/responsive-web-design-basics/" }
+      ],
+      "prerequisites": ["css"],
+      "metadata": {}
+    },
+    {
+      "id": "manual-testing",
+      "title": "Manual Testing",
+      "description": "Test cases, Bug reporting, Exploratory testing",
+      "skills": ["Testing"],
+      "xp": 90,
+      "estimatedMinutes": 55,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Manual Testing Guide", "url": "https://roadmap.sh/qa" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "api-testing",
+      "title": "API Testing",
+      "description": "Postman, REST Assured, API validation",
+      "skills": ["Testing"],
+      "xp": 110,
+      "estimatedMinutes": 70,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "API Testing", "url": "https://roadmap.sh/qa" }
+      ],
+      "prerequisites": ["rest-api"],
+      "metadata": {}
+    },
+    {
+      "id": "performance-testing",
+      "title": "Performance Testing",
+      "description": "Load testing, Stress testing, JMeter",
+      "skills": ["Testing"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Performance Testing", "url": "https://roadmap.sh/qa" }
+      ],
+      "prerequisites": ["manual-testing"],
+      "metadata": {}
+    },
+    {
+      "id": "security-testing",
+      "title": "Security Testing",
+      "description": "Vulnerability scanning, Security audits",
+      "skills": ["Testing"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Security Testing", "url": "https://roadmap.sh/qa" }
+      ],
+      "prerequisites": ["owasp-top10"],
+      "metadata": {}
+    },
+    {
+      "id": "unreal-engine",
+      "title": "Unreal Engine",
+      "description": "Game engine, Blueprints, C++",
+      "skills": ["Game Dev"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Unreal Docs", "url": "https://docs.unrealengine.com/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "godot",
+      "title": "Godot Engine",
+      "description": "Open-source game engine, GDScript",
+      "skills": ["Game Dev"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Godot Docs", "url": "https://docs.godotengine.org/" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "game-physics",
+      "title": "Game Physics",
+      "description": "Collision detection, Rigid bodies, Forces",
+      "skills": ["Game Dev"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Game Physics", "url": "https://roadmap.sh/game-developer" }
+      ],
+      "prerequisites": ["unity"],
+      "metadata": {}
+    },
+    {
+      "id": "game-math",
+      "title": "Game Mathematics",
+      "description": "Vectors, Matrices, Quaternions, Linear algebra",
+      "skills": ["Game Dev"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Game Math", "url": "https://roadmap.sh/game-developer" }
+      ],
+      "prerequisites": ["unity"],
+      "metadata": {}
+    },
+    {
+      "id": "shader-programming",
+      "title": "Shader Programming",
+      "description": "GLSL, HLSL, Vertex/Fragment shaders",
+      "skills": ["Game Dev"],
+      "xp": 160,
+      "estimatedMinutes": 105,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Shader Programming", "url": "https://roadmap.sh/game-developer" }
+      ],
+      "prerequisites": ["unity"],
+      "metadata": {}
+    },
+    {
+      "id": "statistics",
+      "title": "Statistics",
+      "description": "Descriptive stats, Probability, Hypothesis testing",
+      "skills": ["Data Science"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Statistics Guide", "url": "https://roadmap.sh/data-analyst" }
+      ],
+      "prerequisites": ["pandas-numpy"],
+      "metadata": {}
+    },
+    {
+      "id": "excel",
+      "title": "Excel",
+      "description": "Pivot tables, VLOOKUP, Charts, Formulas",
+      "skills": ["Data Science"],
+      "xp": 80,
+      "estimatedMinutes": 50,
+      "difficulty": "Basic",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Excel Guide", "url": "https://roadmap.sh/data-analyst" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": {}
+    },
+    {
+      "id": "r-programming",
+      "title": "R Programming",
+      "description": "Data analysis language, ggplot2, dplyr",
+      "skills": ["Data Science"],
+      "xp": 130,
+      "estimatedMinutes": 85,
+      "difficulty": "Intermediate",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "R Documentation", "url": "https://www.r-project.org/other-docs.html" }
+      ],
+      "prerequisites": ["statistics"],
+      "metadata": {}
+    },
+    {
+      "id": "linear-algebra",
+      "title": "Linear Algebra",
+      "description": "Vectors, Matrices, Eigenvalues, Transformations",
+      "skills": ["ML"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Linear Algebra for ML", "url": "https://roadmap.sh/ai-data-scientist" }
+      ],
+      "prerequisites": ["python-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "calculus",
+      "title": "Calculus",
+      "description": "Derivatives, Gradients, Optimization",
+      "skills": ["ML"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Calculus for ML", "url": "https://roadmap.sh/ai-data-scientist" }
+      ],
+      "prerequisites": ["python-basics"],
+      "metadata": {}
+    },
+    {
+      "id": "nlp",
+      "title": "Natural Language Processing",
+      "description": "Text processing, Transformers, BERT, GPT",
+      "skills": ["ML"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "NLP Guide", "url": "https://roadmap.sh/ai-data-scientist" }
+      ],
+      "prerequisites": ["deep-learning"],
+      "metadata": {}
+    },
+    {
+      "id": "computer-vision",
+      "title": "Computer Vision",
+      "description": "Image processing, CNNs, Object detection",
+      "skills": ["ML"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Computer Vision", "url": "https://roadmap.sh/ai-data-scientist" }
+      ],
+      "prerequisites": ["deep-learning"],
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    { "source": "internet", "target": "html" },
+    { "source": "html", "target": "css" },
+    { "source": "css", "target": "javascript" },
+    { "source": "css", "target": "css-frameworks" },
+    { "source": "css", "target": "responsive-design" },
+    { "source": "html", "target": "accessibility" },
+    { "source": "javascript", "target": "typescript" },
+    { "source": "javascript", "target": "vcs" },
+    { "source": "javascript", "target": "package-managers" },
+    { "source": "javascript", "target": "nodejs" },
+    { "source": "vcs", "target": "hosting" },
+    { "source": "vcs", "target": "github-actions" },
+    { "source": "hosting", "target": "package-managers" },
+    { "source": "package-managers", "target": "css-frameworks" },
+    { "source": "package-managers", "target": "webpack" },
+    { "source": "package-managers", "target": "vite" },
+    { "source": "package-managers", "target": "react" },
+    { "source": "package-managers", "target": "vue" },
+    { "source": "package-managers", "target": "angular" },
+    { "source": "react", "target": "react-hooks" },
+    { "source": "react", "target": "react-router" },
+    { "source": "react-hooks", "target": "state-management" },
+    { "source": "state-management", "target": "api-calls" },
+    { "source": "api-calls", "target": "testing" },
+    { "source": "testing", "target": "jest" },
+    { "source": "testing", "target": "cypress" },
+    { "source": "testing", "target": "playwright" },
+    { "source": "react-router", "target": "nextjs" },
+    { "source": "nextjs", "target": "testing" },
+    { "source": "vue", "target": "nuxt" },
+    { "source": "nuxt", "target": "testing" },
+    { "source": "angular", "target": "testing" },
+    { "source": "testing", "target": "web-security" },
+    { "source": "web-security", "target": "owasp-top10" },
+    { "source": "web-security", "target": "web-components" },
+    { "source": "web-security", "target": "pwa" },
+    { "source": "web-components", "target": "pwa" },
+    { "source": "nodejs", "target": "rest-api" },
+    { "source": "nodejs", "target": "databases" },
+    { "source": "nodejs", "target": "apis" },
+    { "source": "rest-api", "target": "graphql-api" },
+    { "source": "rest-api", "target": "jwt-auth" },
+    { "source": "jwt-auth", "target": "oauth" },
+    { "source": "databases", "target": "sql" },
+    { "source": "sql", "target": "postgresql" },
+    { "source": "databases", "target": "mongodb" },
+    { "source": "databases", "target": "redis" },
+    { "source": "databases", "target": "nosql" },
+    { "source": "databases", "target": "orms" },
+    { "source": "nosql", "target": "caching" },
+    { "source": "redis", "target": "caching" },
+    { "source": "orms", "target": "apis" },
+    { "source": "apis", "target": "graphql" },
+    { "source": "apis", "target": "auth" },
+    { "source": "apis", "target": "message-brokers" },
+    { "source": "message-brokers", "target": "rabbitmq" },
+    { "source": "message-brokers", "target": "kafka" },
+    { "source": "graphql", "target": "testing-backend" },
+    { "source": "auth", "target": "testing-backend" },
+    { "source": "auth", "target": "devops" },
+    { "source": "caching", "target": "web-servers" },
+    { "source": "web-servers", "target": "nginx" },
+    { "source": "testing-backend", "target": "ci-cd" },
+    { "source": "web-servers", "target": "ci-cd" },
+    { "source": "ci-cd", "target": "jenkins" },
+    { "source": "ci-cd", "target": "github-actions" },
+    { "source": "devops", "target": "ci-cd" },
+    { "source": "devops", "target": "docker" },
+    { "source": "ci-cd", "target": "docker" },
+    { "source": "docker", "target": "kubernetes" },
+    { "source": "ci-cd", "target": "monitoring" },
+    { "source": "monitoring", "target": "prometheus" },
+    { "source": "prometheus", "target": "grafana" },
+    { "source": "docker", "target": "aws" },
+    { "source": "docker", "target": "monitoring" },
+    { "source": "aws", "target": "aws-ec2" },
+    { "source": "aws", "target": "aws-s3" },
+    { "source": "aws", "target": "monitoring" },
+    { "source": "aws", "target": "infrastructure" },
+    { "source": "infrastructure", "target": "terraform" },
+    { "source": "infrastructure", "target": "ansible" },
+    { "source": "monitoring", "target": "infrastructure" },
+    { "source": "message-brokers", "target": "architectural-patterns" },
+    { "source": "architectural-patterns", "target": "microservices" },
+    { "source": "internet", "target": "python-basics" },
+    { "source": "python-basics", "target": "pandas-numpy" },
+    { "source": "pandas-numpy", "target": "matplotlib" },
+    { "source": "matplotlib", "target": "seaborn" },
+    { "source": "pandas-numpy", "target": "statistics" },
+    { "source": "statistics", "target": "r-programming" },
+    { "source": "pandas-numpy", "target": "data-visualization" },
+    { "source": "data-visualization", "target": "tableau" },
+    { "source": "data-visualization", "target": "power-bi" },
+    { "source": "python-basics", "target": "data-structures" },
+    { "source": "data-structures", "target": "algorithms" },
+    { "source": "python-basics", "target": "linear-algebra" },
+    { "source": "python-basics", "target": "calculus" },
+    { "source": "pandas-numpy", "target": "ml-basics" },
+    { "source": "ml-basics", "target": "scikit-learn" },
+    { "source": "ml-basics", "target": "deep-learning" },
+    { "source": "deep-learning", "target": "tensorflow" },
+    { "source": "deep-learning", "target": "pytorch" },
+    { "source": "deep-learning", "target": "nlp" },
+    { "source": "deep-learning", "target": "computer-vision" },
+    { "source": "ml-basics", "target": "mlflow" },
+    { "source": "pandas-numpy", "target": "etl" },
+    { "source": "etl", "target": "spark" },
+    { "source": "spark", "target": "spark-pyspark" },
+    { "source": "etl", "target": "airflow" },
+    { "source": "internet", "target": "kotlin" },
+    { "source": "kotlin", "target": "android-sdk" },
+    { "source": "android-sdk", "target": "jetpack-compose" },
+    { "source": "android-sdk", "target": "android-architecture" },
+    { "source": "android-sdk", "target": "room" },
+    { "source": "android-sdk", "target": "retrofit" },
+    { "source": "android-architecture", "target": "dagger-hilt" },
+    { "source": "kotlin", "target": "coroutines" },
+    { "source": "android-sdk", "target": "firebase" },
+    { "source": "internet", "target": "swift" },
+    { "source": "swift", "target": "swiftui" },
+    { "source": "swift", "target": "uikit" },
+    { "source": "swift", "target": "ios-sdk" },
+    { "source": "ios-sdk", "target": "core-data" },
+    { "source": "internet", "target": "networking-basics" },
+    { "source": "networking-basics", "target": "cryptography" },
+    { "source": "networking-basics", "target": "network-security" },
+    { "source": "network-security", "target": "penetration-testing" },
+    { "source": "penetration-testing", "target": "burp-suite" },
+    { "source": "penetration-testing", "target": "metasploit" },
+    { "source": "networking-basics", "target": "wireshark" },
+    { "source": "internet", "target": "ethereum" },
+    { "source": "ethereum", "target": "solidity" },
+    { "source": "solidity", "target": "hardhat" },
+    { "source": "solidity", "target": "truffle" },
+    { "source": "solidity", "target": "chainlink" },
+    { "source": "solidity", "target": "nft" },
+    { "source": "ethereum", "target": "defi" },
+    { "source": "solidity", "target": "web3" },
+    { "source": "internet", "target": "figma" },
+    { "source": "figma", "target": "wireframing" },
+    { "source": "wireframing", "target": "prototyping" },
+    { "source": "figma", "target": "design-systems" },
+    { "source": "internet", "target": "user-research" },
+    { "source": "user-research", "target": "usability-testing" },
+    { "source": "internet", "target": "excel" },
+    { "source": "internet", "target": "manual-testing" },
+    { "source": "manual-testing", "target": "testing" },
+    { "source": "testing", "target": "selenium" },
+    { "source": "selenium", "target": "test-automation" },
+    { "source": "rest-api", "target": "api-testing" },
+    { "source": "manual-testing", "target": "performance-testing" },
+    { "source": "owasp-top10", "target": "security-testing" },
+    { "source": "internet", "target": "unity" },
+    { "source": "unity", "target": "game-design" },
+    { "source": "unity", "target": "game-physics" },
+    { "source": "unity", "target": "game-math" },
+    { "source": "unity", "target": "shader-programming" },
+    { "source": "internet", "target": "unreal-engine" },
+    { "source": "internet", "target": "godot" }
+  ],
+  "careers": [
+    {
+      "id": "frontend",
+      "title": "Frontend Developer",
+      "icon": "🎨",
+      "description": "Master UI/UX development",
+      "relevantSkills": ["HTML", "CSS", "JavaScript", "React"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "typescript", "vcs", "hosting", "package-managers", "css-frameworks", "responsive-design", "accessibility", "webpack", "vite", "react", "react-hooks", "react-router", "state-management", "api-calls", "nextjs", "vue", "nuxt", "angular", "testing", "jest", "cypress", "playwright", "web-security", "owasp-top10", "web-components", "pwa"]
+    },
+    {
+      "id": "backend",
+      "title": "Backend Developer",
+      "icon": "🗄️",
+      "description": "Server-side systems and APIs",
+      "relevantSkills": ["Node", "Databases", "APIs"],
+      "roadmapNodes": ["internet", "javascript", "typescript", "vcs", "package-managers", "nodejs", "python-basics", "sql", "databases", "postgresql", "mongodb", "redis", "orms", "nosql", "rest-api", "graphql-api", "api-design", "jwt-auth", "oauth", "caching", "rabbitmq", "kafka", "testing-backend", "nginx", "message-brokers", "microservices", "architectural-patterns", "devops", "ci-cd", "jenkins", "github-actions", "docker", "kubernetes", "prometheus", "grafana", "monitoring", "aws", "aws-ec2", "aws-s3", "terraform", "ansible", "infrastructure"]
+    },
+    {
+      "id": "fullstack",
+      "title": "Full-Stack Developer",
+      "icon": "⚡",
+      "description": "Frontend + Backend mastery",
+      "relevantSkills": ["HTML", "CSS", "JavaScript", "React", "Node"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "typescript", "vcs", "package-managers", "css-frameworks", "react", "react-hooks", "react-router", "state-management", "api-calls", "nextjs", "nodejs", "sql", "databases", "postgresql", "mongodb", "nosql", "orms", "redis", "rest-api", "graphql-api", "jwt-auth", "oauth", "caching", "testing", "testing-backend", "web-security", "nginx", "ci-cd", "github-actions", "docker", "aws", "aws-ec2", "aws-s3", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps Engineer",
+      "icon": "⚙️",
+      "description": "CI/CD, infra and deployments",
+      "relevantSkills": ["Docker", "CI/CD", "Cloud"],
+      "roadmapNodes": ["internet", "linux", "vcs", "package-managers", "nodejs", "python-basics", "networking-basics", "sql", "databases", "testing-backend", "ci-cd", "jenkins", "github-actions", "docker", "kubernetes", "nginx", "prometheus", "grafana", "monitoring", "aws", "aws-ec2", "aws-s3", "terraform", "ansible", "infrastructure", "devops", "message-brokers", "rabbitmq", "kafka"]
+    },
+    {
+      "id": "cloud-engineer",
+      "title": "Cloud Engineer",
+      "icon": "☁️",
+      "description": "Cloud platforms and services (AWS/GCP/Azure)",
+      "relevantSkills": ["Cloud", "Infrastructure"],
+      "roadmapNodes": ["internet", "linux", "vcs", "networking-basics", "docker", "kubernetes", "aws", "aws-ec2", "aws-s3", "terraform", "ansible", "infrastructure", "monitoring", "prometheus", "grafana", "ci-cd", "github-actions", "nginx"]
+    },
+    {
+      "id": "aiml",
+      "title": "AI / Machine Learning Engineer",
+      "icon": "🤖",
+      "description": "Machine learning and AI",
+      "relevantSkills": ["Python", "DSA", "ML"],
+      "roadmapNodes": ["internet", "python-basics", "data-structures", "algorithms", "pandas-numpy", "statistics", "linear-algebra", "calculus", "ml-basics", "scikit-learn", "deep-learning", "tensorflow", "pytorch", "nlp", "computer-vision", "databases", "sql", "postgresql", "rest-api", "docker", "testing-backend", "aws", "monitoring", "mlflow"]
+    },
+    {
+      "id": "data-scientist",
+      "title": "Data Scientist",
+      "icon": "📈",
+      "description": "Modeling, statistics and insights",
+      "relevantSkills": ["Statistics", "ML", "Python"],
+      "roadmapNodes": ["internet", "python-basics", "pandas-numpy", "matplotlib", "seaborn", "data-visualization", "tableau", "power-bi", "statistics", "linear-algebra", "calculus", "ml-basics", "scikit-learn", "deep-learning", "tensorflow", "pytorch", "nlp", "computer-vision", "sql", "databases", "postgresql"]
+    },
+    {
+      "id": "data-engineer",
+      "title": "Data Engineer",
+      "icon": "🛠️",
+      "description": "Data pipelines and storage",
+      "relevantSkills": ["ETL", "Databases"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "sql", "databases", "postgresql", "mongodb", "redis", "nosql", "pandas-numpy", "etl", "spark", "spark-pyspark", "airflow", "rest-api", "kafka", "rabbitmq", "message-brokers", "architectural-patterns", "docker", "kubernetes", "ci-cd", "aws", "aws-s3", "terraform", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "mobile-app-developer",
+      "title": "Mobile App Developer",
+      "icon": "📱",
+      "description": "Android / iOS / Flutter / React Native",
+      "relevantSkills": ["Kotlin", "Swift", "React Native", "Flutter"],
+      "roadmapNodes": ["internet", "vcs", "kotlin", "android-sdk", "jetpack-compose", "android-architecture", "room", "retrofit", "coroutines", "dagger-hilt", "firebase", "swift", "swiftui", "uikit", "ios-sdk", "core-data", "rest-api", "jwt-auth", "testing", "manual-testing", "api-testing", "ci-cd", "github-actions"]
+    },
+    {
+      "id": "blockchain",
+      "title": "Blockchain Developer",
+      "icon": "⛓️",
+      "description": "Distributed ledgers and smart contracts",
+      "relevantSkills": ["Crypto", "Smart Contracts"],
+      "roadmapNodes": ["internet", "javascript", "typescript", "nodejs", "networking-basics", "cryptography", "ethereum", "solidity", "hardhat", "truffle", "web3", "chainlink", "defi", "nft", "rest-api", "jwt-auth", "web-security", "owasp-top10", "testing-backend", "security-testing", "docker", "ci-cd", "devops"]
+    },
+    {
+      "id": "cyber-security",
+      "title": "Cybersecurity Engineer",
+      "icon": "🔒",
+      "description": "Security, OWASP and hardening",
+      "relevantSkills": ["Security"],
+      "roadmapNodes": ["internet", "linux", "networking-basics", "cryptography", "network-security", "web-security", "owasp-top10", "burp-suite", "metasploit", "wireshark", "penetration-testing", "manual-testing", "security-testing", "testing-backend", "nginx", "docker", "kubernetes", "prometheus", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "pentester",
+      "title": "Ethical Hacker / Pentester",
+      "icon": "🕵️",
+      "description": "Offensive security and penetration testing",
+      "relevantSkills": ["Penetration Testing", "Tools"],
+      "roadmapNodes": ["internet", "linux", "networking-basics", "cryptography", "network-security", "web-security", "owasp-top10", "burp-suite", "metasploit", "wireshark", "penetration-testing", "manual-testing", "security-testing"]
+    },
+    {
+      "id": "ux-design",
+      "title": "Product Designer (UI/UX)",
+      "icon": "🖌️",
+      "description": "User experience and design systems",
+      "relevantSkills": ["Design", "Figma"],
+      "roadmapNodes": ["internet", "figma", "wireframing", "prototyping", "user-research", "usability-testing", "design-systems", "accessibility", "html", "css", "responsive-design", "css-frameworks", "javascript", "react", "web-components", "testing", "manual-testing"]
+    },
+    {
+      "id": "software-architect",
+      "title": "Software Architect",
+      "icon": "🏗️",
+      "description": "System architecture and high-level design",
+      "relevantSkills": ["Architecture", "Design Patterns"],
+      "roadmapNodes": ["internet", "data-structures", "algorithms", "system-design", "architectural-patterns", "microservices", "message-brokers", "kafka", "rabbitmq", "databases", "postgresql", "mongodb", "redis", "caching", "rest-api", "graphql-api", "docker", "kubernetes", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "qa",
+      "title": "QA Engineer / Automation Tester",
+      "icon": "🧪",
+      "description": "Testing and quality assurance",
+      "relevantSkills": ["Testing", "Automation"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "vcs", "manual-testing", "testing", "selenium", "cypress", "playwright", "jest", "test-automation", "api-testing", "performance-testing", "security-testing", "testing-backend", "rest-api", "graphql-api", "databases", "ci-cd", "github-actions", "docker", "monitoring"]
+    },
+    {
+      "id": "game-dev",
+      "title": "Game Developer",
+      "icon": "🎮",
+      "description": "Game development basics",
+      "relevantSkills": ["Game Dev"],
+      "roadmapNodes": ["internet", "vcs", "data-structures", "algorithms", "unity", "unreal-engine", "godot", "game-design", "game-physics", "game-math", "shader-programming", "testing", "manual-testing", "ci-cd"]
+    },
+    {
+      "id": "system-design",
+      "title": "System Design Engineer",
+      "icon": "🧩",
+      "description": "Large-scale system design and tradeoffs",
+      "relevantSkills": ["System Design", "Scalability"],
+      "roadmapNodes": ["internet", "data-structures", "algorithms", "system-design", "architectural-patterns", "microservices", "message-brokers", "kafka", "rabbitmq", "databases", "postgresql", "mongodb", "redis", "caching", "rest-api", "docker", "kubernetes", "monitoring"]
+    },
+    {
+      "id": "db-engineer",
+      "title": "Database Administrator / Engineer",
+      "icon": "🗃️",
+      "description": "Databases, replication and tuning",
+      "relevantSkills": ["SQL", "NoSQL"],
+      "roadmapNodes": ["internet", "sql", "databases", "postgresql", "mongodb", "redis", "nosql", "orms", "caching", "data-structures", "algorithms", "linux", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "sre",
+      "title": "Site Reliability Engineer (SRE)",
+      "icon": "🔧",
+      "description": "Reliability, SLIs/SLOs, incident response",
+      "relevantSkills": ["Monitoring", "Reliability"],
+      "roadmapNodes": ["internet", "linux", "vcs", "networking-basics", "docker", "kubernetes", "prometheus", "grafana", "monitoring", "ci-cd", "github-actions", "terraform", "ansible", "infrastructure", "nginx", "aws"]
+    },
+    {
+      "id": "api-developer",
+      "title": "API Developer",
+      "icon": "🔗",
+      "description": "Design and implement APIs (REST/GraphQL)",
+      "relevantSkills": ["API Design", "Security"],
+      "roadmapNodes": ["internet", "javascript", "typescript", "nodejs", "databases", "sql", "postgresql", "mongodb", "apis", "rest-api", "graphql-api", "api-design", "jwt-auth", "oauth", "web-security", "owasp-top10", "testing-backend", "api-testing", "docker", "ci-cd"]
+    },
+    {
+      "id": "prompt-engineer",
+      "title": "Prompt Engineer",
+      "icon": "💬",
+      "description": "Prompting techniques and LLM prompt design",
+      "relevantSkills": ["LLMs", "Prompting"],
+      "roadmapNodes": ["internet", "python-basics", "javascript", "nodejs", "rest-api", "apis", "nlp", "ml-basics", "testing"]
+    },
+    {
+      "id": "ai-app-developer",
+      "title": "AI Application Developer (LLM Integrations)",
+      "icon": "🤖💻",
+      "description": "Build apps integrating LLMs and AI services",
+      "relevantSkills": ["LLMs", "APIs"],
+      "roadmapNodes": ["internet", "python-basics", "javascript", "typescript", "nodejs", "rest-api", "apis", "jwt-auth", "nlp", "ml-basics", "databases", "postgresql", "docker", "ci-cd", "aws"]
+    },
+    {
+      "id": "big-data-engineer",
+      "title": "Big Data Engineer",
+      "icon": "🧮",
+      "description": "Spark / Hadoop / Big Data ecosystems",
+      "relevantSkills": ["Spark", "Hadoop"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "sql", "databases", "postgresql", "mongodb", "nosql", "pandas-numpy", "etl", "spark", "spark-pyspark", "hadoop", "airflow", "kafka", "message-brokers", "docker", "kubernetes", "aws", "aws-s3", "terraform", "monitoring"]
+    },
+    {
+      "id": "cloud-security-engineer",
+      "title": "Cloud Security Engineer",
+      "icon": "🛡️",
+      "description": "Security in cloud platforms and infrastructure",
+      "relevantSkills": ["Cloud Security", "IAM"],
+      "roadmapNodes": ["internet", "linux", "networking-basics", "cryptography", "network-security", "web-security", "owasp-top10", "docker", "kubernetes", "aws", "terraform", "monitoring", "infrastructure", "penetration-testing", "security-testing"]
+    },
+    {
+      "id": "mlops",
+      "title": "MLOps",
+      "icon": "🤖",
+      "description": "Machine learning operations",
+      "relevantSkills": ["ML", "DevOps"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "pandas-numpy", "statistics", "ml-basics", "scikit-learn", "deep-learning", "tensorflow", "pytorch", "mlflow", "airflow", "docker", "kubernetes", "ci-cd", "github-actions", "testing-backend", "aws", "aws-s3", "terraform", "prometheus", "monitoring", "infrastructure", "devops"]
+    },
+    {
+      "id": "ai-automation-engineer",
+      "title": "AI Automation Engineer",
+      "icon": "🔄",
+      "description": "Zapier, n8n, AI agents, workflows automation",
+      "relevantSkills": ["Automation", "AI Agents", "Workflows"],
+      "roadmapNodes": ["internet", "python-basics", "javascript", "nodejs", "rest-api", "apis", "jwt-auth", "oauth", "databases", "postgresql", "mongodb", "nosql", "nlp", "ml-basics", "docker", "ci-cd", "github-actions", "testing", "testing-backend"]
+    },
+    {
+      "id": "genai-agent-developer",
+      "title": "GenAI Agent Developer",
+      "icon": "🤖🧠",
+      "description": "AI agents (ReAct, LangGraph, CrewAI) build & deploy",
+      "relevantSkills": ["AI Agents", "LLMs", "Python"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "rest-api", "apis", "jwt-auth", "nlp", "ml-basics", "deep-learning", "tensorflow", "pytorch", "databases", "postgresql", "mongodb", "docker", "kubernetes", "ci-cd", "aws", "monitoring"]
+    },
+    {
+      "id": "llm-finetuning-engineer",
+      "title": "LLM Fine-Tuning Engineer",
+      "icon": "🎛️",
+      "description": "Custom GPT-style models fine-tune expert",
+      "relevantSkills": ["LLMs", "ML", "Python"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "pandas-numpy", "statistics", "linear-algebra", "calculus", "ml-basics", "scikit-learn", "deep-learning", "tensorflow", "pytorch", "nlp", "computer-vision", "databases", "sql", "postgresql", "rest-api", "docker", "kubernetes", "aws", "aws-s3", "monitoring", "mlflow"]
+    },
+    {
+      "id": "cyber-threat-analyst",
+      "title": "Cyber Threat Analyst",
+      "icon": "🛡️🔍",
+      "description": "Threat intel, malware analysis, SOC analysis",
+      "relevantSkills": ["Security", "Threat Intelligence"],
+      "roadmapNodes": ["internet", "linux", "networking-basics", "cryptography", "network-security", "web-security", "owasp-top10", "burp-suite", "metasploit", "wireshark", "penetration-testing", "manual-testing", "security-testing", "testing-backend", "nginx", "docker", "kubernetes", "prometheus", "monitoring", "infrastructure"]
+    },
+    {
+      "id": "edge-computing-engineer",
+      "title": "Edge Computing Engineer",
+      "icon": "📡",
+      "description": "AI on edge devices (CCTV AI, drones, IoT ML)",
+      "relevantSkills": ["IoT", "Edge AI", "ML"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "pandas-numpy", "ml-basics", "deep-learning", "tensorflow", "pytorch", "computer-vision", "linux", "networking-basics", "docker", "rest-api", "apis", "databases", "mongodb", "redis", "ci-cd", "monitoring"]
+    },
+    {
+      "id": "hardware-ai-integration",
+      "title": "Hardware + AI Integration Engineer",
+      "icon": "🤖⚙️",
+      "description": "Robotics + AI + sensors (humanoids, automation)",
+      "relevantSkills": ["Robotics", "AI", "Hardware"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "pandas-numpy", "ml-basics", "deep-learning", "tensorflow", "pytorch", "computer-vision", "linux", "networking-basics", "rest-api", "docker", "ci-cd", "testing"]
+    },
+    {
+      "id": "tech-evangelist",
+      "title": "Tech Evangelist / Developer Advocate",
+      "icon": "📢",
+      "description": "Company representation, dev community building",
+      "relevantSkills": ["Communication", "DevRel"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "vcs", "package-managers", "nodejs", "python-basics", "rest-api", "docker", "ci-cd", "github-actions", "testing"]
+    },
+    {
+      "id": "fintech-engineer",
+      "title": "FinTech Software Engineer",
+      "icon": "💳",
+      "description": "UPI, payment gateways, trading platforms, insurance tech",
+      "relevantSkills": ["Payments", "Security", "APIs"],
+      "roadmapNodes": ["internet", "javascript", "typescript", "vcs", "package-managers", "nodejs", "sql", "databases", "postgresql", "mongodb", "redis", "rest-api", "graphql-api", "api-design", "jwt-auth", "oauth", "caching", "web-security", "owasp-top10", "testing-backend", "api-testing", "docker", "kubernetes", "ci-cd", "github-actions", "monitoring", "aws"]
+    },
+    {
+      "id": "bioinformatics-engineer",
+      "title": "Bioinformatics Software Engineer",
+      "icon": "🧬",
+      "description": "AI + biology + genetics (big boom in US & India)",
+      "relevantSkills": ["Biology", "AI", "Python"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "pandas-numpy", "statistics", "linear-algebra", "ml-basics", "scikit-learn", "deep-learning", "tensorflow", "pytorch", "nlp", "databases", "sql", "postgresql", "mongodb", "rest-api", "docker", "ci-cd", "testing-backend", "monitoring"]
+    },
+    {
+      "id": "cloud-cost-optimization",
+      "title": "Cloud Cost Optimization Engineer",
+      "icon": "💰☁️",
+      "description": "Optimize companies' cloud costs specialist",
+      "relevantSkills": ["Cloud", "FinOps", "Infrastructure"],
+      "roadmapNodes": ["internet", "linux", "vcs", "networking-basics", "sql", "databases", "docker", "kubernetes", "aws", "aws-ec2", "aws-s3", "terraform", "ansible", "infrastructure", "monitoring", "prometheus", "grafana", "ci-cd", "github-actions"]
+    },
+    {
+      "id": "oss-engineer",
+      "title": "Open Source Maintainer / OSS Engineer",
+      "icon": "🌐",
+      "description": "Open-source tools/apps maintain + develop",
+      "relevantSkills": ["Git", "Collaboration"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "typescript", "vcs", "package-managers", "nodejs", "python-basics", "rest-api", "databases", "postgresql", "mongodb", "testing", "jest", "cypress", "ci-cd", "github-actions", "docker"]
+    },
+    {
+      "id": "ai-video-developer",
+      "title": "AI Video Developer",
+      "icon": "🎬",
+      "description": "AI video generation (Runway, Pika, Sora-style tools)",
+      "relevantSkills": ["AI", "Video", "ML"],
+      "roadmapNodes": ["internet", "python-basics", "vcs", "data-structures", "algorithms", "pandas-numpy", "ml-basics", "deep-learning", "tensorflow", "pytorch", "nlp", "computer-vision", "rest-api", "apis", "docker", "kubernetes", "ci-cd", "aws", "monitoring"]
+    }
+  ],
+  "skills": [
+    { "id": "html", "name": "HTML", "level": 85, "maxLevel": 100 },
+    { "id": "css", "name": "CSS", "level": 60, "maxLevel": 100 },
+    { "id": "javascript", "name": "JavaScript", "level": 40, "maxLevel": 100 },
+    { "id": "react", "name": "React", "level": 20, "maxLevel": 100 },
+    { "id": "python", "name": "Python", "level": 30, "maxLevel": 100 },
+    { "id": "dsa", "name": "DSA", "level": 25, "maxLevel": 100 }
+  ],
+  "badges": [
+    { "id": "html-beginner", "title": "HTML Beginner", "icon": "🏅", "unlocked": true },
+    { "id": "css-beginner", "title": "CSS Beginner", "icon": "🎨", "unlocked": false },
+    { "id": "js-beginner", "title": "JS Beginner", "icon": "⚡", "unlocked": false },
+    { "id": "react-beginner", "title": "React Beginner", "icon": "⚛️", "unlocked": false },
+    { "id": "responsive-master", "title": "Responsive Master", "icon": "📱", "unlocked": false },
+    { "id": "css-master", "title": "CSS Master", "icon": "🎭", "unlocked": false },
+    { "id": "state-master", "title": "State Master", "icon": "🗂️", "unlocked": false }
+  ]
+}
+

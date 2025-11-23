@@ -1,0 +1,394 @@
+{
+  "nodes": [
+    {
+      "id": "internet",
+      "title": "Internet",
+      "description": "How does the internet work? HTTP, DNS, Browsers",
+      "skills": ["Fundamentals"],
+      "xp": 50,
+      "estimatedMinutes": 30,
+      "difficulty": "Easy",
+      "status": "completed",
+      "resources": [
+        { "type": "article", "title": "How Internet Works", "url": "https://roadmap.sh/guides/what-is-internet" }
+      ],
+      "prerequisites": [],
+      "metadata": { "unlocks": ["html"] }
+    },
+    {
+      "id": "html",
+      "title": "HTML",
+      "description": "Semantic HTML, Forms, Accessibility",
+      "skills": ["HTML"],
+      "xp": 80,
+      "estimatedMinutes": 40,
+      "difficulty": "Easy",
+      "status": "current",
+      "resources": [
+        { "type": "article", "title": "MDN HTML", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML" }
+      ],
+      "prerequisites": ["internet"],
+      "metadata": { "unlocks": ["css"] }
+    },
+    {
+      "id": "css",
+      "title": "CSS",
+      "description": "Layouts, Flexbox, Grid, Responsive Design",
+      "skills": ["CSS"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Easy",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "CSS Tricks", "url": "https://css-tricks.com/" }
+      ],
+      "prerequisites": ["html"],
+      "metadata": { "unlocks": ["javascript"] }
+    },
+    {
+      "id": "javascript",
+      "title": "JavaScript",
+      "description": "ES6+, DOM, Async/Await, Promises",
+      "skills": ["JavaScript"],
+      "xp": 150,
+      "estimatedMinutes": 90,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "JavaScript.info", "url": "https://javascript.info/" }
+      ],
+      "prerequisites": ["css"],
+      "metadata": { "unlocks": ["vcs", "package-managers"] }
+    },
+    {
+      "id": "vcs",
+      "title": "Git & GitHub",
+      "description": "Version Control, Repos, Collaboration",
+      "skills": ["Tools"],
+      "xp": 70,
+      "estimatedMinutes": 45,
+      "difficulty": "Easy",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Git Tutorial", "url": "https://git-scm.com/doc" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": { "unlocks": ["package-managers"] }
+    },
+    {
+      "id": "package-managers",
+      "title": "npm/yarn/pnpm",
+      "description": "Package managers and dependencies",
+      "skills": ["Tools"],
+      "xp": 60,
+      "estimatedMinutes": 30,
+      "difficulty": "Easy",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "npm Docs", "url": "https://docs.npmjs.com/" }
+      ],
+      "prerequisites": ["vcs"],
+      "metadata": { "unlocks": ["css-frameworks", "react", "vue", "angular"] }
+    },
+    {
+      "id": "css-frameworks",
+      "title": "Tailwind CSS",
+      "description": "Utility-first CSS framework",
+      "skills": ["CSS"],
+      "xp": 90,
+      "estimatedMinutes": 50,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Tailwind Docs", "url": "https://tailwindcss.com/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["react", "vue"] }
+    },
+    {
+      "id": "react",
+      "title": "React",
+      "description": "Components, Hooks, State Management",
+      "skills": ["React"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "React Docs", "url": "https://react.dev/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["react-router", "nextjs", "testing"] }
+    },
+    {
+      "id": "vue",
+      "title": "Vue.js",
+      "description": "Progressive JavaScript Framework",
+      "skills": ["Vue"],
+      "xp": 170,
+      "estimatedMinutes": 110,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Vue Docs", "url": "https://vuejs.org/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["nuxt", "testing"] }
+    },
+    {
+      "id": "angular",
+      "title": "Angular",
+      "description": "TypeScript-based web framework",
+      "skills": ["Angular"],
+      "xp": 200,
+      "estimatedMinutes": 130,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Angular Docs", "url": "https://angular.dev/" }
+      ],
+      "prerequisites": ["package-managers"],
+      "metadata": { "unlocks": ["testing"] }
+    },
+    {
+      "id": "react-router",
+      "title": "React Router",
+      "description": "Client-side routing for React",
+      "skills": ["React"],
+      "xp": 80,
+      "estimatedMinutes": 40,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "React Router Docs", "url": "https://reactrouter.com/" }
+      ],
+      "prerequisites": ["react"],
+      "metadata": { "unlocks": ["nextjs"] }
+    },
+    {
+      "id": "nextjs",
+      "title": "Next.js",
+      "description": "SSR/SSG React framework",
+      "skills": ["React"],
+      "xp": 150,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Next.js Docs", "url": "https://nextjs.org/" }
+      ],
+      "prerequisites": ["react-router"],
+      "metadata": { "unlocks": ["testing", "web-security"] }
+    },
+    {
+      "id": "nuxt",
+      "title": "Nuxt.js",
+      "description": "SSR/SSG Vue framework",
+      "skills": ["Vue"],
+      "xp": 140,
+      "estimatedMinutes": 85,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Nuxt Docs", "url": "https://nuxt.com/" }
+      ],
+      "prerequisites": ["vue"],
+      "metadata": { "unlocks": ["testing"] }
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "description": "Jest, Vitest, Cypress, Playwright",
+      "skills": ["Testing"],
+      "xp": 120,
+      "estimatedMinutes": 70,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Testing Library", "url": "https://testing-library.com/" }
+      ],
+      "prerequisites": ["react", "vue", "angular"],
+      "metadata": { "unlocks": ["web-security"] }
+    },
+    {
+      "id": "web-security",
+      "title": "Web Security",
+      "description": "HTTPS, CORS, OWASP, CSP",
+      "skills": ["Security"],
+      "xp": 100,
+      "estimatedMinutes": 60,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "OWASP", "url": "https://owasp.org/" }
+      ],
+      "prerequisites": ["testing"],
+      "metadata": { "unlocks": ["pwa"] }
+    },
+    {
+      "id": "pwa",
+      "title": "PWA",
+      "description": "Progressive Web Apps, Service Workers",
+      "skills": ["Advanced"],
+      "xp": 130,
+      "estimatedMinutes": 80,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PWA Guide", "url": "https://web.dev/progressive-web-apps/" }
+      ],
+      "prerequisites": ["web-security"],
+      "metadata": {}
+    },
+    {
+      "id": "nodejs",
+      "title": "Node.js",
+      "description": "JavaScript runtime for backend",
+      "skills": ["Backend"],
+      "xp": 160,
+      "estimatedMinutes": 100,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Node.js Docs", "url": "https://nodejs.org/" }
+      ],
+      "prerequisites": ["javascript"],
+      "metadata": { "unlocks": ["databases", "apis"] }
+    },
+    {
+      "id": "databases",
+      "title": "Databases",
+      "description": "PostgreSQL, MongoDB, Redis",
+      "skills": ["Backend"],
+      "xp": 140,
+      "estimatedMinutes": 90,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "PostgreSQL Tutorial", "url": "https://www.postgresql.org/docs/" }
+      ],
+      "prerequisites": ["nodejs"],
+      "metadata": { "unlocks": ["apis"] }
+    },
+    {
+      "id": "apis",
+      "title": "RESTful APIs",
+      "description": "REST, GraphQL, API design",
+      "skills": ["Backend"],
+      "xp": 150,
+      "estimatedMinutes": 95,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "REST API Tutorial", "url": "https://restfulapi.net/" }
+      ],
+      "prerequisites": ["nodejs", "databases"],
+      "metadata": { "unlocks": ["auth"] }
+    },
+    {
+      "id": "auth",
+      "title": "Authentication",
+      "description": "JWT, OAuth, Session Management",
+      "skills": ["Backend"],
+      "xp": 120,
+      "estimatedMinutes": 75,
+      "difficulty": "Medium",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "JWT.io", "url": "https://jwt.io/" }
+      ],
+      "prerequisites": ["apis"],
+      "metadata": { "unlocks": ["devops"] }
+    },
+    {
+      "id": "devops",
+      "title": "DevOps Basics",
+      "description": "Docker, CI/CD, AWS/Azure",
+      "skills": ["DevOps"],
+      "xp": 180,
+      "estimatedMinutes": 120,
+      "difficulty": "Advanced",
+      "status": "locked",
+      "resources": [
+        { "type": "article", "title": "Docker Docs", "url": "https://docs.docker.com/" }
+      ],
+      "prerequisites": ["auth"],
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    { "source": "internet", "target": "html" },
+    { "source": "html", "target": "css" },
+    { "source": "css", "target": "javascript" },
+    { "source": "javascript", "target": "vcs" },
+    { "source": "vcs", "target": "package-managers" },
+    { "source": "package-managers", "target": "css-frameworks" },
+    { "source": "package-managers", "target": "react" },
+    { "source": "package-managers", "target": "vue" },
+    { "source": "package-managers", "target": "angular" },
+    { "source": "react", "target": "react-router" },
+    { "source": "react-router", "target": "nextjs" },
+    { "source": "vue", "target": "nuxt" },
+    { "source": "react", "target": "testing" },
+    { "source": "vue", "target": "testing" },
+    { "source": "angular", "target": "testing" },
+    { "source": "testing", "target": "web-security" },
+    { "source": "web-security", "target": "pwa" },
+    { "source": "javascript", "target": "nodejs" },
+    { "source": "nodejs", "target": "databases" },
+    { "source": "databases", "target": "apis" },
+    { "source": "apis", "target": "auth" },
+    { "source": "auth", "target": "devops" }
+  ],
+  "careers": [
+    {
+      "id": "web-dev",
+      "title": "Web Development",
+      "icon": "🌐",
+      "description": "Build modern web applications",
+      "relevantSkills": ["HTML", "CSS", "JavaScript"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "vcs", "package-managers", "css-frameworks"]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend Engineer",
+      "icon": "🎨",
+      "description": "Master UI/UX development",
+      "relevantSkills": ["HTML", "CSS", "JavaScript", "React"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "vcs", "package-managers", "css-frameworks", "react", "react-router", "nextjs", "testing", "web-security", "pwa"]
+    },
+    {
+      "id": "fullstack",
+      "title": "Full Stack",
+      "icon": "⚡",
+      "description": "Frontend + Backend mastery",
+      "relevantSkills": ["HTML", "CSS", "JavaScript", "React", "Node"],
+      "roadmapNodes": ["internet", "html", "css", "javascript", "vcs", "package-managers", "react", "react-router", "nextjs", "nodejs", "databases", "apis", "auth", "testing", "web-security"]
+    },
+    {
+      "id": "aiml",
+      "title": "AI/ML Engineer",
+      "icon": "🤖",
+      "description": "Machine learning and AI",
+      "relevantSkills": ["Python", "DSA", "ML"],
+      "roadmapNodes": ["internet", "javascript", "nodejs", "databases", "apis", "auth"]
+    }
+  ],
+  "skills": [
+    { "id": "html", "name": "HTML", "level": 85, "maxLevel": 100 },
+    { "id": "css", "name": "CSS", "level": 60, "maxLevel": 100 },
+    { "id": "javascript", "name": "JavaScript", "level": 40, "maxLevel": 100 },
+    { "id": "react", "name": "React", "level": 20, "maxLevel": 100 },
+    { "id": "python", "name": "Python", "level": 30, "maxLevel": 100 },
+    { "id": "dsa", "name": "DSA", "level": 25, "maxLevel": 100 }
+  ],
+  "badges": [
+    { "id": "html-beginner", "title": "HTML Beginner", "icon": "🏅", "unlocked": true },
+    { "id": "css-beginner", "title": "CSS Beginner", "icon": "🎨", "unlocked": false },
+    { "id": "js-beginner", "title": "JS Beginner", "icon": "⚡", "unlocked": false },
+    { "id": "react-beginner", "title": "React Beginner", "icon": "⚛️", "unlocked": false },
+    { "id": "responsive-master", "title": "Responsive Master", "icon": "📱", "unlocked": false },
+    { "id": "css-master", "title": "CSS Master", "icon": "🎭", "unlocked": false },
+    { "id": "state-master", "title": "State Master", "icon": "🗂️", "unlocked": false }
+  ]
+}

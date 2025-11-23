@@ -1,155 +1,163 @@
-<<<<<<< Updated upstream
-# AuraLearn (Learn-Sphere)
+# LearnSphere 🚀
 
-Premium, dark-mode-first React + Vite app for a student-focused learning platform. This README documents the shared plan and guardrails for collaborators and AI agents. Current scope intentionally excludes gaming features (Game Hub/Real-Time Arena) — we will add those later.
+A premium, interactive learning platform built with React + Vite, featuring AI-powered roadmaps, gamification, and comprehensive career path guidance.
 
-## Quick Start
+## 🌟 Features
+
+### ✅ **Fully Implemented**
+- **37 Career Paths** - From Frontend to AI Video Developer, with comprehensive roadmaps
+- **AI Roadmap System** - Interactive node-based learning paths with 170+ nodes
+- **Responsive UI** - Optimized for all screen sizes with theme support (light/dark)
+- **Focus Mode** - Pomodoro timer with customizable backgrounds and fullscreen mode
+- **Dashboard** - Activity tracking, streaks, leaderboards, and quick launch cards
+- **Skill Tracking** - Animated progress circles with real-time XP updates
+- **Weekly Goals** - Progress tracking with XP rewards
+- **Achievement System** - Badges with carousel navigation
+- **AI Mentor Panel** - Interactive chat interface with quick actions
+
+### 🎯 **Career Paths Available**
+**Development**: Frontend, Backend, Full-Stack, Mobile, Game Dev, API Developer, OSS Engineer  
+**AI/ML**: AI/ML Engineer, Data Scientist, MLOps, GenAI Agent Developer, LLM Fine-Tuning, AI Automation, AI Video Developer  
+**Infrastructure**: DevOps, Cloud Engineer, Cloud Cost Optimization, Edge Computing, SRE  
+**Data**: Data Engineer, Big Data Engineer, Bioinformatics Engineer  
+**Security**: Cybersecurity, Ethical Hacker, Cyber Threat Analyst, Cloud Security  
+**Specialized**: Blockchain, FinTech, Hardware+AI Integration, Tech Evangelist, Product Designer, Software Architect, QA, System Design, Database Admin, Prompt Engineer
+
+## 🚀 Quick Start
 
 ```powershell
-# install deps
-npm i
+# Install dependencies
+npm install
 
-# dev server (http://localhost:5173)
+# Run development server (http://localhost:5173)
 npm run dev
 
-# build / preview
+# Build for production
 npm run build
+
+# Preview production build
 npm run preview
 
-# lint
+# Lint code
 npm run lint
 ```
 
-## Current Code Overview
-
-- Vite + React 19, TailwindCSS 4.
-- Entry: `index.html` → `src/main.jsx` → `src/App.jsx`.
-- Navigation: `src/components/NavBar.jsx` (uses `react-router-dom/Link`).
-- Styling: `src/index.css` defines CSS variables and typography.
-- Pages (placeholders): `src/pages/{Dashboard,Focus,Home,About,Attendence}.jsx`.
-- Note: `Attendence.jsx` filename has a typo vs route `/attendance` — fix when wiring routes.
-
-## Scope (Now) — No-Game Plan
-
-- Build non-gaming core: Design System, Navigation, Dashboard, AI Mentor Hub, Focus Environment.
-- Exclude Game Hub and Real-Time Arena for now (placeholders only, no code).
-
-## Architecture
-
-- SPA routing that feels MPA: persistent layout shell + fast page transitions.
-- Layout: fixed desktop sidebar (solid), mobile bottom nav (frosted). Content scrolls within.
-- Data: no backend — use fixtures in `src/data/` and deterministic mocks.
-- Animations: lightweight transforms/opacity; avoid layout thrash.
-
-## Proposed Folder Structure (incremental adoption)
+## 📁 Project Structure
 
 ```
 src/
-	app/                 # App shell, route registration, providers
-	components/
-		layout/            # Sidebar, BottomNav, Header, LayoutShell
-		ui/                # Button, FrostedCard, Card, Skeleton, Icon
-		charts/            # SkillGraph (stub), KineticTimer (stub)
-	features/
-		dashboard/         # Dashboard page + bento cards
-		mentor/            # AI Mentor page (Quests, Chat)
-		focus/             # Focus page (Pomodoro, FocusTree stub)
-	data/                # fixtures for user, quests, leaderboard
-	styles/              # tokens.css (optional), shimmer.css, glow.css
+├── components/
+│   ├── ui/              # Reusable UI components (FrostedCard, Button)
+│   └── NavBar.jsx       # Navigation component
+├── features/
+│   ├── roadmap/         # AI Roadmap page & components
+│   │   ├── AIroadmap.jsx
+│   │   └── components/  # CareerSelector, RoadmapGraph, SkillOverview, etc.
+│   ├── dashboard/       # Dashboard & cards
+│   ├── focus/           # Pomodoro timer with backgrounds
+│   ├── attendance/      # Attendance tracking (placeholder)
+│   ├── home/            # Landing page
+│   └── about/           # About page
+├── data/
+│   └── roadmapData.json # 37 careers, 170+ nodes, skills, badges
+├── stores/
+│   └── roadmapStore.js  # Zustand state management
+├── contexts/
+│   └── ThemeContext.jsx # Light/Dark theme context
+└── App.jsx              # Main app component with routing
 ```
 
-We will migrate from `src/pages/*` gradually; do not break existing imports until routes are wired.
+## 🎨 Design System
 
-## Navigation & Routes
+### Color Palette (CSS Variables)
+**Light Mode:**
+- Primary BG: Warm gradient (`hsl(210 40% 96%)` → `hsl(280 35% 97%)`)
+- Accent Primary: `hsl(220 45% 38%)` (Muted blue)
+- Accent Secondary: `hsl(220 35% 48%)`
+- Text Primary: `hsl(220 20% 20%)`
 
-- Desktop: left `Sidebar` (solid `#0D1117`), icons + labels on hover/expanded.
-- Mobile: bottom `BottomNav` (frosted glass). Active = teal + label.
-- Initial routes:
-	- `/` Dashboard
-	- `/mentor` AI Mentor Hub
-	- `/focus` Focus Environment
-	- `/about` About
-	- `/profile` Profile (placeholder)
+**Dark Mode:**
+- Primary BG: `#0D1117` (Deep charcoal)
+- Accent Primary: `#00E6E6` (Neon cyan)
+- Accent Secondary: `#7F00FF` (Deep violet)
+- Text Primary: `#E6E6E6`
 
-## Pages (v1 deliverables)
+**Difficulty Colors:**
+- Basic: Green (`hsl(142 60% 45%)` light, `#00E6E6` dark)
+- Intermediate: Yellow (`hsl(42 95% 50%)` light, `#7F00FF` dark)
+- Advanced: Red (`hsl(0 75% 55%)` light, `#FF6B35` dark)
 
-- Dashboard (Bento Grid, frosted cards):
-	- Profile & Streak (large): kinetic number (e.g., 32), "DAY STREAK 🔥", coins/gems top-right, subtle teal plasma background animation.
-	- AI Mentor Status: pulsing violet icon, CTA "Review Today’s Quests".
-	- Quick Launch: 3 minimalist SVG tiles with tilt + teal focus/hover.
-	- Leaderboard Snippet: rank + top 3.
-- AI Mentor Hub:
-	- Skill Graph (violet theme, interactive nodes) — D3 stub acceptable.
-	- Quests List (frosted): checklist of tasks.
-	- Chat (frosted): AI-generated bubbles use subtle violet↔teal gradient outline.
-- Focus Environment:
-	- Center Pomodoro timer (large circular). Controls in frosted card.
-	- Focus Tree (Three.js/WebGL stub) that "grows" per session (placeholder animation ok).
+### Typography
+- Font: Manrope (body), Poppins (navbar)
+- Kinetic numbers and bold headings
+- Responsive sizing (10px → 2xl)
 
-## Design System
+## 🛠 Tech Stack
 
-- Colors (CSS variables in `src/index.css`):
-	- `--bg-primary: #0D1117`
-	- `--accent-primary: #00E6E6` (CTAs, active, progress)
-	- `--accent-secondary: #7F00FF` (AI, rewards)
-	- `--text-primary: #E6E6E6`, `--text-secondary: #8B949E`
-	- `--feedback-error: #D73C4B`
-- Core primitive: FrostedCard — rgba(255,255,255,0.05) bg, `backdrop-blur(12px)`, 1px translucent border.
-- Typography: Inter; bold, spacious headings; kinetic variants for H1/H2.
-- Icons: `lucide-react` (1.5px stroke). Wrap with `Icon` helper for consistent size/color.
+- **Frontend**: React 18/19, Vite
+- **Styling**: Tailwind CSS 4
+- **Routing**: React Router v7
+- **State**: Zustand
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 
-## Interactivity, Motion, Loading
+## 📊 Recent Updates (Latest)
 
-- Microinteractions: press scale 0.98; hover lift; teal ring on focus; 150–200ms.
-- Page transitions: fast fade/slide via `framer-motion` (to be added).
-- Loading: skeleton shimmer on cards (no spinners). Keep dark-mode friendly.
-- Subtle parallax background (grid/starfield) using transform + low opacity.
+### v1.5.0 - Career Expansion & UX Improvements
+- ✅ Added 12 new trending tech roles (37 total careers)
+- ✅ Comprehensive roadmap data from roadmap.sh
+- ✅ Light mode optimizations (improved node/card visibility)
+- ✅ Responsive career selector (smaller cards, removed emojis)
+- ✅ Fixed hover card overflow on edge nodes
+- ✅ Animated skill progress circles (starts from 0)
+- ✅ Difficulty badge color system (Basic/Intermediate/Advanced)
+- ✅ Theme-aware components (light/dark mode support)
+- ✅ All 37 career path titles in roadmap graph
 
-## Accessibility & Performance
+## 🎯 Roadmap & Future Enhancements
 
-- High contrast; all controls keyboard-navigable; aria-labels on icon-only buttons.
-- Respect `prefers-reduced-motion`; disable non-essential animations for it.
-- Optimize with transform/opacity; avoid large blurred areas on mobile.
+### Phase 1: Core UX (Priority)
+- [ ] Search/filter for career selector
+- [ ] Progress percentage on roadmap levels
+- [ ] Keyboard shortcuts (Tab, Enter, Esc navigation)
+- [ ] Back to top button
+- [ ] Custom goals with modal
 
-## Data & Integrations
+### Phase 2: Advanced Features
+- [ ] Career comparison mode (side-by-side)
+- [ ] Minimap for roadmap overview
+- [ ] Badge progress tracking
+- [ ] Node drawer notes section
+- [ ] Statistics dashboard with charts
+- [ ] Activity heatmap (GitHub-style)
 
-- No API yet — use fixtures in `src/data/` and deterministic delays for loading states.
-- If adding integrations later, document env vars and endpoints here before merging.
+### Phase 3: Backend Integration
+- [ ] User authentication
+- [ ] Progress sync across devices
+- [ ] Real AI mentor (LLM API integration)
+- [ ] Social features (leaderboards, sharing)
+- [ ] Attendance tracking system
 
-## Team Split (no-game scope)
+## 🤝 Contributing
 
-- A: Design System + UI primitives (Button, FrostedCard, Skeleton, Icon).
-- B: LayoutShell + Sidebar + BottomNav + route skeleton.
-- C: Dashboard (all 4 cards + fixtures).
-- D: Mentor Hub (SkillGraph stub + Quests + Chat bubbles).
-- E: Focus page (Pomodoro + Focus Tree stub).
-- F: A11y/Perf sweeps + skeleton states + transitions.
+This is a student learning platform project. Contributions are welcome!
 
-## Guardrails
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- Use color variables from `src/index.css`; do not hardcode hex values.
-- Prefer Tailwind utilities; use inline styles only to reference CSS variables.
-- Keep icons via `lucide-react`; do not mix icon sets.
-- Keep new routes under `src/features/*`; leave `src/pages/*` as legacy until migration.
-- Do not add backend code; mock data only.
-- Fix `Attendence.jsx` → `Attendance.jsx` when routes are wired.
+## 📝 License
 
-## Next Steps
+This project is open source and available under the MIT License.
 
-1) Agree on this plan (no-game scope).
-2) Add `framer-motion` and `lucide-react` dependencies (optional now, recommended soon).
-3) Scaffold layout shell + routes with placeholders only.
-4) Implement Dashboard → Mentor → Focus in that order.
+## 🙏 Acknowledgments
 
-## Open Questions
+- Roadmap data sourced from [roadmap.sh](https://roadmap.sh)
+- Icons by [Lucide](https://lucide.dev)
+- Fonts from Google Fonts (Manrope, Poppins)
 
-- Approve adding `framer-motion`, `lucide-react`, and `three` (for Focus Tree stub) now?
-- Any brand assets (logo/avatars) or copy standards to include?
-=======
-# Learn-Sphere
-### cd learn-sphere
-# Install this dependencies
-### npm i
-### npm install tailwindcss @tailwindcss/vite
-### npm install react-router-dom
->>>>>>> Stashed changes
+---
+
+**Built with ❤️ for learners worldwide**
