@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuthStore } from '../../stores/authStore'
 import { focusService } from '../../services/supabaseService'
+import timerManager from '../../services/timerManager'
+import { useToast } from '../../components/ui/ToastProvider'
 
 // Resize an image file to a data URL (to store in localStorage)
 async function resizeImageToDataURL(file, maxW = 1920, maxH = 1080, quality = 0.85) {
@@ -26,8 +28,7 @@ async function resizeImageToDataURL(file, maxW = 1920, maxH = 1080, quality = 0.
 
 function Focus() {
   const user = useAuthStore(state => state.user)
-  const [sessionStartTime, setSessionStartTime] = useState(null)
-  const [originalDuration, setOriginalDuration] = useState(25)
+  
   
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
@@ -44,7 +45,7 @@ function Focus() {
       return ''
     }
   })
-  const [justReset, setJustReset] = useState(false)
+  
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [fsAnimating, setFsAnimating] = useState(false)
   const [tickPulse, setTickPulse] = useState(false)
@@ -74,94 +75,135 @@ function Focus() {
   const currentSeconds = minutes * 60 + seconds
   const progress = ((totalSeconds - currentSeconds) / totalSeconds) * 100
 
-  useEffect(() => {
-    let interval = null
+  // Subscribe to the shared timer manager so timer persists across routes
+  const toast = useToast()
 
-    if (isActive) {
-      interval = setInterval(() => {
-        if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(interval)
-          } else {
-            setMinutes(minutes - 1)
-            setSeconds(59)
-          }
-        } else {
-          setSeconds(seconds - 1)
+  useEffect(() => {
+    const unsub = timerManager.subscribe((s) => {
+      setMinutes(s.minutes)
+      setSeconds(s.seconds)
+      setIsActive(s.isActive)
+      setIsBreak(s.isBreak)
+      setWorkDuration(s.workDuration)
+      setBreakDuration(s.breakDuration)
+    })
+
+    // set save handler so manager will call us on completion
+    timerManager.setOnComplete(async (state) => {
+      // save completed focus session to DB when a focus session ends
+      if (!state.isBreak && user && state.sessionStartTime) {
+        try {
+          const completedAt = new Date().toISOString()
+          await focusService.createSession({
+            duration_minutes: state.originalDuration,
+            session_type: 'focus',
+            completed: true,
+            background_image: background,
+            started_at: state.sessionStartTime,
+            completed_at: completedAt
+          })
+        } catch (err) {
+          console.error('Error saving session from timerManager:', err)
         }
-      }, 1000)
-    }
-
-    return () => clearInterval(interval)
-  }, [isActive, minutes, seconds])
-
-  useEffect(() => {
-    if (minutes === 0 && seconds === 0 && isActive) {
-      setIsActive(false)
-      
-      // Save completed focus session to database
-      if (!isBreak && user && sessionStartTime) {
-        saveFocusSession()
       }
-      
-      setIsBreak(!isBreak)
-      setMinutes(isBreak ? workDuration : breakDuration)
-      setSessionStartTime(null) // Reset for next session
-    }
-  }, [minutes, seconds, isActive, isBreak, workDuration, breakDuration])
+    })
 
-  const saveFocusSession = async () => {
-    try {
-      const completedAt = new Date()
-      const durationMinutes = originalDuration
-      
-      await focusService.createSession({
-        duration_minutes: durationMinutes,
-        session_type: 'focus',
-        completed: true,
-        background_image: background,
-        started_at: sessionStartTime,
-        completed_at: completedAt.toISOString()
-      })
-      
-      console.log('Focus session saved!', durationMinutes, 'minutes')
-    } catch (error) {
-      console.error('Error saving focus session:', error)
-    }
-  }
+    return () => unsub()
+  }, [background, user, toast])
+
+  // Completion handling is done by timerManager via setOnComplete
+
+  // saving handled by timerManager onComplete subscription
 
   const toggleTimer = () => {
     if (!isActive) {
-      // Starting a new session
-      setSessionStartTime(new Date().toISOString())
-      setOriginalDuration(minutes)
+      // Check if we have a paused session (minutes/seconds are not at default)
+      const hasPausedSession = timerManager.getState().sessionStartTime !== null
+      
+      if (hasPausedSession) {
+        // Resume existing session
+        timerManager.resume()
+      } else {
+        // Start new session
+        timerManager.start({ workDuration, breakDuration, isBreak })
+
+        // show a quick browser notification
+        try {
+          if (window.Notification && Notification.permission === 'granted') {
+            new Notification(isBreak ? 'Break started' : 'Focus started', { body: `Good luck — ${workDuration} minutes of focus!` })
+          } else if (window.Notification && Notification.permission !== 'denied') {
+            Notification.requestPermission().then((perm) => {
+              if (perm === 'granted') new Notification(isBreak ? 'Break started' : 'Focus started', { body: `Good luck — ${workDuration} minutes of focus!` })
+            })
+          }
+        } catch {
+          /* ignore */
+        }
+
+        // show in-app toast (more consistent UI)
+        try {
+          toast.show(isBreak ? 'Break started — enjoy your rest!' : `Focus started — ${workDuration} minutes. Good luck!`, { appearance: 'info', duration: 4000 })
+        } catch { /* ignore */ }
+      }
+    } else {
+      // pause
+      timerManager.pause()
     }
-    setIsActive(!isActive)
   }
 
   // Pulse the time display slightly on each second for smoothness
   useEffect(() => {
-    setTickPulse(true)
-    const t = setTimeout(() => setTickPulse(false), 220)
-    return () => clearTimeout(t)
+    const t1 = setTimeout(() => setTickPulse(true), 0)
+    const t2 = setTimeout(() => setTickPulse(false), 220)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [seconds])
 
   const resetTimer = () => {
-    setIsActive(false)
-    setJustReset(true)
-    setMinutes(isBreak ? breakDuration : workDuration)
-    setSeconds(0)
-    setSessionStartTime(null)
-    setTimeout(() => setJustReset(false), 50)
+    timerManager.reset()
   }
 
   const switchMode = () => {
-    setIsActive(false)
-    setJustReset(true)
-    setIsBreak(!isBreak)
-    setMinutes(isBreak ? workDuration : breakDuration)
-    setSeconds(0)
-    setTimeout(() => setJustReset(false), 50)
+    const newIsBreak = !isBreak
+    timerManager.setMode({ isBreak: newIsBreak, workDuration, breakDuration })
+  }
+
+  const completeSession = async () => {
+    const state = timerManager.getState()
+    
+    // Calculate elapsed time from the timer
+    const remainingSeconds = state.minutes * 60 + state.seconds
+    const totalSeconds = state.originalDuration * 60
+    const elapsedSeconds = totalSeconds - remainingSeconds
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60)
+    
+    if (elapsedMinutes < 1) {
+      toast.show('Please focus for at least 1 minute before completing!', { appearance: 'error', duration: 3000 })
+      return
+    }
+    
+    if (!state.isBreak && user && state.sessionStartTime) {
+      try {
+        const completedAt = new Date().toISOString()
+        await focusService.createSession({
+          duration_minutes: elapsedMinutes,
+          session_type: 'focus',
+          completed: true,
+          background_image: background,
+          started_at: state.sessionStartTime,
+          completed_at: completedAt
+        })
+        
+        toast.show(`Session completed! ${elapsedMinutes} minutes saved.`, { appearance: 'success', duration: 4000 })
+        
+        // Reset timer after successful save
+        timerManager.reset()
+      } catch (error) {
+        console.error('Error saving session:', error)
+        toast.show('Failed to save session. Please try again.', { appearance: 'error', duration: 4000 })
+      }
+    } else {
+      toast.show('No active focus session to complete!', { appearance: 'error', duration: 3000 })
+    }
   }
 
   // Fullscreen controls
@@ -188,12 +230,11 @@ function Focus() {
   }
 
   const applySettings = () => {
-    setJustReset(true)
     setMinutes(isBreak ? breakDuration : workDuration)
     setSeconds(0)
     setIsActive(false)
     setShowSettings(false)
-    setTimeout(() => setJustReset(false), 50)
+    
   }
 
   const selectedBg = background === 'custom' && customBg ? `url('${customBg}')` : backgrounds[background]
@@ -330,7 +371,7 @@ function Focus() {
                         try {
                           const dataUrl = await resizeImageToDataURL(file, 1920, 1080, 0.85)
                           setCustomBg(dataUrl)
-                          try { localStorage.setItem('focusCustomBg', dataUrl) } catch {}
+                          try { localStorage.setItem('focusCustomBg', dataUrl) } catch (err) { console.warn('localStorage.setItem failed', err) }
                           setBackground('custom')
                         } catch (err) {
                           console.warn('Failed to process image', err)
@@ -367,9 +408,9 @@ function Focus() {
                     <button
                       className="text-xs px-3 py-1 rounded-full border"
                       style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
-                      onClick={() => {
+                        onClick={() => {
                         setCustomBg('')
-                        try { localStorage.removeItem('focusCustomBg') } catch {}
+                        try { localStorage.removeItem('focusCustomBg') } catch (err) { console.warn('localStorage.removeItem failed', err) }
                         setBackground('default')
                       }}
                     >
@@ -516,6 +557,20 @@ function Focus() {
             }}
           >
             {isActive ? '⏸️ Pause' : '▶️ Start'}
+          </button>
+          <button
+            onClick={completeSession}
+            className="px-10 py-4 font-bold rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg"
+            style={{
+              background: isRichBG 
+                ? 'linear-gradient(135deg, hsl(160, 70%, 55%), hsl(160, 70%, 45%))'
+                : 'linear-gradient(135deg, #10b981, #059669)',
+              color: '#ffffff',
+              boxShadow: '0 4px 20px hsla(160, 70%, 50%, 0.3)',
+              border: 'none'
+            }}
+          >
+            ✓ Complete
           </button>
           <button
             onClick={resetTimer}

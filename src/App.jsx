@@ -13,6 +13,7 @@ import Focus from './features/focus/Focus'
 import Attendance from './features/attendance/Attendance'
 import About from './features/about/About'
 import AIroadmap from './features/roadmap/AIroadmap'
+import Learn from './features/learn/Learn'
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -57,6 +58,7 @@ function AppContent() {
         <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
         <Route path="/roadmap" element={<ProtectedRoute><AIroadmap /></ProtectedRoute>} />
+        <Route path="/learn" element={<ProtectedRoute><Learn /></ProtectedRoute>} />
       </Routes>
     </div>
   )

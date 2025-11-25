@@ -11,12 +11,12 @@ export const userService = {
         .from('user_profiles')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
       
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   },
 
@@ -33,7 +33,7 @@ export const userService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   },
 
@@ -44,12 +44,12 @@ export const userService = {
         .from('user_profiles')
         .select('total_focus_minutes, total_sessions, current_streak, longest_streak')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
       
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   }
 }
@@ -75,7 +75,7 @@ export const focusService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   },
 
@@ -92,7 +92,7 @@ export const focusService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   },
 
@@ -115,7 +115,41 @@ export const focusService = {
       const totalMinutes = data.reduce((sum, session) => sum + session.duration_minutes, 0)
       return { data: totalMinutes, error: null }
     } catch (error) {
-      return { data: 0, error: error.message }
+      return { data: 0, error }
+    }
+  },
+
+  // Get focus time for current 12-hour period (morning: 12AM-12PM, evening: 12PM-12AM)
+  getTwelveHourFocusTime: async (userId) => {
+    try {
+      const now = new Date()
+      const currentHour = now.getHours()
+      
+      // Determine if we're in morning (0-11) or evening (12-23) period
+      const isMorning = currentHour < 12
+      
+      // Set period start time
+      const periodStart = new Date(now)
+      if (isMorning) {
+        periodStart.setHours(0, 0, 0, 0)
+      } else {
+        periodStart.setHours(12, 0, 0, 0)
+      }
+      
+      const { data, error } = await supabase
+        .from('focus_sessions')
+        .select('duration_minutes')
+        .eq('user_id', userId)
+        .eq('completed', true)
+        .eq('session_type', 'focus')
+        .gte('completed_at', periodStart.toISOString())
+      
+      if (error) throw error
+      
+      const totalMinutes = data.reduce((sum, session) => sum + session.duration_minutes, 0)
+      return { data: totalMinutes, error: null, period: isMorning ? 'morning' : 'evening' }
+    } catch (error) {
+      return { data: 0, error, period: 'morning' }
     }
   },
 
@@ -137,7 +171,7 @@ export const focusService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: [], error: error.message }
+      return { data: [], error }
     }
   }
 }
@@ -162,7 +196,7 @@ export const streakService = {
       
       return { data, error: null }
     } catch (error) {
-      return { data: 0, error: error.message }
+      return { data: 0, error }
     }
   },
 
@@ -182,7 +216,7 @@ export const streakService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: [], error: error.message }
+      return { data: [], error }
     }
   }
 }
@@ -202,7 +236,7 @@ export const leaderboardService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: [], error: error.message }
+      return { data: [], error }
     }
   },
 
@@ -213,12 +247,12 @@ export const leaderboardService = {
         .from('weekly_leaderboard')
         .select('rank')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
       
       if (error) throw error
       return { data: data?.rank || null, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   }
 }
@@ -239,7 +273,7 @@ export const achievementService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: [], error: error.message }
+      return { data: [], error }
     }
   },
 
@@ -251,7 +285,7 @@ export const achievementService = {
         .from('achievement_definitions')
         .select('*')
         .eq('achievement_type', achievementType)
-        .single()
+        .maybeSingle()
       
       if (!definition) return { data: null, error: 'Achievement not found' }
       
@@ -261,7 +295,7 @@ export const achievementService = {
         .select('id')
         .eq('user_id', userId)
         .eq('achievement_type', achievementType)
-        .single()
+        .maybeSingle()
       
       if (existing) return { data: existing, error: null }
       
@@ -281,7 +315,7 @@ export const achievementService = {
       if (error) throw error
       return { data, error: null }
     } catch (error) {
-      return { data: null, error: error.message }
+      return { data: null, error }
     }
   }
 }

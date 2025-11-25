@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import FrostedCard from '../../../components/ui/FrostedCard';
 import Button from '../../../components/ui/Button';
 
-export default function FocusSessionCard({ className = '', todayMinutes = 0, totalSessions = 0 }) {
+export default function FocusSessionCard({ className = '', todayMinutes = 0, totalSessions = 0, currentPeriod = 'morning' }) {
   const navigate = useNavigate();
-  const targetMinutes = 120; // 2 hours target
+  const targetMinutes = 120; // 2 hours target per 12-hour period
   const progress = Math.min((todayMinutes / targetMinutes) * 100, 100);
+  
+  const periodIcon = currentPeriod === 'morning' ? '🌅' : '🌙';
+  const periodLabel = currentPeriod === 'morning' ? 'Morning' : 'Evening';
 
   // Calculate stroke dash for circular progress
   const radius = 40;
@@ -20,9 +23,12 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
       hover={true}
     >
       <div className="flex items-center justify-between mb-0">
-        <h3 className="text-sm md:text-base lg:text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
-          Focus Session
-        </h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm md:text-base lg:text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+            Focus Session
+          </h3>
+          <span className="text-base" title={`${periodLabel} Session`}>{periodIcon}</span>
+        </div>
         <motion.div
           className="px-1.5 md:px-2 py-0.5 rounded-full text-[0.65rem] md:text-xs font-semibold"
           style={{ 
