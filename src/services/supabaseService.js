@@ -319,3 +319,193 @@ export const achievementService = {
     }
   }
 }
+
+// ============================================
+// GAME PROGRESS OPERATIONS
+// ============================================
+export const gameService = {
+  // Save game progress
+  saveProgress: async (userId, gameType, levelId, progressData) => {
+    try {
+      const { data, error } = await supabase
+        .from('game_progress')
+        .upsert([{
+          user_id: userId,
+          game_type: gameType,
+          level_id: levelId,
+          progress_data: progressData,
+          last_played_at: new Date().toISOString()
+        }], {
+          onConflict: 'user_id,game_type,level_id'
+        })
+        .select()
+        .single()
+      
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Get game progress
+  getProgress: async (userId, gameType, levelId = null) => {
+    try {
+      let query = supabase
+        .from('game_progress')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('game_type', gameType)
+      
+      if (levelId) {
+        query = query.eq('level_id', levelId)
+      }
+      
+      const { data, error } = await query.order('last_played_at', { ascending: false })
+      
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      return { data: [], error }
+    }
+  },
+
+  // Complete a level
+  completeLevel: async (userId, gameType, levelId, score, timeSpent) => {
+    try {
+      const { data, error } = await supabase
+        .from('game_completions')
+        .insert([{
+          user_id: userId,
+          game_type: gameType,
+          level_id: levelId,
+          score: score,
+          time_spent_seconds: timeSpent,
+          completed_at: new Date().toISOString()
+        }])
+        .select()
+        .single()
+      
+      if (error) throw error
+      
+      // Update user stats
+      await supabase.rpc('increment_game_stats', {
+        user_uuid: userId,
+        game_type: gameType
+      })
+      
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Get user's game statistics
+  getGameStats: async (userId, gameType = null) => {
+    try {
+      let query = supabase
+        .from('game_completions')
+        .select('game_type, level_id, score, time_spent_seconds, completed_at')
+        .eq('user_id', userId)
+      
+      if (gameType) {
+        query = query.eq('game_type', gameType)
+      }
+      
+      const { data, error } = await query.order('completed_at', { ascending: false })
+      
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      return { data: [], error }
+    }
+  }
+}
+
+// ============================================
+// COINS & GEMS (GAMIFICATION)
+// ============================================
+export const gamificationService = {
+  // Get user's coins and gems
+  getCurrency: async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('coins, gems')
+        .eq('id', userId)
+        .maybeSingle()
+      
+      if (error) throw error
+      return { data: data || { coins: 0, gems: 0 }, error: null }
+    } catch (error) {
+      return { data: { coins: 0, gems: 0 }, error }
+    }
+  },
+
+  // Award coins
+  awardCoins: async (userId, amount, reason = 'Activity reward') => {
+    try {
+      const { data, error } = await supabase.rpc('add_coins', {
+        user_uuid: userId,
+        coin_amount: amount
+      })
+      
+      if (error) throw error
+      
+      // Log transaction
+      await supabase.from('currency_transactions').insert([{
+        user_id: userId,
+        currency_type: 'coins',
+        amount: amount,
+        reason: reason,
+        created_at: new Date().toISOString()
+      }])
+      
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Award gems
+  awardGems: async (userId, amount, reason = 'Special achievement') => {
+    try {
+      const { data, error } = await supabase.rpc('add_gems', {
+        user_uuid: userId,
+        gem_amount: amount
+      })
+      
+      if (error) throw error
+      
+      // Log transaction
+      await supabase.from('currency_transactions').insert([{
+        user_id: userId,
+        currency_type: 'gems',
+        amount: amount,
+        reason: reason,
+        created_at: new Date().toISOString()
+      }])
+      
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Get transaction history
+  getTransactionHistory: async (userId, limit = 20) => {
+    try {
+      const { data, error } = await supabase
+        .from('currency_transactions')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(limit)
+      
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      return { data: [], error }
+    }
+  }
+}

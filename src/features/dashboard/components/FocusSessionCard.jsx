@@ -23,14 +23,14 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
       hover={true}
     >
       <div className="flex items-center justify-between mb-0">
-        <div className="flex items-center gap-2">
-          <h3 className="text-sm md:text-base lg:text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
             Focus Session
           </h3>
-          <span className="text-base" title={`${periodLabel} Session`}>{periodIcon}</span>
+          <span className="text-sm sm:text-base" title={`${periodLabel} Session`}>{periodIcon}</span>
         </div>
         <motion.div
-          className="px-1.5 md:px-2 py-0.5 rounded-full text-[0.65rem] md:text-xs font-semibold"
+          className="px-1.5 sm:px-2 py-0.5 rounded-full text-[0.6rem] sm:text-[0.65rem] md:text-xs font-semibold"
           style={{ 
             backgroundColor: 'rgba(255, 107, 53, 0.15)',
             color: '#FF6B35'
@@ -42,10 +42,10 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
         </motion.div>
       </div>
 
-      {/* Compact horizontal layout */}
-      <div className="flex items-center gap-2 transform translate-x-6 -translate-y-4 md:translate-x-8 md:-translate-y-5">
-        {/* Circular Timer */}
-        <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 shrink-0 mb-0">
+      {/* Responsive layout - reduced horizontal offset on mobile */}
+      <div className="flex items-center gap-1.5 sm:gap-2 transform translate-x-4 -translate-y-3 sm:translate-x-6 sm:-translate-y-4 md:translate-x-8 md:-translate-y-5">
+        {/* Circular Timer - responsive sizing */}
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 shrink-0 mb-0">
           {/* Background circle */}
           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
             <circle
@@ -80,19 +80,19 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
             </defs>
           </svg>
           
-          {/* Time display */}
+          {/* Time display - responsive text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-sm md:text-base font-bold" style={{ color: 'var(--text-primary)' }}>
+            <span className="text-xs sm:text-sm md:text-base font-bold" style={{ color: 'var(--text-primary)' }}>
               {todayMinutes}m
             </span>
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col gap-1 ml-8 md:ml-10 lg:ml-12">
+        {/* Controls - responsive spacing */}
+        <div className="flex flex-col gap-0.5 sm:gap-1 ml-6 sm:ml-8 md:ml-10 lg:ml-12">
           <Button 
             variant="primary" 
-            className="text-[0.75rem] md:text-xs py-0.5 px-3 min-w-16"
+            className="text-[0.65rem] sm:text-[0.75rem] md:text-xs py-0.5 px-2.5 sm:px-3 min-w-14 sm:min-w-16"
             onClick={(e) => {
               e.stopPropagation();
               navigate('/focus');
@@ -100,14 +100,14 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
           >
             Start
           </Button>
-          <p className="text-[0.6rem] md:text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-[0.55rem] sm:text-[0.6rem] md:text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
             {Math.round(progress)}% of goal
           </p>
         </div>
       </div>
 
-      {/* Progress bar (moved up to sit closer under the circle) */}
-      <div className="-mt-2 md:-mt-3 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+      {/* Progress bar - responsive margin */}
+      <div className="-mt-1.5 sm:-mt-2 md:-mt-3 h-1.5 sm:h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
         <motion.div
           className="h-full rounded-full"
           style={{

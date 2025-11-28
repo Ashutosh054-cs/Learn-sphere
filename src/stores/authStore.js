@@ -1,44 +1,152 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
 
+// 🔧 LOCAL DEVELOPMENT MODE - REMOVE BEFORE PRODUCTION
+const DEV_MODE = true // Set to false when you have Supabase credentials
+
+// Admin credentials for local development (collaborators use these)
+const ADMIN_CREDENTIALS = {
+  email: 'admin@learnsphere.local',
+  password: 'LearnSphere2024!',
+  mockUser: {
+    id: 'admin-local-dev',
+    email: 'admin@learnsphere.local',
+    user_metadata: {
+      name: 'Admin User'
+    }
+  }
+}
+
 export const useAuthStore = create((set) => ({
-  user: { id: 'dev-user', email: 'dev@example.com' }, // Mock user for development
-  session: { user: { id: 'dev-user', email: 'dev@example.com' } }, // Mock session
-  loading: false, // No loading needed
+  user: null,
+  session: null,
+  loading: true,
 
-  // Initialize auth state (disabled - always authenticated in dev mode)
+  // Initialize auth state
   initialize: async () => {
-    set({ 
-      user: { id: 'dev-user', email: 'dev@example.com' },
-      session: { user: { id: 'dev-user', email: 'dev@example.com' } },
-      loading: false 
-    })
+    // LOCAL DEV MODE: Auto-login with mock user if previously logged in
+    if (DEV_MODE) {
+      const savedUser = localStorage.getItem('learnsphere_dev_user')
+      if (savedUser) {
+        set({ 
+          user: JSON.parse(savedUser),
+          session: { user: JSON.parse(savedUser) },
+          loading: false 
+        })
+      } else {
+        set({ loading: false })
+      }
+      return
+    }
+
+    // PRODUCTION MODE: Use Supabase
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      set({ 
+        user: session?.user ?? null,
+        session,
+        loading: false 
+      })
+
+      // Listen for auth changes
+      supabase.auth.onAuthStateChange((_event, session) => {
+        set({ 
+          user: session?.user ?? null,
+          session 
+        })
+      })
+    } catch (error) {
+      console.error('Error initializing auth:', error)
+      set({ loading: false })
+    }
   },
 
-  // Sign up (disabled - auto-authenticated in dev mode)
+  // Sign up
   signUp: async (email, password, userData = {}) => {
-    const mockUser = { id: 'dev-user', email, ...userData }
-    set({ 
-      user: mockUser,
-      session: { user: mockUser }
-    })
-    return { data: { user: mockUser, session: { user: mockUser } }, error: null }
+    // LOCAL DEV MODE: Mock sign up
+    if (DEV_MODE) {
+      return { data: null, error: 'Sign up disabled in dev mode. Use admin credentials to login.' }
+    }
+
+    // PRODUCTION MODE: Use Supabase
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: userData
+        }
+      })
+      if (error) throw error
+      
+      // Create user profile
+      if (data.user) {
+        await supabase.from('user_profiles').insert([{
+          id: data.user.id,
+          email: data.user.email,
+          name: userData.name || email.split('@')[0],
+          avatar_url: userData.avatar_url || null
+        }])
+      }
+      
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: error.message }
+    }
   },
 
-  // Sign in (disabled - auto-authenticated in dev mode)
+  // Sign in
   signIn: async (email, password) => {
-    const mockUser = { id: 'dev-user', email }
-    set({ 
-      user: mockUser,
-      session: { user: mockUser }
-    })
-    return { data: { user: mockUser, session: { user: mockUser } }, error: null }
+    // LOCAL DEV MODE: Check admin credentials
+    if (DEV_MODE) {
+      if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+        const user = ADMIN_CREDENTIALS.mockUser
+        localStorage.setItem('learnsphere_dev_user', JSON.stringify(user))
+        set({ 
+          user,
+          session: { user },
+          loading: false 
+        })
+        return { data: { user }, error: null }
+      } else {
+        return { 
+          data: null, 
+          error: 'Invalid credentials. Use: admin@learnsphere.local / LearnSphere2024!' 
+        }
+      }
+    }
+
+    // PRODUCTION MODE: Use Supabase
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: error.message }
+    }
   },
 
-  // Sign out (disabled - stays authenticated in dev mode)
+  // Sign out
   signOut: async () => {
-    // Don't actually sign out in dev mode
-    return { error: null }
+    // LOCAL DEV MODE: Clear mock user
+    if (DEV_MODE) {
+      localStorage.removeItem('learnsphere_dev_user')
+      set({ user: null, session: null })
+      return { error: null }
+    }
+
+    // PRODUCTION MODE: Use Supabase
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) throw error
+      set({ user: null, session: null })
+      return { error: null }
+    } catch (error) {
+      return { error: error.message }
+    }
   },
 
   // Reset password

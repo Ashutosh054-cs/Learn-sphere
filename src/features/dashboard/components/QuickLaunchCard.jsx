@@ -15,15 +15,15 @@ export default function QuickLaunchCard({ className = '' }) {
 
   return (
     <FrostedCard className={className}>
-      <h3 className="text-sm md:text-base lg:text-lg font-bold mb-2 md:mb-3" style={{ color: 'var(--text-primary)' }}>
+      <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold mb-1.5 sm:mb-2 md:mb-3" style={{ color: 'var(--text-primary)' }}>
         Jump Back In
       </h3>
 
-      <div className="flex gap-2 md:gap-3 justify-between">
+      <div className="flex gap-1.5 sm:gap-2 md:gap-3 justify-between">
         {games.map((game) => (
           <motion.div
             key={game.name}
-            className="flex-1 flex flex-col items-center gap-1 md:gap-2 p-2 md:p-3 rounded-xl md:rounded-2xl cursor-pointer border border-transparent relative overflow-hidden"
+            className="flex-1 flex flex-col items-center gap-0.5 sm:gap-1 md:gap-2 p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl md:rounded-2xl cursor-pointer border border-transparent relative overflow-hidden"
             style={{ backgroundColor: 'var(--bg-secondary)' }}
             whileHover={{ scale: 1.05, rotateY: 5, borderColor: 'var(--accent-primary)' }}
             whileTap={{ scale: 0.95 }}
@@ -46,24 +46,10 @@ export default function QuickLaunchCard({ className = '' }) {
               {game.difficulty[0]}
             </div>
 
-            <game.icon className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" strokeWidth={1.5} style={{ color: game.color }} />
-            <span className="text-[0.6rem] md:text-xs font-medium text-center leading-tight" style={{ color: 'var(--text-secondary)' }}>
+            <game.icon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" strokeWidth={1.5} style={{ color: game.color }} />
+            <span className="text-[0.55rem] sm:text-[0.6rem] md:text-xs font-medium text-center leading-tight" style={{ color: 'var(--text-secondary)' }}>
               {game.name}
             </span>
-            
-            {/* Mini progress bar */}
-            <div className="w-full h-0.5 md:h-1 rounded-full overflow-hidden mt-0.5 md:mt-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
-              <motion.div
-                className="h-full rounded-full"
-                style={{
-                  backgroundColor: game.color,
-                  width: `${game.progress}%`
-                }}
-                initial={{ width: 0 }}
-                animate={{ width: `${game.progress}%` }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              />
-            </div>
           </motion.div>
         ))}
       </div>

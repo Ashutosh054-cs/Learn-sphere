@@ -156,7 +156,7 @@ const LevelNode = ({ node, onClick }) => {
         onClick={() => onClick(node.id)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative px-2 py-1.5 rounded-md border transition-all duration-200 hover:scale-105 hover:shadow-xl w-[100px] h-[32px] flex items-center justify-center cursor-pointer"
+        className="relative px-2 py-1.5 rounded-md border transition-all duration-200 hover:scale-105 hover:shadow-xl w-[100px] h-8 flex items-center justify-center cursor-pointer"
         style={getNodeStyle()}
       >
         <div

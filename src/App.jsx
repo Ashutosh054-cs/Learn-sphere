@@ -10,7 +10,6 @@ import Signup from './pages/Signup'
 import Profile from './pages/Profile'
 import Dashboard from './features/dashboard/Dashboard'
 import Focus from './features/focus/Focus'
-import Attendance from './features/attendance/Attendance'
 import About from './features/about/About'
 import AIroadmap from './features/roadmap/AIroadmap'
 import Learn from './features/learn/Learn'
@@ -18,10 +17,27 @@ import HTMLBuilder from './features/learn/components/games/HTMLBuilder/HTMLBuild
 import CSSBattle from './features/learn/components/games/CSSBattle/CSSBattle'
 import JSMaze from './features/learn/components/games/JSMaze/JSMaze'
 
-// Protected Route Component (DISABLED - all routes accessible in dev mode)
+// Protected Route Component
 function ProtectedRoute({ children }) {
-  // Always allow access in dev mode
-  return children;
+  const user = useAuthStore(state => state.user)
+  const loading = useAuthStore(state => state.loading)
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        </div>
+      </div>
+    )
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />
+  }
+  
+  return children
 }
 
 function AppContent() {
@@ -48,7 +64,6 @@ function AppContent() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/focus" element={<ProtectedRoute><Focus /></ProtectedRoute>} />
-        <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
         <Route path="/roadmap" element={<ProtectedRoute><AIroadmap /></ProtectedRoute>} />
         <Route path="/learn" element={<ProtectedRoute><Learn /></ProtectedRoute>} />
