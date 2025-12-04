@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import { focusService } from '../../services/supabaseService'
+import { localGroupService } from '../../services/localGroupService'
 import timerManager from '../../services/timerManager'
 import { useToast } from '../../components/ui/ToastProvider'
 
@@ -28,6 +30,10 @@ async function resizeImageToDataURL(file, maxW = 1920, maxH = 1080, quality = 0.
 
 function Focus() {
   const user = useAuthStore(state => state.user)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const groupId = location.state?.groupId
+  const returnTo = location.state?.returnTo
   
   
   const [minutes, setMinutes] = useState(25)
@@ -75,6 +81,16 @@ function Focus() {
   const currentSeconds = minutes * 60 + seconds
   const progress = ((totalSeconds - currentSeconds) / totalSeconds) * 100
 
+  // Group study session toast state - show initially if groupId exists
+  const [showGroupToast, setShowGroupToast] = useState(!!groupId)
+
+  useEffect(() => {
+    if (groupId && showGroupToast) {
+      const timer = setTimeout(() => setShowGroupToast(false), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [groupId, showGroupToast])
+
   // Subscribe to the shared timer manager so timer persists across routes
   const toast = useToast()
 
@@ -94,14 +110,27 @@ function Focus() {
       if (!state.isBreak && user && state.sessionStartTime) {
         try {
           const completedAt = new Date().toISOString()
+          const actualMinutes = state.originalDuration - state.minutes
+          
           await focusService.createSession({
-            duration_minutes: state.originalDuration,
+            duration_minutes: actualMinutes,
             session_type: 'focus',
             completed: true,
             background_image: background,
             started_at: state.sessionStartTime,
             completed_at: completedAt
           })
+          
+          // If this was a group study session, mark attendance with actual time
+          if (groupId) {
+            await localGroupService.completeStudySession(actualMinutes)
+            toast.show(`Group attendance marked! ${actualMinutes} minutes recorded ✓`, { appearance: 'success', duration: 4000 })
+            
+            // Navigate back to group if returnTo is set
+            if (returnTo) {
+              setTimeout(() => navigate(returnTo), 2000)
+            }
+          }
         } catch (err) {
           console.error('Error saving session from timerManager:', err)
         }
@@ -109,7 +138,7 @@ function Focus() {
     })
 
     return () => unsub()
-  }, [background, user, toast])
+  }, [background, user, toast, groupId, navigate, returnTo])
 
   // Completion handling is done by timerManager via setOnComplete
 
@@ -193,10 +222,23 @@ function Focus() {
           completed_at: completedAt
         })
         
-        toast.show(`Session completed! ${elapsedMinutes} minutes saved.`, { appearance: 'success', duration: 4000 })
-        
-        // Reset timer after successful save
-        timerManager.reset()
+        // If this was a group study session, mark attendance with actual time
+        if (groupId) {
+          await localGroupService.completeStudySession(elapsedMinutes)
+          toast.show(`Group session completed! ${elapsedMinutes} minutes recorded ✓`, { appearance: 'success', duration: 4000 })
+          
+          // Reset timer
+          timerManager.reset()
+          
+          // Navigate back to group
+          if (returnTo) {
+            setTimeout(() => navigate(returnTo), 2000)
+          }
+        } else {
+          toast.show(`Session completed! ${elapsedMinutes} minutes saved.`, { appearance: 'success', duration: 4000 })
+          // Reset timer after successful save
+          timerManager.reset()
+        }
       } catch (error) {
         console.error('Error saving session:', error)
         toast.show('Failed to save session. Please try again.', { appearance: 'error', duration: 4000 })
@@ -260,6 +302,55 @@ function Focus() {
         paddingBottom: '3rem'
       }}
     >
+      {/* Group Study Session Badge - Fixed Position Bottom Left */}
+      {groupId && !showGroupToast && (
+        <div 
+          className="fixed bottom-6 left-72 z-40 px-4 py-2 rounded-lg border"
+          style={{
+            backgroundColor: 'var(--accent-primary)',
+            borderColor: 'var(--accent-primary)',
+            color: 'var(--ui-white)',
+            backdropFilter: 'blur(10px)',
+            fontWeight: '600',
+            fontSize: '0.875rem',
+            boxShadow: 'var(--shadow-md)'
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📚</span>
+            <span>Group Study Session</span>
+          </div>
+        </div>
+      )}
+
+      {/* Group Study Session Toast - Initial Notification */}
+      {groupId && showGroupToast && (
+        <div 
+          className="fixed top-20 left-72 z-50 px-4 py-3 rounded-lg border"
+          style={{
+            backgroundColor: 'var(--ui-white)',
+            borderColor: 'var(--accent-primary)',
+            color: 'var(--text-primary)',
+            backdropFilter: 'blur(10px)',
+            fontWeight: '600',
+            fontSize: '0.875rem',
+            boxShadow: 'var(--shadow-md)',
+            animation: 'slideDown 0.5s ease-out',
+            maxWidth: '320px'
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-xl">🎯</span>
+            <div className="flex-1">
+              <div className="font-semibold">Group Study Started</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+                Attendance will be marked on completion
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Scrim for readability on rich backgrounds */}
       {scrimOpacity > 0 && (
         <div

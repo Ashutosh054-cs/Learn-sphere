@@ -16,6 +16,8 @@ import Learn from './features/learn/Learn'
 import HTMLBuilder from './features/learn/components/games/HTMLBuilder/HTMLBuilder'
 import CSSBattle from './features/learn/components/games/CSSBattle/CSSBattle'
 import JSMaze from './features/learn/components/games/JSMaze/JSMaze'
+import Groups from './pages/Groups'
+import Group from './pages/Group'
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -70,6 +72,8 @@ function AppContent() {
         <Route path="/learn/html-builder" element={<ProtectedRoute><HTMLBuilder /></ProtectedRoute>} />
         <Route path="/learn/css-battle" element={<ProtectedRoute><CSSBattle /></ProtectedRoute>} />
         <Route path="/learn/js-maze" element={<ProtectedRoute><JSMaze /></ProtectedRoute>} />
+        <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+        <Route path="/groups/:id" element={<ProtectedRoute><Group /></ProtectedRoute>} />
       </Routes>
     </div>
   )

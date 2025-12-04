@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FaChartBar, FaBullseye, FaGamepad, FaTools, FaUsers, FaInfoCircle } from 'react-icons/fa'
 import { Sun, Moon, UserCircle } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
@@ -6,16 +6,16 @@ import { useAuthStore } from '../stores/authStore'
 
 export default function NavBar() {
   const location = useLocation()
-  const navigate = useNavigate()
+  
   const { theme, toggleTheme } = useTheme()
-  const { user, signOut } = useAuthStore()
+  const { user } = useAuthStore()
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: <FaChartBar /> },
     { name: 'Focus', path: '/focus', icon: <FaBullseye /> },
     { name: 'Learn', path: '/learn', icon: <FaGamepad /> },
     { name: 'StudyTools', path: '/studytools', icon: <FaTools /> },
-    { name: 'Community', path: '/community', icon: <FaUsers /> },
+    { name: 'Community', path: '/groups', icon: <FaUsers /> },
     { name: 'About', path: '/about', icon: <FaInfoCircle /> },
   ]
 

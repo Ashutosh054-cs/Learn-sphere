@@ -274,3 +274,141 @@ VALUES
 ON CONFLICT (achievement_type) DO NOTHING;
 
 GRANT SELECT ON public.achievement_definitions TO authenticated;
+
+-- ============================================
+-- STEP 12: COMMUNITY / GROUPS
+-- ============================================
+-- Groups table
+CREATE TABLE IF NOT EXISTS public.groups (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  owner_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  visibility TEXT DEFAULT 'private' CHECK (visibility IN ('private','public')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE public.groups ENABLE ROW LEVEL SECURITY;
+
+-- Owner can manage their group; authenticated users can view public groups
+DROP POLICY IF EXISTS "Owners can manage groups" ON public.groups;
+CREATE POLICY "Owners can manage groups"
+  ON public.groups FOR ALL
+  USING (auth.uid() = owner_id)
+  WITH CHECK (auth.uid() = owner_id);
+
+DROP POLICY IF EXISTS "Authenticated can view public groups" ON public.groups;
+CREATE POLICY "Authenticated can view public groups"
+  ON public.groups FOR SELECT
+  USING (visibility = 'public' OR auth.uid() = owner_id);
+
+-- Group members
+CREATE TABLE IF NOT EXISTS public.group_members (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  group_id UUID REFERENCES public.groups(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  role TEXT DEFAULT 'member' CHECK (role IN ('member','admin','owner')),
+  joined_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(group_id, user_id)
+);
+
+ALTER TABLE public.group_members ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Members can select their membership" ON public.group_members;
+CREATE POLICY "Members can select their membership"
+  ON public.group_members FOR SELECT
+  USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_members.group_id AND (g.owner_id = auth.uid() OR g.visibility = 'public')));
+
+DROP POLICY IF EXISTS "Members can insert membership" ON public.group_members;
+CREATE POLICY "Members can insert membership"
+  ON public.group_members FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Members can delete membership" ON public.group_members;
+CREATE POLICY "Members can delete membership"
+  ON public.group_members FOR DELETE
+  USING (auth.uid() = user_id OR EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_members.group_id AND g.owner_id = auth.uid()));
+
+-- Group attendance
+CREATE TABLE IF NOT EXISTS public.group_attendance (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  group_id UUID REFERENCES public.groups(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  attended_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  notes TEXT
+);
+
+ALTER TABLE public.group_attendance ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Attendance insert by members" ON public.group_attendance;
+CREATE POLICY "Attendance insert by members"
+  ON public.group_attendance FOR INSERT
+  WITH CHECK (auth.uid() = user_id AND EXISTS (SELECT 1 FROM public.group_members gm WHERE gm.group_id = group_attendance.group_id AND gm.user_id = user_id));
+
+DROP POLICY IF EXISTS "Attendance select by members" ON public.group_attendance;
+CREATE POLICY "Attendance select by members"
+  ON public.group_attendance FOR SELECT
+  USING (EXISTS (SELECT 1 FROM public.group_members gm WHERE gm.group_id = group_attendance.group_id AND gm.user_id = auth.uid()) OR EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_attendance.group_id AND g.owner_id = auth.uid()));
+
+-- Group rules
+CREATE TABLE IF NOT EXISTS public.group_rules (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  group_id UUID REFERENCES public.groups(id) ON DELETE CASCADE NOT NULL,
+  rule_key TEXT NOT NULL,
+  rule_value TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.group_rules ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Rules select" ON public.group_rules;
+CREATE POLICY "Rules select"
+  ON public.group_rules FOR SELECT
+  USING (EXISTS (SELECT 1 FROM public.group_members gm WHERE gm.group_id = group_rules.group_id AND gm.user_id = auth.uid()) OR EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_rules.group_id AND g.owner_id = auth.uid()));
+
+DROP POLICY IF EXISTS "Rules modify" ON public.group_rules;
+CREATE POLICY "Rules modify"
+  ON public.group_rules FOR ALL
+  USING (EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_rules.group_id AND g.owner_id = auth.uid()))
+  WITH CHECK (EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_rules.group_id AND g.owner_id = auth.uid()));
+
+-- Group invites
+CREATE TABLE IF NOT EXISTS public.group_invites (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  group_id UUID REFERENCES public.groups(id) ON DELETE CASCADE NOT NULL,
+  invited_email TEXT NOT NULL,
+  invited_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  token TEXT UNIQUE NOT NULL,
+  accepted BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.group_invites ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Invites manage" ON public.group_invites;
+CREATE POLICY "Invites manage"
+  ON public.group_invites FOR ALL
+  USING (EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_invites.group_id AND g.owner_id = auth.uid()))
+  WITH CHECK (EXISTS (SELECT 1 FROM public.groups g WHERE g.id = group_invites.group_id AND g.owner_id = auth.uid()));
+
+-- Trigger: add owner as member when group created
+CREATE OR REPLACE FUNCTION public.add_owner_as_member()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO public.group_members (group_id, user_id, role)
+  VALUES (NEW.id, NEW.owner_id, 'owner')
+  ON CONFLICT (group_id, user_id) DO NOTHING;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS on_group_created ON public.groups;
+CREATE TRIGGER on_group_created
+  AFTER INSERT ON public.groups
+  FOR EACH ROW EXECUTE FUNCTION public.add_owner_as_member();
+

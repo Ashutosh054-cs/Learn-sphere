@@ -509,3 +509,194 @@ export const gamificationService = {
     }
   }
 }
+
+// ============================================
+// GROUP / COMMUNITY OPERATIONS
+// ============================================
+export const groupService = {
+  // Create a new group
+  createGroup: async ({ name, description = null, visibility = 'private' }) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      const { data, error } = await supabase
+        .from('groups')
+        .insert([{ owner_id: user.id, name, description, visibility }])
+        .select()
+        .maybeSingle()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // List groups the current user is member of or owns
+  listMyGroups: async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      // groups where user is member
+      const { data: memberGroups, error: mErr } = await supabase
+        .from('group_members')
+        .select('group_id')
+        .eq('user_id', user.id)
+
+      if (mErr) throw mErr
+
+      const groupIds = (memberGroups || []).map(g => g.group_id)
+
+      const { data, error } = await supabase
+        .from('groups')
+        .select('*')
+        .in('id', groupIds.length ? groupIds : [''])
+
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      return { data: [], error }
+    }
+  },
+
+  // Get group details and members
+  getGroup: async (groupId) => {
+    try {
+      const { data: group, error: gErr } = await supabase
+        .from('groups')
+        .select('*')
+        .eq('id', groupId)
+        .maybeSingle()
+      if (gErr) throw gErr
+
+      const { data: members, error: mErr } = await supabase
+        .from('group_members')
+        .select('user_id, role, joined_at')
+        .eq('group_id', groupId)
+      if (mErr) throw mErr
+
+      return { data: { group, members }, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Invite by email (creates an invite with token)
+  inviteByEmail: async (groupId, invitedEmail) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      // create a token
+      const token = cryptoRandomString()
+
+      const { data, error } = await supabase
+        .from('group_invites')
+        .insert([{ group_id: groupId, invited_email: invitedEmail, invited_by: user.id, token }])
+        .select()
+        .maybeSingle()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Accept invite using token
+  acceptInvite: async (token) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      const { data: invite, error: iErr } = await supabase
+        .from('group_invites')
+        .select('*')
+        .eq('token', token)
+        .maybeSingle()
+      if (iErr) throw iErr
+      if (!invite) throw new Error('Invite not found')
+      if (invite.accepted) throw new Error('Invite already accepted')
+      if (invite.invited_email.toLowerCase() !== (user.email || '').toLowerCase()) throw new Error('Invite email does not match your account')
+
+      // insert membership
+      const { data: mData, error: mErr } = await supabase
+        .from('group_members')
+        .insert([{ group_id: invite.group_id, user_id: user.id, role: 'member' }])
+        .select()
+        .maybeSingle()
+      if (mErr) throw mErr
+
+      // mark invite accepted
+      const { data: uData, error: uErr } = await supabase
+        .from('group_invites')
+        .update({ accepted: true })
+        .eq('id', invite.id)
+      if (uErr) throw uErr
+
+      return { data: { membership: mData, invite: uData }, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Mark attendance for current user
+  markAttendance: async (groupId, notes = null) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      const { data, error } = await supabase
+        .from('group_attendance')
+        .insert([{ group_id: groupId, user_id: user.id, notes }])
+        .select()
+        .maybeSingle()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  },
+
+  // Add or update a group rule (owner only)
+  upsertRule: async (groupId, key, value) => {
+    try {
+      const { data: ruleExists } = await supabase
+        .from('group_rules')
+        .select('*')
+        .eq('group_id', groupId)
+        .eq('rule_key', key)
+        .maybeSingle()
+
+      if (ruleExists) {
+        const { data, error } = await supabase
+          .from('group_rules')
+          .update({ rule_value: value })
+          .eq('id', ruleExists.id)
+          .select()
+          .maybeSingle()
+        if (error) throw error
+        return { data, error: null }
+      }
+
+      const { data, error } = await supabase
+        .from('group_rules')
+        .insert([{ group_id: groupId, rule_key: key, rule_value: value }])
+        .select()
+        .maybeSingle()
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error }
+    }
+  }
+}
+
+// Small helper to generate tokens
+function cryptoRandomString() {
+  // fallback simple token generator
+  return Math.random().toString(36).slice(2) + Date.now().toString(36)
+}

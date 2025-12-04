@@ -66,6 +66,10 @@
   --accent-secondary: #7F00FF;    /* Deep violet/purple */
   --accent-light: rgba(0, 230, 230, 0.1);
 
+  /* UI surfaces for cards/modals */
+  --ui-white: rgba(255, 255, 255, 0.08);
+  --ui-white-95: rgba(255, 255, 255, 0.08);
+
   /* Light text for dark backgrounds */
   --text-primary: #E6E6E6;        /* Off-white/light gray */
   --text-secondary: #8B949E;      /* Light blue-gray (muted) */
@@ -232,4 +236,16 @@ h3, .h3 {
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: var(--accent-secondary);
+}
+
+/* Group Study Session Animations */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

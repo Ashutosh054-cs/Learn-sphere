@@ -25,7 +25,7 @@ export const useAuthStore = create((set) => ({
   // Initialize auth state
   initialize: async () => {
     // LOCAL DEV MODE: Auto-login with mock user if previously logged in
-    if (DEV_MODE) {
+      if (DEV_MODE || !supabase) {
       const savedUser = localStorage.getItem('learnsphere_dev_user')
       if (savedUser) {
         set({ 
@@ -34,7 +34,15 @@ export const useAuthStore = create((set) => ({
           loading: false 
         })
       } else {
-        set({ loading: false })
+          // Auto-seed the dev admin user so you can jump straight into the app
+          // This makes testing faster — to opt-out clear localStorage key
+          try {
+            const mock = ADMIN_CREDENTIALS.mockUser
+            localStorage.setItem('learnsphere_dev_user', JSON.stringify(mock))
+            set({ user: mock, session: { user: mock }, loading: false })
+          } catch {
+            set({ loading: false })
+          }
       }
       return
     }
