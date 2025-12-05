@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 
 export default function FrostedCard({ children, className = '', hover = false, ...props }) {
-  // Light theme card with subtle elevation and HSL colors
-  const baseClasses = "rounded-2xl p-4 border shadow-sm";
-  const hoverClasses = hover ? "hover:shadow-md hover:-translate-y-0.5 transition-all duration-200" : "";
+  // Enhanced card with better shadows for visibility
+  const baseClasses = "rounded-2xl p-4 border shadow-md";
+  const hoverClasses = hover ? "hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200" : "";
 
   const Component = hover ? motion.div : 'div';
   const motionProps = hover ? {

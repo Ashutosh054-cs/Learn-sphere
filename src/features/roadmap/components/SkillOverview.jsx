@@ -50,9 +50,10 @@ export default function SkillOverview() {
                       cx="40"
                       cy="40"
                       r={radius}
-                      stroke="rgba(255, 255, 255, 0.08)"
+                      stroke="var(--border-color)"
                       strokeWidth="6"
                       fill="none"
+                      opacity="0.3"
                     />
                     <motion.circle
                       cx="40"

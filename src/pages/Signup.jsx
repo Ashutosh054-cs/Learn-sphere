@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/authStore'
 
@@ -12,6 +12,14 @@ export default function Signup() {
   const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
   const signUp = useAuthStore(state => state.signUp)
+  const user = useAuthStore(state => state.user)
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [user, navigate])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,13 +47,9 @@ export default function Signup() {
     } else {
       setSuccess(true)
       setLoading(false)
-      // If there's a session, user is logged in immediately
-      if (data?.session) {
-        setTimeout(() => navigate('/dashboard'), 1000)
-      } else {
-        // No session means redirect to login
-        setTimeout(() => navigate('/login'), 2000)
-      }
+      // Always redirect to dashboard after successful signup
+      // User is automatically logged in (email confirmation disabled)
+      setTimeout(() => navigate('/dashboard'), 1000)
     }
   }
 

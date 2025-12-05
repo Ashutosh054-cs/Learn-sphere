@@ -42,7 +42,7 @@ export const userService = {
     try {
       const { data, error } = await supabase
         .from('user_profiles')
-        .select('total_focus_minutes, total_sessions, current_streak, longest_streak')
+        .select('coins, gems, total_xp, level')
         .eq('id', userId)
         .maybeSingle()
       
@@ -138,7 +138,7 @@ export const focusService = {
       
       const { data, error } = await supabase
         .from('focus_sessions')
-        .select('duration_minutes')
+        .select('duration')
         .eq('user_id', userId)
         .eq('completed', true)
         .eq('session_type', 'focus')
@@ -146,10 +146,37 @@ export const focusService = {
       
       if (error) throw error
       
-      const totalMinutes = data.reduce((sum, session) => sum + session.duration_minutes, 0)
+      const totalMinutes = data.reduce((sum, session) => sum + session.duration, 0)
       return { data: totalMinutes, error: null, period: isMorning ? 'morning' : 'evening' }
     } catch (error) {
       return { data: 0, error, period: 'morning' }
+    }
+  },
+
+  // Get total focus stats (all time)
+  getTotalFocusStats: async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('focus_sessions')
+        .select('duration')
+        .eq('user_id', userId)
+        .eq('completed', true)
+        .eq('session_type', 'focus')
+      
+      if (error) throw error
+      
+      const totalMinutes = data.reduce((sum, session) => sum + (session.duration || 0), 0)
+      const totalSessions = data.length
+      
+      return { 
+        data: { 
+          totalMinutes, 
+          totalSessions 
+        }, 
+        error: null 
+      }
+    } catch (error) {
+      return { data: { totalMinutes: 0, totalSessions: 0 }, error }
     }
   },
 
@@ -188,33 +215,53 @@ export const streakService = {
       
       if (error) throw error
       
-      // Update user profile with new streak
+      // Function returns array with one row containing current_streak and longest_streak
+      const streakData = data && data.length > 0 ? data[0] : { current_streak: 0, longest_streak: 0 }
+      
+      // Update user profile with new streaks
       await supabase
         .from('user_profiles')
-        .update({ current_streak: data })
+        .update({ 
+          current_streak: streakData.current_streak,
+          longest_streak: streakData.longest_streak 
+        })
         .eq('id', userId)
       
-      return { data, error: null }
+      return { data: streakData.current_streak, error: null }
     } catch (error) {
+      console.error('Streak calculation error:', error)
       return { data: 0, error }
     }
   },
 
-  // Get daily activity for last N days
+  // Get daily activity for last N days from focus_sessions
   getDailyActivity: async (userId, days = 7) => {
     try {
       const startDate = new Date()
       startDate.setDate(startDate.getDate() - days)
       
-      const { data, error} = await supabase
-        .from('daily_activity')
-        .select('*')
+      const { data, error } = await supabase
+        .from('focus_sessions')
+        .select('completed_at, duration, completed')
         .eq('user_id', userId)
-        .gte('activity_date', startDate.toISOString().split('T')[0])
-        .order('activity_date', { ascending: true })
+        .eq('completed', true)
+        .gte('completed_at', startDate.toISOString())
+        .order('completed_at', { ascending: true })
       
       if (error) throw error
-      return { data, error: null }
+      
+      // Group by date and sum duration
+      const activityByDate = {}
+      data.forEach(session => {
+        const date = new Date(session.completed_at).toISOString().split('T')[0]
+        if (!activityByDate[date]) {
+          activityByDate[date] = { activity_date: date, total_minutes: 0, session_count: 0 }
+        }
+        activityByDate[date].total_minutes += session.duration || 0
+        activityByDate[date].session_count += 1
+      })
+      
+      return { data: Object.values(activityByDate), error: null }
     } catch (error) {
       return { data: [], error }
     }

@@ -139,11 +139,14 @@ const ContributionHeatmap = ({ userId, onDataLoaded }) => {
   }
 
   const getColor = (level) => {
-    if (level === 0) return 'rgba(255, 255, 255, 0.05)';
-    if (level === 1) return 'rgba(0, 230, 230, 0.2)';
-    if (level === 2) return 'rgba(0, 230, 230, 0.4)';
-    if (level === 3) return 'rgba(0, 230, 230, 0.6)';
-    return 'rgba(0, 230, 230, 0.9)';
+    const colors = [
+      'var(--heatmap-color-0)',
+      'var(--heatmap-color-1)',
+      'var(--heatmap-color-2)',
+      'var(--heatmap-color-3)',
+      'var(--heatmap-color-4)'
+    ];
+    return colors[level] || colors[0];
   };
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

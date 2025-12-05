@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
 
 // 🔧 LOCAL DEVELOPMENT MODE - REMOVE BEFORE PRODUCTION
-const DEV_MODE = true // Set to false when you have Supabase credentials
+const DEV_MODE = false// Set to false when you have Supabase credentials
 
 // Admin credentials for local development (collaborators use these)
 const ADMIN_CREDENTIALS = {
@@ -82,12 +82,13 @@ export const useAuthStore = create((set) => ({
         email,
         password,
         options: {
-          data: userData
+          data: userData,
+          emailRedirectTo: window.location.origin + '/dashboard'
         }
       })
       if (error) throw error
       
-      // Create user profile
+      // Create user profile (only if user is confirmed or autoConfirm is enabled)
       if (data.user) {
         await supabase.from('user_profiles').insert([{
           id: data.user.id,
@@ -95,6 +96,14 @@ export const useAuthStore = create((set) => ({
           name: userData.name || email.split('@')[0],
           avatar_url: userData.avatar_url || null
         }])
+        
+        // If user is confirmed immediately (autoConfirm enabled), set session
+        if (data.session) {
+          set({ 
+            user: data.user,
+            session: data.session 
+          })
+        }
       }
       
       return { data, error: null }

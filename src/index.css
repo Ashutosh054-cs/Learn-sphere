@@ -8,41 +8,41 @@
 
   /* Light Mode (default) */
   /* Surfaces (warm creamy off-white) */
-  --bg-primary: linear-gradient(135deg, hsl(210 40% 96%), hsl(280 35% 97%));
-  --bg-secondary: hsl(45 28% 96%);         /* Slightly deeper cream */
+  --bg-primary: hsl(0 0% 100%);              /* Pure white for cards */
+  --bg-secondary: hsl(220 20% 97%);          /* Very light blue-gray for page background */
 
   /* Brand accents derived from hue (muted for lower eye-strain) */
-  --accent-primary: hsl(var(--hue) 45% 38%);   /* calmer, less saturated blue */
-  --accent-secondary: hsl(var(--hue) 35% 48%); /* softer secondary tone */
-  --accent-light: hsl(var(--hue) 30% 92%);     /* very light accent for surfaces */
+  --accent-primary: hsl(var(--hue) 70% 45%);   /* Vibrant but not overwhelming blue */
+  --accent-secondary: hsl(var(--hue) 60% 55%); /* Softer secondary tone */
+  --accent-light: hsl(var(--hue) 60% 95%);     /* Very light accent for surfaces */
 
   /* UI whites / off-whites to reduce glare */
-  --ui-white: hsl(40 10% 98%);               /* soft creamy white */
-  --ui-white-95: hsla(40 10% 98%, 0.95);
+  --ui-white: hsl(0 0% 100%);                /* Pure white */
+  --ui-white-95: hsla(0 0% 100%, 0.95);
 
   /* Text & borders */
-  --text-primary: hsl(var(--hue) 20% 20%);
-  --text-secondary: hsl(var(--hue) 10% 50%);
-  --border-color: hsl(var(--hue) 15% 90%);
+  --text-primary: hsl(var(--hue) 25% 15%);     /* Darker for better contrast */
+  --text-secondary: hsl(var(--hue) 15% 45%);   /* Medium gray for secondary text */
+  --border-color: hsl(var(--hue) 20% 88%);     /* Visible but subtle borders */
 
-  /* Elevation (subtle, calm) */
-  --shadow-sm: 0 6px 20px hsl(var(--hue) 30% 20% / 0.10);
-  --shadow-md: 0 10px 30px hsl(var(--hue) 30% 20% / 0.14);
-  --shadow-lg: 0 16px 48px hsl(var(--hue) 30% 20% / 0.18);
+  /* Elevation (enhanced for better visibility) */
+  --shadow-sm: 0 2px 4px hsl(var(--hue) 30% 20% / 0.08), 0 1px 2px hsl(var(--hue) 30% 20% / 0.06);
+  --shadow-md: 0 4px 12px hsl(var(--hue) 30% 20% / 0.15), 0 2px 4px hsl(var(--hue) 30% 20% / 0.08);
+  --shadow-lg: 0 12px 24px hsl(var(--hue) 30% 20% / 0.20), 0 4px 8px hsl(var(--hue) 30% 20% / 0.12);
 
   --feedback-error: hsl(0 70% 50%);
 
   /* Theme-specific colors */
-  --heatmap-color-0: hsl(220, 15%, 92%);
-  --heatmap-color-1: hsla(220, 70%, 40%, 0.15);
-  --heatmap-color-2: hsla(220, 70%, 40%, 0.3);
-  --heatmap-color-3: hsla(220, 70%, 40%, 0.5);
-  --heatmap-color-4: hsla(220, 70%, 40%, 0.8);
+  --heatmap-color-0: hsl(220, 18%, 88%);
+  --heatmap-color-1: hsl(220, 70%, 75%);
+  --heatmap-color-2: hsl(220, 70%, 60%);
+  --heatmap-color-3: hsl(220, 70%, 48%);
+  --heatmap-color-4: hsl(220, 75%, 38%);
 
   /* Navbar interaction colors */
-  --nav-hover-bg: hsl(220 18% 44% / 0.18);
-  --nav-active-bg: hsl(40 10% 98%); /* light card color for active link */
-  --nav-active-color: hsl(220 45% 38%); /* muted blue for active text */
+  --nav-hover-bg: hsl(220 40% 92%);         /* Light blue-gray hover */
+  --nav-active-bg: hsl(220 70% 96%);        /* Very light blue for active */
+  --nav-active-color: hsl(220 70% 45%);     /* Vibrant blue for active text */
 
   /* Roadmap difficulty colors for light mode */
   --difficulty-basic: hsl(142 60% 45%);      /* Green */

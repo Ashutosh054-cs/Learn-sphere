@@ -18,9 +18,7 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
 
   return (
     <FrostedCard 
-      className={`cursor-pointer h-full ${className}`}
-      onClick={() => navigate('/focus')}
-      hover={true}
+      className={`h-full ${className}`}
     >
       <div className="flex items-center justify-between mb-0">
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -52,9 +50,10 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
               cx="60"
               cy="60"
               r={radius}
-              stroke="rgba(255, 255, 255, 0.1)"
+              stroke="var(--border-color)"
               strokeWidth="6"
               fill="none"
+              opacity="0.3"
             />
             {/* Progress circle with gradient */}
             <motion.circle
@@ -92,7 +91,7 @@ export default function FocusSessionCard({ className = '', todayMinutes = 0, tot
         <div className="flex flex-col gap-0.5 sm:gap-1 ml-6 sm:ml-8 md:ml-10 lg:ml-12">
           <Button 
             variant="primary" 
-            className="text-[0.65rem] sm:text-[0.75rem] md:text-xs py-0.5 px-2.5 sm:px-3 min-w-14 sm:min-w-16"
+            className="text-[0.65rem] sm:text-[0.75rem] md:text-xs py-0.5 px-2.5 sm:px-3 min-w-14 sm:min-w-16 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               navigate('/focus');

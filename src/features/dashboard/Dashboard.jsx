@@ -71,6 +71,12 @@ export default function Dashboard() {
       const todayMinutes = periodResult?.data || 0
       const currentPeriod = periodResult?.period || 'morning'
 
+      // Get total focus stats (all time)
+      const allTimeFocusResult = await focusService.getTotalFocusStats(user.id)
+      if (allTimeFocusResult?.error) console.warn('Could not load total focus stats:', allTimeFocusResult.error)
+      const totalFocusMinutes = allTimeFocusResult?.data?.totalMinutes || 0
+      const totalSessions = allTimeFocusResult?.data?.totalSessions || 0
+
       // Calculate current streak
       const streakResult = await streakService.calculateStreak(user.id)
       if (streakResult?.error) return handleDbError(streakResult.error)
@@ -93,13 +99,13 @@ export default function Dashboard() {
 
       // Update all state
       setStats({
-        totalSessions: userStats?.total_sessions || 0,
-        totalMinutes: userStats?.total_focus_minutes || 0,
+        totalSessions: totalSessions,
+        totalMinutes: totalFocusMinutes,
         currentStreak: currentStreak || 0,
         todayMinutes: todayMinutes || 0,
         currentPeriod: currentPeriod,
-        coins: coins || 0,
-        gems: gems || 0
+        coins: userStats?.coins || 0,
+        gems: userStats?.gems || 0
       })
       setLeaderboard(leaderboardData)
       setUserRank(rank)

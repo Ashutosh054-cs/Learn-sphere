@@ -25,12 +25,17 @@ export function useGameProgress(gameKey) {
     const loadBackendProgress = async () => {
       setIsLoading(true);
       try {
-        const result = await gameService.getProgress(user.id, gameKey);
-        if (result?.data) {
+        // Get all completions for this game type
+        const result = await gameService.getGameStats(user.id, gameKey);
+        if (result?.data && result.data.length > 0) {
+          // Transform completions into progress format
+          const completed = [...new Set(result.data.map(c => c.level_id))]; // Unique level IDs
+          const totalXp = result.data.reduce((sum, c) => sum + (c.score || 0), 0);
+          
           const backendProgress = {
-            completed: result.data.completed_levels || [],
-            xp: result.data.total_xp || 0,
-            lastPlayed: result.data.last_played_at
+            completed,
+            xp: totalXp,
+            lastPlayed: result.data[0]?.completed_at
           };
           setProgress(backendProgress);
           localStorage.setItem(storageKey, JSON.stringify(backendProgress));
